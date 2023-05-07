@@ -4,8 +4,28 @@ module.exports = {
     "./src/**/*.{js,jsx,ts,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+        
+    },
   },
-  plugins: [],
+  plugins: [
+   
+    function ({ addUtilities }) {
+      addUtilities(
+        {
+          '.bg-primary': {
+            backgroundColor:'#1e3a8a',
+          },
+          '.bg-secondary':{
+            backgroundColor:"#1d4ed8"
+          }
+          
+        },
+        ['responsive']
+      )
+    },
+
+
+  ],
 }
 
