@@ -1,5 +1,6 @@
 import React from 'react'
 import DoctorRecord from './doctorRecord';
+import {Link}  from 'react-router-dom'
 export default function DoctorComponent(props){
 return (
 <>
@@ -7,9 +8,11 @@ return (
 <div class="mt-4 mx-4">
 
   <div class="flex flex-col items-end mb-10">
-    <button onclick="popuphandler(true)" class="focus:ring-2  mb-5 bg-primary mb-5 focus:ring-offset-2 focus:ring-indigo-400 mt-4 sm:mt-0 inline-flex items-end justify-end px-6 py-3 primary hover:bg-indigo-600 focus:outline-none rounded">
-                        <p class="text-sm font-medium leading-none text-white">Add Doctor</p>
-      </button>
+        <Link to="/addDoctor">
+            <button onclick="popuphandler(true)" class="focus:ring-2  mb-5 bg-primary mb-5 focus:ring-offset-2 focus:ring-indigo-400 mt-4 sm:mt-0 inline-flex items-end justify-end px-6 py-3 primary hover:bg-indigo-600 focus:outline-none rounded">
+                                <p class="text-sm font-medium leading-none text-white">Add Doctor</p>
+            </button>
+        </Link>
         <form class="flex w-full items-center">   
         <label for="voice-search" class="sr-only">Search</label>
         <div class="relative w-full">
@@ -35,7 +38,7 @@ return (
                             <th class="px-4 py-3">Gender</th>
                             <th class="px-4 py-3">Id</th>
                             <th class="px-4 py-3">email</th>
-
+                            <th class="px-4 py-3">password</th>
                             <th class="px-4 py-3">Contact</th>
                             <th class="px-4 py-4">Actions</th> 
                              <th></th>                           

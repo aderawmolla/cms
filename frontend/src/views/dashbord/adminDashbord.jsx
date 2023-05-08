@@ -1,5 +1,5 @@
 import React from 'react'
-import {Outlet} from 'react-router-dom'
+import {Outlet,Link} from 'react-router-dom'
 import './adminstyles.css'
 import SidebarComponent from '../../components/sidebarComponent'
 
@@ -26,16 +26,28 @@ export default function AdminDashbord(props){
   }
   return ( 
        <>
-        <div x-data="setup()" class="{ 'dark': isDark }">
+        <div x-data="setup()" class="bg-black">
             <div class="min-h-screen flex flex-col flex-auto flex-shrink-0 antialiased bg-white dark:bg-gray-700 text-black dark:text-white">
               {/* <!-- Header --> */}
               <div class="fixed w-full flex items-center justify-between h-14 text-white z-10">
                 <div class="flex items-center justify-start md:justify-center pl-3 w-14 md:w-64 h-14 bg-blue-800 dark:bg-gray-800 border-none">
                 <img class="rounded-full mr-2 w-10 h-10 relative object-cover" src="https://img.freepik.com/free-photo/no-problem-concept-bearded-man-makes-okay-gesture-has-everything-control-all-fine-gesture-wears-spectacles-jumper-poses-against-pink-wall-says-i-got-this-guarantees-something_273609-42817.jpg?w=1800&t=st=1669749937~exp=1669750537~hmac=4c5ab249387d44d91df18065e1e33956daab805bee4638c7fdbf83c73d62f125" alt=""/>
 
-
-                  <span class="hidden md:block">ADMIN</span>
+                 <div>
+                    <p class="font-medium group-hover:text-indigo-400 leading-4">Doctor Aschalewu</p>
+                    <span class="text-xs text-slate-400">Administrator</span>
                 </div>
+                </div>
+
+     {/* <a href="#" class="flex flex-col space-y-2 md:space-y-0 md:flex-row mb-5 items-center md:space-x-2 hover:bg-white/10 group transition duration-150 ease-linear rounded-lg group w-full py-3 px-2">
+                <div>
+                    <img class="rounded-full w-10 h-10 relative object-cover" src="https://img.freepik.com/free-photo/no-problem-concept-bearded-man-makes-okay-gesture-has-everything-control-all-fine-gesture-wears-spectacles-jumper-poses-against-pink-wall-says-i-got-this-guarantees-something_273609-42817.jpg?w=1800&t=st=1669749937~exp=1669750537~hmac=4c5ab249387d44d91df18065e1e33956daab805bee4638c7fdbf83c73d62f125" alt=""/>
+                </div>
+                <div>
+                    <p class="font-medium group-hover:text-indigo-400 leading-4">Jim Smith</p>
+                    <span class="text-xs text-slate-400">Pantazi LLC</span>
+                </div>
+            </a> */}
                 <div class="flex justify-between items-center h-14 bg-blue-800 dark:bg-gray-800 header-right">
                   <div class="bg-white rounded flex items-center w-full max-w-xl mr-4 p-2 shadow-sm border border-gray-200">
                     <button class="outline-none focus:outline-none">
@@ -50,6 +62,7 @@ export default function AdminDashbord(props){
                         onCick={setup}
                         class="group p-2 transition-colors duration-200 rounded-full shadow-md bg-blue-200 hover:bg-blue-200 dark:bg-gray-50 dark:hover:bg-gray-200 text-gray-900 focus:outline-none"
                       >
+
                         <svg
                           x-show="isDark"
                           width="24"
@@ -67,7 +80,8 @@ export default function AdminDashbord(props){
                             d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"
                           />
                         </svg>
-                        <svg
+                       
+                        {/* <svg
                           x-show="!isDark"
                           width="24"
                           height="24"
@@ -83,7 +97,7 @@ export default function AdminDashbord(props){
                             stroke-width="2"
                             d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"
                           />
-                        </svg>
+                        </svg> */}
                       </button>
                     </li>
                     <li>
@@ -132,6 +146,7 @@ export default function AdminDashbord(props){
                       <p>Patients</p>
                     </div>
                   </div>
+               
                   <div class="bg-blue-500 dark:bg-gray-800 shadow-lg rounded-md flex items-center justify-between p-3 border-b-4 border-blue-600 dark:border-gray-600 text-white font-medium group">
                     <div class="flex justify-center items-center w-14 h-14 bg-white rounded-full transition-all duration-300 transform group-hover:rotate-12">
                                         
@@ -145,6 +160,8 @@ export default function AdminDashbord(props){
                       <p>Appointments</p>
                     </div>
                   </div>
+               
+
                   <div class="bg-blue-500 dark:bg-gray-800 shadow-lg rounded-md flex items-center justify-between p-3 border-b-4 border-blue-600 dark:border-gray-600 text-white font-medium group">
                     <div class="flex justify-center items-center w-14 h-14 bg-white rounded-full transition-all duration-300 transform group-hover:rotate-12">
                       <svg width="30" height="30" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="stroke-current text-blue-800 dark:text-gray-800 transform transition-transform duration-500 ease-in-out"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>

@@ -18,6 +18,7 @@ export default function DoctorRecord(props){
     <td class="px-4 py-3 text-sm">male</td>
     <td class="px-4 py-3 text-sm">T6995</td>
     <td class="px-4 py-3 text-sm">samson@gmail.com</td>  
+    <td class="px-4 py-3 text-sm">ad0123</td>  
     <td class="px-4 py-3 text-sm">0921050510z</td>
     <td class="py-3 px-2">
         <div class="inline-flex items-center space-x-3">
