@@ -7,7 +7,7 @@ return (
     <div class="mt-4 mx-4">
 
   <div class="flex flex-col items-end mb-10">
- <Link to="/addAppointment">
+ <Link to="/adminDashbord/addAppointment">
     <button onclick="popuphandler(true)" class="focus:ring-2  mb-5 bg-primary mb-5 focus:ring-offset-2 focus:ring-indigo-400 mt-4 sm:mt-0 inline-flex items-end justify-end px-6 py-3 primary hover:bg-indigo-600 focus:outline-none rounded">
                         <p class="text-sm font-medium leading-none text-white">Add Appointment</p>
       </button>

@@ -1,36 +1,33 @@
-import {  Routes, Route} from "react-router-dom";
-import './App.css';
-import AdminDashbord from "./views/dashbord/adminDashbord";
+import { Routes, Route ,Outlet} from "react-router-dom";
 import DashbordContent from "./components/dashbordContent";
 import PatientComponent from "./components/patientComponent";
 import DoctorComponent from "./components/doctorComponent";
-import AppointmentComponent from "./components/appointmenComponent"
+import AppointmentComponent from "./components/appointmenComponent";
 import PrescriptionComponent from "./components/prescriptionComponent";
 import AddPatient from "./views/registration/addPatient";
 import AddDoctor from "./views/registration/addDoctor";
 import AddAppointment from "./views/registration/addAppointment";
+import Login from "./views/login/login";
+import Home from "./views/home/home";
+import AdminDashbord from "./views/dashbord/adminDashbord";
 export default function App() {
-      return ( 
+  return (
     <>
       <Routes>
-      {/* <Route path="/" element={<DoctorDashbord/>}> */}
-
-        <Route path="/" element={<AdminDashbord/>}>
-          <Route index element={<DashbordContent/>} />
-          <Route path="/doctor" element={<DoctorComponent/>}/>
-          <Route path="/patient" element={<PatientComponent/>}/>
-          <Route path="/appointment" element={<AppointmentComponent/>}/>
-          <Route path="/prescription" element={<PrescriptionComponent/>}/>
-          <Route path="/addPatient" element={<AddPatient/>}/>
-          <Route path="/addDoctor" element={<AddDoctor/>}/>
-          <Route path="/addAppointment" element={<AddAppointment/>}/>
-
-
-        </Route>
+        <Route path="/" index element={<Home />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/doctor" element={<DoctorComponent />} />
+        <Route path="/adminDashbord/" element={<AdminDashbord/>}>
+              <Route path="" element={<DashbordContent/>} />
+              <Route path="patient" element={<PatientComponent />} />
+              <Route path="doctor" element={<DoctorComponent />} />
+              <Route path="appointment" element={<AppointmentComponent />} />
+              <Route path="prescription" element={<PrescriptionComponent />} />
+              <Route path="addPatient" element={<AddPatient/>}/>
+              <Route path="addDoctor" element={<AddDoctor/>}/>
+              <Route path="addAppointment" element={<AddAppointment/>}/>
+       </Route>
       </Routes>
-     
-      </>  
-      );
-
+    </>
+  );
 }
-

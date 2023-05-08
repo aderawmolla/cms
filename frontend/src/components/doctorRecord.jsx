@@ -1,19 +1,27 @@
-import React from 'react'
-export default function DoctorRecord(props){
+import React from "react";
+export default function DoctorRecord(props) {
   return (
-    <tr class="bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-900 text-gray-700 dark:text-gray-400">
-    <td class="px-4 py-3">
-      <div class="flex items-center text-sm">
-        <div class="relative hidden w-8 h-8 mr-3 rounded-full md:block">
-          <img class="object-cover w-full h-full rounded-full" src="https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&amp;q=80&amp;fm=jpg&amp;crop=entropy&amp;cs=tinysrgb&amp;w=200&amp;fit=max&amp;ixid=eyJhcHBfaWQiOjE3Nzg0fQ" alt="" loading="lazy" />
-          <div class="absolute inset-0 rounded-full shadow-inner" aria-hidden="true"></div>
+    <tr className="text-gray-700 bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-900 dark:text-gray-400">
+      <td className="px-4 py-3">
+        <div className="flex items-center text-sm">
+          <div className="relative hidden w-8 h-8 mr-3 rounded-full md:block">
+            <img
+              className="object-cover w-full h-full rounded-full"
+              src="https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&amp;q=80&amp;fm=jpg&amp;crop=entropy&amp;cs=tinysrgb&amp;w=200&amp;fit=max&amp;ixid=eyJhcHBfaWQiOjE3Nzg0fQ"
+              alt=""
+              loading="lazy"
+            />
+            <div
+              className="absolute inset-0 rounded-full shadow-inner"
+              aria-hidden="true"
+            ></div>
+          </div>
+          <div>
+            <p className="font-semibold">Doctor Samson</p>
+          </div>
         </div>
-        <div>
-          <p class="font-semibold">Doctor Samson</p>
-        </div>
-      </div>
-    </td>
-    <td class="px-4 py-3 text-sm">Dentist</td>
+      </td>
+      <td className="px-4 py-3 text-sm">Dentist</td>
 
     <td class="px-4 py-3 text-sm">male</td>
     <td class="px-4 py-3 text-sm">T6995</td>
@@ -43,13 +51,8 @@ export default function DoctorRecord(props){
                 />
               </svg>
             </a>
-              <div class="flex-shrink-0">
-                      <a href="#" class="text-sm font-medium text-cyan-600 hover:bg-gray-100 rounded-lg p-2">Detail</a>
-               </div>
-        </div>
-    </td>
-  </tr>
- );
-
-
+          </div>
+        </td>
+         </tr>  
+  );
 }
