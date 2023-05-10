@@ -1,4 +1,5 @@
-import React from "react";
+import { Link } from "react-router-dom";
+
 export default function PatientRecord(props) {
   return (
     <tr className="bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-900 text-gray-700 dark:text-gray-400">
@@ -65,12 +66,12 @@ export default function PatientRecord(props) {
             </svg>
           </a>
           <div className="flex-shrink-0">
-            <a
-              href="/"
+            <Link
+              to="/adminDashbord/patientDetail"
               className="text-sm font-medium text-cyan-600 hover:bg-gray-100 rounded-lg p-2"
             >
               Detail
-            </a>
+            </Link>
           </div>
         </div>
       </td>
