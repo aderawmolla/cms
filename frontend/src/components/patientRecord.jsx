@@ -18,12 +18,11 @@ export default function PatientRecord(props) {
             ></div>
           </div>
           <div>
-            <p className="font-semibold">Abebe Alemu</p>
+            <p className="font-semibold">Dr. Abebe Alemu</p>
           </div>
         </div>
       </td>
 
-      <td className="px-4 py-3 text-sm">male</td>
       <td className="px-4 py-3 text-sm">T6995</td>
 
       <td className="px-4 py-3 text-sm">0921050510z</td>
@@ -65,14 +64,6 @@ export default function PatientRecord(props) {
               />
             </svg>
           </a>
-          <div className="flex-shrink-0">
-            <Link
-              to="/adminDashbord/patientDetail"
-              className="text-sm font-medium text-cyan-600 hover:bg-gray-100 rounded-lg p-2"
-            >
-              Detail
-            </Link>
-          </div>
         </div>
       </td>
     </tr>
