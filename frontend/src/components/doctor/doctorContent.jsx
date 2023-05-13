@@ -151,7 +151,7 @@ export default function DoctorContent(props) {
                         </div>
                         <div className="flex-shrink-0">
                           <a
-                            href="/"
+                            href="#"
                             className="p-2 text-sm font-medium rounded-lg text-cyan-600 hover:bg-gray-100"
                           >
                             Detail
