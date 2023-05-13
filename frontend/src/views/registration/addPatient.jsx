@@ -2,10 +2,7 @@ import React from 'react'
 import './add.js'
 export default function AddPatient(props){
 return(
-< >
-
-{/* <!-- Code block starts --> */}
-        
+<>        
 <form class="m-auto mt-10 border-2 border-gray-200 box-content p-10 w-full max-w-lg">
 <h1 class="font-bold text-xl text-center mb-10">Kidane Mihret Patient Registration Form</h1>
   <div class="flex flex-wrap -mx-3 mb-6">

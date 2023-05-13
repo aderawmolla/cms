@@ -1,7 +1,7 @@
 import React from "react";
 export default function PrescriptionRecord(props) {
   return (
-    <tr className="bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-900 text-gray-700 dark:text-gray-400">
+    <tr className="text-gray-700 bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-900 dark:text-gray-400">
       <td className="px-4 py-3">
         <div className="flex items-center text-sm">
           <div className="relative hidden w-8 h-8 mr-3 rounded-full md:block">
@@ -33,7 +33,7 @@ export default function PrescriptionRecord(props) {
 
       <td className="px-4 py-3 text-sm">Ciprofloxacin</td>
 
-      <td className="py-3 px-2">
+      <td className="px-2 py-3">
         <div className="inline-flex items-center space-x-3">
           <a href="/" title="Edit" className="hover:text-black">
             <svg
@@ -58,7 +58,7 @@ export default function PrescriptionRecord(props) {
               viewBox="0 0 24 24"
               stroke-width="1.5"
               stroke="currentColor"
-              className="h-6 w-6"
+              className="w-6 h-6"
               x-tooltip="tooltip"
             >
               <path
@@ -71,7 +71,7 @@ export default function PrescriptionRecord(props) {
           <div className="flex-shrink-0">
             <a
               href="/"
-              className="text-sm font-medium text-cyan-600 hover:bg-gray-100 rounded-lg p-2"
+              className="p-2 text-sm font-medium rounded-lg text-cyan-600 hover:bg-gray-100"
             >
               Detail
             </a>

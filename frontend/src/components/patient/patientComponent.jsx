@@ -1,5 +1,5 @@
 import React from 'react'
-import PatientRecord from './patientRecord'
+import PatientRecord from '../admin/patientRecord'
 import { Link } from 'react-router-dom'
 
 export default function PatientComponent(props) {
@@ -12,9 +12,6 @@ export default function PatientComponent(props) {
             <p class="text-sm font-medium leading-none text-white">Add Patient</p>
           </button>
           </Link>
-
-
-
           <form class="flex w-full items-center">
             <label for="voice-search" class="sr-only">Search</label>
             <div class="relative w-full">

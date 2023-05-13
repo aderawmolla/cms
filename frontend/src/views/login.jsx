@@ -58,7 +58,7 @@ export default function Login(props) {
                   />
                 </div>
                 <div className="mt-6">
-                  <div className="flex justify-between mb-2">
+                  <div className="flex justify-between mb-10">
                     <label
                       for="password"
                       className="text-sm text-gray-600 dark:text-gray-200"

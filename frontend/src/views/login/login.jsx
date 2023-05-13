@@ -120,22 +120,7 @@ export default function Login() {
             <form className="py-8 mt-8 space-y-6" action="#" method="POST">
               <input type="hidden" name="remember" value="true" />
               <div className="relative">
-                {/* <div className="absolute mt-4 right-3">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="w-6 h-6 text-green-500"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
-                    ></path>
-                  </svg>
-                </div> */}
+            
                 <label className="ml-3 text-sm font-bold tracking-wide text-gray-700">
                  username
                 </label>
@@ -182,7 +167,7 @@ export default function Login() {
               </div>
               <div>
                 <Link
-                  to="/adminDashbord"
+                  to="/doctor"
                   className="flex justify-center w-full p-4 font-semibold tracking-wide text-gray-100 transition duration-500 ease-in rounded-full shadow-lg cursor-pointer bg-gradient-to-r from-indigo-500 to-blue-600 hover:bg-gradient-to-l hover:from-blue-500 hover:to-indigo-600"
                 >
                   Sign in

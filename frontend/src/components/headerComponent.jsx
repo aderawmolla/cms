@@ -1,19 +1,19 @@
 import React from "react";
 export default function HeaderComponent(props) {
   return (
-    <div className="fixed w-full flex items-center justify-between h-14 text-white z-10">
-      <div className="flex items-center justify-start md:justify-center pl-3 w-14 md:w-64 h-14 bg-blue-800 dark:bg-gray-800 border-none">
+    <div className="fixed z-10 flex items-center justify-between w-full text-white h-14">
+      <div className="flex items-center justify-start pl-3 bg-blue-800 border-none md:justify-center w-14 md:w-64 h-14 dark:bg-gray-800">
         <img
-          className="w-30 h-30 md:w-10 md:h-10 mr-2 rounded-full overflow-hidden"
+          className="mr-2 overflow-hidden rounded-full w-30 h-30 md:w-10 md:h-10"
           src="https://therminic2018.eu/wp-content/uploads/2018/07/dummy-avatar.jpg"
         />
         <span className="hidden md:block">ADMIN</span>
       </div>
-      <div className="flex justify-between items-center h-14 bg-blue-800 dark:bg-gray-800 header-right">
-        <div className="bg-white rounded flex items-center w-full max-w-xl mr-4 p-2 shadow-sm border border-gray-200">
+      <div className="flex items-center justify-between bg-blue-800 h-14 dark:bg-gray-800 header-right">
+        <div className="flex items-center w-full max-w-xl p-2 mr-4 bg-white border border-gray-200 rounded shadow-sm">
           <button className="outline-none focus:outline-none">
             <svg
-              className="w-5 text-gray-600 h-5 cursor-pointer"
+              className="w-5 h-5 text-gray-600 cursor-pointer"
               fill="none"
               stroke-linecap="round"
               stroke-linejoin="round"
@@ -29,7 +29,7 @@ export default function HeaderComponent(props) {
             name=""
             id=""
             placeholder="Search"
-            className="w-full pl-3 text-sm text-black outline-none focus:outline-none bg-transparent"
+            className="w-full pl-3 text-sm text-black bg-transparent outline-none focus:outline-none"
           />
         </div>
         <ul className="flex items-center">
@@ -38,13 +38,13 @@ export default function HeaderComponent(props) {
               aria-hidden="true"
               // there is logic here
               onCick=""
-              className="group p-2 transition-colors duration-200 rounded-full shadow-md bg-blue-200 hover:bg-blue-200 dark:bg-gray-50 dark:hover:bg-gray-200 text-gray-900 focus:outline-none"
+              className="p-2 text-gray-900 transition-colors duration-200 bg-blue-200 rounded-full shadow-md group hover:bg-blue-200 dark:bg-gray-50 dark:hover:bg-gray-200 focus:outline-none"
             >
               <svg
                 x-show="isDark"
                 width="24"
                 height="24"
-                className="fill-current text-gray-700 group-hover:text-gray-500 group-focus:text-gray-700 dark:text-gray-700 dark:group-hover:text-gray-500 dark:group-focus:text-gray-700"
+                className="text-gray-700 fill-current group-hover:text-gray-500 group-focus:text-gray-700 dark:text-gray-700 dark:group-hover:text-gray-500 dark:group-focus:text-gray-700"
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="0 0 24 24"
@@ -61,7 +61,7 @@ export default function HeaderComponent(props) {
                 x-show="!isDark"
                 width="24"
                 height="24"
-                className="fill-current text-gray-700 group-hover:text-gray-500 group-focus:text-gray-700 dark:text-gray-700 dark:group-hover:text-gray-500 dark:group-focus:text-gray-700"
+                className="text-gray-700 fill-current group-hover:text-gray-500 group-focus:text-gray-700 dark:text-gray-700 dark:group-hover:text-gray-500 dark:group-focus:text-gray-700"
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="0 0 24 24"

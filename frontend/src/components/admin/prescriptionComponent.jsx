@@ -3,14 +3,14 @@ import PrescriptionRecord from "./prescriptionRecord";
 export default function PrescriptionComponent(props) {
   return (
     <>
-      <div className="mt-7 mx-4">
+      <div className="mx-4 mt-7">
         <div className="flex flex-col items-end mb-10">
-          <form className="flex w-full items-center">
+          <form className="flex items-center w-full">
             <label for="voice-search" className="sr-only">
               Search
             </label>
             <div className="relative w-full">
-              <div className="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
+              <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                 <svg
                   className="w-5 h-5 text-gray-500 dark:text-gray-400"
                   fill="currentColor"
@@ -37,7 +37,7 @@ export default function PrescriptionComponent(props) {
               className="inline-flex items-center py-2.5 px-3 ml-2 text-sm font-medium text-white bg-primary rounded-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
             >
               <svg
-                className="mr-2 -ml-1 w-5 h-5"
+                className="w-5 h-5 mr-2 -ml-1"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -54,8 +54,8 @@ export default function PrescriptionComponent(props) {
             </button>
           </form>
         </div>
-        <div className="w-full  rounded-lg shadow-xs">
-          <div className="w-full   overflow-visible">
+        <div className="w-full rounded-lg shadow-xs">
+          <div className="w-full overflow-visible">
             <table className="w-full sm:w-full">
               <thead>
                 <tr className="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
@@ -116,7 +116,7 @@ export default function PrescriptionComponent(props) {
                     </button>
                   </li>
                   <li>
-                    <button className="px-3 py-1 text-white dark:text-gray-800 transition-colors duration-150 bg-blue-600 dark:bg-gray-100 border border-r-0 border-blue-600 dark:border-gray-100 rounded-md focus:outline-none focus:shadow-outline-purple">
+                    <button className="px-3 py-1 text-white transition-colors duration-150 bg-blue-600 border border-r-0 border-blue-600 rounded-md dark:text-gray-800 dark:bg-gray-100 dark:border-gray-100 focus:outline-none focus:shadow-outline-purple">
                       3
                     </button>
                   </li>
