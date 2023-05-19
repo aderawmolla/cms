@@ -1,16 +1,28 @@
-const mongoose = require("mongoose");
-
+const mysql = require('mysql');
 const connectDb = async () => {
   try {
-    const connect = await mongoose.connect(process.env.CONNECTION_STRING);
-    console.log(
-      "Database connected: ",
-      connect.connection.host,
-      connect.connection.name
-    );
+    const connection = mysql.createConnection({
+      host: 'localhost',
+      user: 'root',
+      password: '',
+      database:'cms'
+    });
+
+    await new Promise((resolve, reject) => {
+      connection.connect((err) => {
+        if (err) {
+          console.error('Error connecting to the database:', err);
+          reject(err);
+          return;
+        }
+        console.log('Connected to the database!');
+        resolve();
+      });
+    });
+
+    return connection;
   } catch (err) {
     console.log(err);
-    process.exit(1);
   }
 };
 

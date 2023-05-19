@@ -100,9 +100,6 @@ export default function DoctorComponent(props) {
           </div>
         </div>
       </div>
-
-
-
     </>);
 
 }

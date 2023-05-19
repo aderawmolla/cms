@@ -69,7 +69,7 @@ export default function SingIn() {
 
           <div>
             <Link
-              to={`${username === "admin" ? "/adminDashbord" : username === "doctor" ? "/doctor" : username === "lab" ? "/lab" :"/patient" }
+              to={`${username === "admin" ? "/adminDashbord" : username === "doctor" ? "/doctor" :username ==="lab" ? "/lab" :"/patient" }
               `}
               className="flex justify-center w-full p-4 font-semibold tracking-wide text-gray-100 transition duration-500 ease-in rounded-full shadow-lg cursor-pointer bg-gradient-to-r from-indigo-500 to-blue-600 hover:bg-gradient-to-l hover:from-blue-500 hover:to-indigo-600"
             >
