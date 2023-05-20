@@ -1,5 +1,9 @@
 import { Routes, Route } from "react-router-dom";
 import DashbordContent from "./components/admin/dashbordContent";
+<<<<<<< HEAD
+=======
+import PatientComponent from "./components/admin/patientComponent";
+>>>>>>> 74a569d9 ((feat) implementing dynamic routes and different page)
 import DoctorComponent from "./components/admin/doctorComponent";
 import AppointmentComponent from "./components/admin/appointmenComponent";
 import PrescriptionComponent from "./components/admin/prescriptionComponent";
@@ -22,8 +26,15 @@ import Verify from "./views/login/verify";
 import LabDoctorDashbord from "./views/dashbord/labDoctorDashbord";
 import LabRequest from "./views/dashbord/labRequest";
 import LabResult from "./views/dashbord/labResult";
+<<<<<<< HEAD
 import PatientComponent from "./components/patient/patientComponent";
 import PatientHome from "./views/patient/patientComponent";
+=======
+import PatientDetail from "./components/patient/patientDetail";
+import DoctorDetail from "./components/doctor/doctorDetail";
+import DoctorPrescription from "./components/prescription/doctorPrescription";
+import LaboratoryPrescription from "./components/prescription/labPrescription";
+>>>>>>> 74a569d9 ((feat) implementing dynamic routes and different page)
 export default function App() {
 
   return (
@@ -47,19 +58,26 @@ export default function App() {
           <Route path="signUp" element={<SingUp />} />
           <Route path="payment" element={<Payment />} />
        </Route>
-        <Route path="/doctor" element={<DoctorComponent />} />
+        {/* <Route path="/doctor" element={<DoctorComponent />} /> */}
         <Route path="/patient" element={<PatientHome />} />
         <Route path="/verify" element={<Verify />} />
         <Route path="/adminDashbord/" element={<AdminDashbord />}>
           <Route path="" element={<DashbordContent />} />
           <Route path="patient" element={<PatientComponent/>} />
+          <Route path="patient/:patientId" index element={<PatientDetail />} ></Route>
           <Route path="doctor" element={<DoctorComponent />} />
+          <Route path="doctor/:doctorId" index element={<DoctorDetail />} ></Route>
           <Route path="appointment" element={<AppointmentComponent />} />
           <Route path="prescription" element={<PrescriptionComponent />} />
+          <Route path="prescription/:doctorId/:prescriptionId" index element={<DoctorPrescription />} ></Route>
+          <Route path="prescription/:laboratoryId/:prescriptionId" index element={<LaboratoryPrescription />} ></Route>
           <Route path="addPatient" element={<AddPatient />} />
           <Route path="addDoctor" element={<AddDoctor />} />
           <Route path="addAppointment" element={<AddAppointment />} />
+<<<<<<< HEAD
           <Route path="patientDetail" element={<PatientProfile/>} />
+=======
+>>>>>>> 74a569d9 ((feat) implementing dynamic routes and different page)
         </Route>
       </Routes>
     </>
