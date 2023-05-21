@@ -2,13 +2,16 @@
 const express = require('express');
 const mysql=require('mysql')
 const router = express.Router();
-const Patient = require('../models/patientModel'); // Assuming you have a Patient model
+const bcrypt = require('bcryptjs');
+
+const Patient = require('../models/patientModel'); 
 const connection = mysql.createConnection({
     host: 'localhost',
     user: 'root',
     password: '',
     database:'cms'
   });
+ 
 router.get('/', (req, res) => {
     connection.query('SELECT * FROM patient', (err, results) => {
         if (err) {
@@ -23,17 +26,31 @@ router.get('/', (req, res) => {
 });
 
 // Create a new patient
-router.post('/', (req, res) => {
+router.post('/', async (req, res) => {
     const newPatient = new Patient(req.body);
+    const hashedPassword =  await bcrypt.hash(req.body.password,10); // Hash password with 10 salt rounds
     const createTableQuery = `CREATE TABLE IF NOT EXISTS patient (
         id INT AUTO_INCREMENT PRIMARY KEY,
-        name VARCHAR(255),
+        firstName VARCHAR(255),
+        lastName VARCHAR(255),
         age INT,
-        gender VARCHAR(10)
+        username VARCHAR(255),
+        password VARCHAR(255)
     )`;
-
-    const insertQuery = `INSERT INTO patient (name, age, gender) VALUES (?, ?, ?)`;
-    const insertValues = [newPatient.name, newPatient.age, newPatient.gender];
+    const insertQuery = `INSERT INTO patient (
+        firstName, 
+        lastName,
+        age,
+        username,
+        password
+        ) VALUES (?,?,?,?,?)`;
+    const insertValues = [
+         newPatient.firstName, 
+         newPatient.lastName,
+         newPatient.age,
+         newPatient.username,
+         hashedPassword
+        ];
 
     // Check if the database exists and create the table
     connection.query(createTableQuery, (err) => {
@@ -42,18 +59,19 @@ router.post('/', (req, res) => {
             res.status(500).json({ error: 'Internal server error' });
         } else {
             // Insert the data into the table
-            connection.query(insertQuery, insertValues, (err, results) => {
+            connection.query(insertQuery, insertValues, (err, results) =>{
                 if (err) {
                     console.error(err);
                     res.status(500).json({ error: 'Internal server error' });
                 } else {
                     res.json(results);
-                    console.log(results)
+                    console.log(results);
                 }
             });
         }
     });
 });
+
 
 // Update a patient by ID
 router.post('/:id', (req, res) => {
@@ -74,6 +92,9 @@ router.post('/:id', (req, res) => {
         }
     });
 });
+
+
+
 
 // Delete a patient by ID
 router.delete('/:id', (req, res) => {

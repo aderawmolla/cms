@@ -1,22 +1,54 @@
-import React from 'react'
 import './add.js'
+import axios from 'axios';
+import React, { useState } from 'react';
+
 export default function AddPatient(props){
+  
+    const [formData, setFormData] = useState({firstName:'',lastName: '', age:'' });
+  
+    // const handleChange = (e) => {
+    //   setFormData({ ...formData,[e.target.name]: e.target.value });
+    // };
+    const handleChange = (e) => {
+      setFormData((prevState) => ({
+        ...prevState,
+        [e.target.name]: e.target.value,
+      }));
+    };
+    const handleSubmit = async (e) => {
+      e.preventDefault();
+      try {
+        const response = await axios.post(' http://localhost:5000/patients', formData);
+        console.log(response.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+  
+  
 return(
-<>        
-<form class="m-auto mt-10 border-2 border-gray-200 box-content p-10 w-full max-w-lg">
+<>  
+<form onSubmit={handleSubmit}  class="m-auto mt-10 border-2 border-gray-200 box-content p-10 w-full max-w-lg">
 <h1 class="font-bold text-xl text-center mb-10">Kidane Mihret Patient Registration Form</h1>
   <div class="flex flex-wrap -mx-3 mb-6">
   <div class="w-full md:w-1/2 px-3">
       <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-last-name">
         First Name
       </label>
-      <input class="appearance-none block w-full  text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="text" placeholder="First Name"/>
-    </div>
+      <input 
+        name="firstName"
+        value={formData.firstName}
+        onChange={handleChange}  class="appearance-none block w-full  text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="text" placeholder="First Name"/>
+   </div>
     <div class="w-full md:w-1/2 px-3">
       <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-last-name">
         Last Name
       </label>
-      <input class="appearance-none block w-full  text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="text" placeholder="Last Name"/>
+      <input
+        name="lastName"
+        value={formData.lastName}
+        onChange={handleChange}
+      class="appearance-none block w-full  text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="text" placeholder="Last Name"/>
     </div>
     
 
@@ -41,7 +73,9 @@ return(
       <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-zip">
         Age
       </label>
-      <input class="appearance-none block w-full  text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-zip" type="number" placeholder="Fill age"/>
+      <input name="age"
+        value={formData.age}
+        onChange={handleChange} class="appearance-none block w-full  text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-zip" type="number" placeholder="Fill age"/>
     </div>
     <div class="w-full px-3 mt-6">
       <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-password">
@@ -64,18 +98,10 @@ return(
       <input class="appearance-none block w-full  text-gray-700 border  rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-password" type="email" placeholder="email@gmail.com"/>
       {/* <p class="text-gray-600 text-xs italic">Make it as long and </p> */}
     </div>
-   
-
-   
-    
+  
   </div>
   </div>
-
-   
-
   <div class="flex flex-wrap -mx-3 mb-6">
-
-    
   <div class="w-full md:w-1/2 px-3">
       <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-last-name">
       Date
@@ -132,9 +158,7 @@ return(
     </div>
   </div>
   <button type="submit" class="bg-primary text-white font-bold px-10 py-2 mt-5 rounded focus:outline-none shadow hover:bg-blue-700 transition-colors">Register Patient</button>
-
 </form>
-        {/* <!-- Code block ends --> */}
 </>
 
 

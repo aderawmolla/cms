@@ -43,9 +43,6 @@ return(
     <div class="flex flex-wrap -mx-3 mt-6 mb-10">
   </div>
   </div>
-
-    
-
   <div class="flex flex-wrap -mx-3 mb-6">
   <div class="w-full md:w-1/2 px-3">
       <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-last-name">
@@ -61,18 +58,10 @@ return(
       </label>
       <input class="appearance-none block w-full  text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="time" placeholder="Fill Identification Number"/>
     </div>
-   
-   
-  
   </div>
-  
   <button type="submit" class="bg-primary text-white font-bold px-10 py-2 mt-5 rounded focus:outline-none shadow hover:bg-blue-700 transition-colors">Send Appointment</button>
-
 </form>
-        {/* <!-- Code block ends --> */}
 </>
-
-
 );
 
 }
