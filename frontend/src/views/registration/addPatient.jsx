@@ -73,10 +73,7 @@ return(
       class="appearance-none block w-full  text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="text" placeholder="Last Name"/>
     </div>
     
-
-    <div class="flex flex-wrap -mx-3 mt-6 mb-10">
-
-    <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+    <div class="w-full px-3  ">
       <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-state">
         Gender
       </label>
@@ -94,7 +91,8 @@ return(
         </div>
       </div>
     </div>
-    <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+
+    <div class="w-full px-3 ">
       <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-zip">
         Age
       </label>
@@ -102,6 +100,7 @@ return(
         value={formData.age}
         onChange={handleChange} class="appearance-none block w-full  text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-zip" type="text" placeholder="Fill age"/>
     </div>
+
     <div class="w-full px-3 mt-6">
       <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-password">
        Username
@@ -111,6 +110,7 @@ return(
         onChange={handleChange} class="appearance-none block w-full  text-gray-700 border  rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-password" type="text" placeholder="username"/>
       {/* <p class="text-gray-600 text-xs italic">Make it as long and </p> */}
     </div>
+
     <div class="w-full px-3 mt-6">
       <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-password">
        Password
@@ -119,7 +119,8 @@ return(
       class="appearance-none block w-full  text-gray-700 border  rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-password" type="password" placeholder="login password"/>
       {/* <p class="text-gray-600 text-xs italic">Make it as long and </p> */}
     </div>
-    <div class="w-full px-3 mt-6">
+
+    <div class="w-full px-3 ">
       <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-password">
       email
       </label>
@@ -128,34 +129,43 @@ return(
     </div>
   
   </div>
-  </div>
   <div class="flex flex-wrap -mx-3 mb-6">
    <div class="w-full md:w-1/2 px-3">
      <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-last-name">
       Date
       </label>
-      <input class="appearance-none block w-full  text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="date" placeholder="fill date in E.C"/>
+      <input class="appearance-none block w-full  text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="date" placeholder="fill date in E.C"
+            value={formData.date}
+            onChange={handleChange}
+      />
     </div>
 
 
-    <div class="w-full md:w-1/2 px-3">
+    <div class="w-full  px-3">
       <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-last-name">
        Card Number 
       </label>
-      <input class="appearance-none block w-full  text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="text" placeholder="Fill Card Number"/>
+      <input class="appearance-none block w-full  text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="text" placeholder="Fill Card Number"
+            value={formData.cardNumber}
+            onChange={handleChange}
+      />
     </div>
-    <div class="w-full px-3 mt-6">
+
+    <div class="w-full px-3 ">
       <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-password">
        Phone Number
       </label>
       <input name="contact" value={formData.contact} onChange={handleChange} class="appearance-none block w-full  text-gray-700 border  rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-password" type="text" placeholder="Fill phone number"/>
       {/* <p class="text-gray-600 text-xs italic">Make it as long and </p> */}
     </div>
-  
+   
+
+   
+    
   </div>
   <div class="flex flex-wrap -mx-3 mb-2">
 
-  <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+  <div class="w-full md:w-1/3 px-3 ">
       <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-state">
         State
       </label>
@@ -171,14 +181,14 @@ return(
         </div>
       </div>
     </div>
-    <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+    <div class="w-full md:w-1/3 px-3 ">
       <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-city">
         City/Wereda
       </label>
       <input name="wereda" value={formData.wereda} onChange={handleChange} class="appearance-none block w-full text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-city" type="text" placeholder="Woreda"/>
     </div>
     
-    <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+    <div class="w-full md:w-1/3 px-3 ">
       <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-zip">
         kebele
       </label>

@@ -72,4 +72,5 @@ const Patient = sequelize.define('Patient', {
     allowNull: true,
   },
 });
+
 module.exports = {Patient,sequelize};

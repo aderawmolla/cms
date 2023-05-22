@@ -1,5 +1,6 @@
 import { Routes, Route } from "react-router-dom";
 import DashbordContent from "./components/admin/dashbordContent";
+
 import PatientComponent from "./components/admin/patientComponent";
 import DoctorComponent from "./components/admin/doctorComponent";
 import AppointmentComponent from "./components/admin/appointmenComponent";
@@ -15,7 +16,6 @@ import DoctorContent from "./components/doctor/doctorContent";
 import DoctorAppointmentComponent from "./components/doctor/doctorAppointmentComponent";
 import DoctorPrescriptionComponent from "./components/doctor/prescription";
 import ResponseLabratoryComponent from "./components/doctor/responseLabratoryComponent";
-import PatientProfile from "./views/dashbord/profile/patientProfile";
 import SingUp from "./views/login/signup";
 import SingIn from "./views/login/singin";
 import Payment from "./views/login/payment";
@@ -23,6 +23,7 @@ import Verify from "./views/login/verify";
 import LabDoctorDashbord from "./views/dashbord/labDoctorDashbord";
 import LabRequest from "./views/dashbord/labRequest";
 import LabResult from "./views/dashbord/labResult";
+
 import PatientDetail from "./components/patient/patientDetail";
 import DoctorDetail from "./components/doctor/doctorDetail";
 import DoctorPrescription from "./components/prescription/doctorPrescription";
