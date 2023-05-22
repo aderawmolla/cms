@@ -1,9 +1,12 @@
-
+//sudo service apache2 stop
+//sudo /opt/lampp/xampp start
 const express=require("express")
 const app=express()
 const cors=require('cors')
 const PORT=5000
 const patientRoutes=require('./routes/patientRoutes')
+const adminRoutes=require('./routes/adminRoutes')
+
 const loginRoutes=require('./routes/loginRoute')
 app.use(express.json());
 const bodyParser = require('body-parser');
@@ -16,4 +19,6 @@ app.listen(PORT,()=>{
 })
 app.use('/patients', patientRoutes);
 app.use('/authenticate',loginRoutes);
+app.use('/admin',adminRoutes);
+
 

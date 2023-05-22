@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link, Outlet } from "react-router-dom";
-import data from "../../model/data.json";
+import data from "../../models/data.json";
 
 export default function LogIn() {
   const [info, setInfo] = useState();
@@ -44,7 +44,7 @@ export default function LogIn() {
 
 export function Form({ user }) {
   return (
-    <form className="py-8 mt-8 space-y-6" action="#" method="POST">
+    <form  className="py-8 mt-8 space-y-6" action="#" method="POST">
       <input type="hidden" name="remember" value="true" />
       {data.user.map((item, index) => (
         <div className="relative">

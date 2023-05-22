@@ -127,9 +127,8 @@ export default function Payment() {
         <Link
           to="/verify"
           className="text-center w-full mx-[7%] block rounded-md border bg-blue-500  py-2 text-white outline-none"
-        >
-          Complete Payment
-        </Link>
+        >Complete Payment
+       </Link>
       </div>
     </div>
   );
