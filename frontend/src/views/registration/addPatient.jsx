@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 
 export default function AddPatient(props){
     const [formData,setFormData]= useState(
+      
       {
         firstName: '',
         lastName:'',
