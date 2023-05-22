@@ -1,18 +1,18 @@
 import { Link } from "react-router-dom";
 export default function DoctorRecord(props) {
   return (
-    <tr classNameName="text-gray-700 bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-900 dark:text-gray-400">
-      <td classNameName="px-4 py-3">
-        <div classNameName="flex items-center text-sm">
-          <div classNameName="relative hidden w-8 h-8 mr-3 rounded-full md:block">
+    <tr className="text-gray-700 bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-900 dark:text-gray-400">
+      <td className="px-4 py-3">
+        <div className="flex items-center text-sm">
+          <div className="relative hidden w-8 h-8 mr-3 rounded-full md:block">
             <img
-              classNameName="object-cover w-full h-full rounded-full"
+              className="object-cover w-full h-full rounded-full"
               src="https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&amp;q=80&amp;fm=jpg&amp;crop=entropy&amp;cs=tinysrgb&amp;w=200&amp;fit=max&amp;ixid=eyJhcHBfaWQiOjE3Nzg0fQ"
               alt=""
               loading="lazy"
             />
             <div
-              classNameName="absolute inset-0 rounded-full shadow-inner"
+              className="absolute inset-0 rounded-full shadow-inner"
               aria-hidden="true"
             ></div>
           </div>
@@ -21,7 +21,7 @@ export default function DoctorRecord(props) {
           </div>
         </div>
       </td>
-      <td classNameName="px-4 py-3 text-sm">Dentist</td>
+      <td className="px-4 py-3 text-sm">Dentist</td>
 
       <td className="px-4 py-3 text-sm">male</td>
       <td className="px-4 py-3 text-sm">T6995</td>
