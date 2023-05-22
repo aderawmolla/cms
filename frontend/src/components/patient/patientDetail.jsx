@@ -1,8 +1,10 @@
 import { useParams } from "react-router-dom";
-import patients from "../../models/patients.json"
+import { useSelector } from "react-redux";
 
 
 export default function PatientDetail() {
+
+    const patients = useSelector((state) => state.patients.patients)
 
     let { patientId } = useParams();
 
@@ -21,7 +23,7 @@ export default function PatientDetail() {
                   </div>
                   <div className="relative bottom-[100px] flex flex-col items-center">
                     <img
-                      src={patient.photo}
+                      src={`/images/${patient.photo}`}
                       className="w-40 h-40 object-center object-cover border-4 border-white rounded-full"
                     />
                     <div className="flex items-center mt-2 space-x-2">
