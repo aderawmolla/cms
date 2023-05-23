@@ -125,7 +125,7 @@ export default function PatientComponent() {
                       patientToBeUpdated={patient}
                     />
 
-                    <tr classNameName="text-gray-700 bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-900 dark:text-gray-400">
+                    <tr className="text-gray-700 bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-900 dark:text-gray-400">
                       <td className="px-4 py-3">
                         <div className="flex items-center text-sm">
                           <div className="relative hidden w-8 h-8 mr-3 rounded-full md:block">
@@ -147,9 +147,7 @@ export default function PatientComponent() {
                           </div>
                         </div>
                       </td>
-                      <td classNameName="px-4 py-3 text-sm">
-                        {patient.doctorId}
-                      </td>
+                      <td className="px-4 py-3 text-sm">{patient.doctorId}</td>
 
                       <td className="px-4 py-3 text-sm">{patient.gender}</td>
                       <td className="px-4 py-3 text-sm">{patient.id}</td>
