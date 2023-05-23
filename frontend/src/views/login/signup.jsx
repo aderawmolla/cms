@@ -1,8 +1,18 @@
-import { Link } from "react-router-dom";
-import React, { useState } from 'react'
+import { Link,useNavigate } from "react-router-dom";
+import React, { useEffect,useState } from 'react'
 import axios from 'axios'
 export default function SingUp() {
 
+  const [responseData, setResponseData] = useState(null)
+  const navigate= useNavigate(); // Create a history object
+  const [errorMessage, setErrorMessage] = useState('');
+  useEffect(()=>{
+    console.log(responseData)
+    if (responseData) {
+      navigate("/signIn/payment");
+    } else {
+    }
+  },[responseData,navigate])
   const [formData, setFormData] = useState(
     {
       firstName: '',
@@ -32,7 +42,7 @@ export default function SingUp() {
     e.preventDefault();
     try {
       const response = await axios.post(' http://localhost:5000/patients',formData);
-      console.log(response.data);
+       setResponseData(response.data)
     } catch (error) {
       console.error(error);
     }
@@ -44,7 +54,7 @@ export default function SingUp() {
     >
       <div className="w-full max-w-md space-y-4">
         <div className="pt-8 text-center">
-          <h2 className="mt-6 text-xl font-semi-bold text-gray-900 lg:text-4xl">
+          <h2 className="mt-6 text-xl text-gray-900 font-semi-bold lg:text-4xl">
             Welcome  to Kidane mihret Patient Registration Form
           </h2>
           <p className="mt-2 text-lg text-gray-500">
@@ -55,7 +65,7 @@ export default function SingUp() {
         <form onSubmit={handleSubmit} className="pb-8 space-y-6" action="#" method="POST">
           <input type="hidden" name="remember" value="true" />
           <div className="relative">
-            <label className=" text-sm font-bold tracking-wide text-gray-700">
+            <label className="text-sm font-bold tracking-wide text-gray-700 ">
               first name
             </label>
             <input
@@ -67,7 +77,7 @@ export default function SingUp() {
             />
           </div>
           <div className="relative">
-            <label className=" text-sm font-bold tracking-wide text-gray-700">
+            <label className="text-sm font-bold tracking-wide text-gray-700 ">
               last name
             </label>
             <input
@@ -79,9 +89,9 @@ export default function SingUp() {
             />
           </div>
           <div className="flex justify-between pr-8">
-            <div className="w-1/2  mb-6 md:mb-0">
+            <div className="w-1/2 mb-6 md:mb-0">
               <label
-                className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                className="block mb-2 text-xs font-bold tracking-wide text-gray-700 uppercase"
                 for="grid-state"
               >
                 Gender
@@ -96,9 +106,9 @@ export default function SingUp() {
                   <option>male</option>
                   <option>Female</option>
                 </select>
-                <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                <div className="absolute inset-y-0 right-0 flex items-center px-2 text-gray-700 pointer-events-none">
                   <svg
-                    className="fill-current h-4 w-4"
+                    className="w-4 h-4 fill-current"
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 20 20"
                   >
@@ -109,7 +119,7 @@ export default function SingUp() {
             </div>
             <div className="w-1/2 px-3 mb-6 md:mb-0">
               <label
-                className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                className="block mb-2 text-xs font-bold tracking-wide text-gray-700 uppercase"
                 for="grid-zip"
               >
                 Age
@@ -125,7 +135,7 @@ export default function SingUp() {
           </div>
 
           <div className="relative">
-            <label className=" text-sm font-bold tracking-wide text-gray-700">
+            <label className="text-sm font-bold tracking-wide text-gray-700 ">
               username
             </label>
             <input
@@ -137,7 +147,7 @@ export default function SingUp() {
             />
           </div>
           <div className="content-center mt-8">
-            <label className=" text-sm font-bold tracking-wide text-gray-700">
+            <label className="text-sm font-bold tracking-wide text-gray-700 ">
               Password
             </label>
             <input
@@ -145,12 +155,10 @@ export default function SingUp() {
               type="password"
               placeholder="Enter your password"
               onChange={handleChange} value={formData.password} name="password"
-
-            // value={""}
             />
           </div>
           <div className="content-center mt-8">
-            <label className=" text-sm font-bold tracking-wide text-gray-700">
+            <label className="text-sm font-bold tracking-wide text-gray-700 ">
               Email
             </label>
             <input
@@ -163,7 +171,7 @@ export default function SingUp() {
             />
           </div>
           <div className="content-center mt-8">
-            <label className=" text-sm font-bold tracking-wide text-gray-700">
+            <label className="text-sm font-bold tracking-wide text-gray-700 ">
               Phone Number
             </label>
             <input

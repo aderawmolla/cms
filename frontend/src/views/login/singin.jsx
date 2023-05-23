@@ -6,14 +6,15 @@ export default function SingIn() {
   const navigate= useNavigate(); // Create a history object
   const [errorMessage, setErrorMessage] = useState('');
   useEffect(()=>{
-    console.log(responseData)
-    if (responseData && responseData.userType ==="Patient") {
+    if (responseData && responseData.userType ==="Admin") {
       navigate("/adminDashbord");
     } else if (responseData&& responseData.userType === "Doctor") {
       navigate("/doctor");  
     } else if (responseData && responseData.userType === "Labratoriest") {
       navigate("/lab");
-    } else {
+    }
+    else if(responseData && responseData.userType === "Patient") {
+      navigate(`/patient/${responseData.id}`)
     }
   },[responseData,navigate])
 
@@ -37,7 +38,6 @@ export default function SingIn() {
        
     } catch (error) {
       setErrorMessage('Invalid username or password');
-
     }
   };
   return (
@@ -51,14 +51,13 @@ export default function SingIn() {
           <h2 className="mt-6 text-3xl font-bold text-gray-900 lg:text-4xl">
             Welcome Back!
           </h2>
-          <p className="mt-2 text-lg text-semi-bold text-gray-500">
+          <p className="mt-2 text-lg text-gray-500 text-semi-bold">
             Please sign in to your account
           </p>
         </div>
 
         <form onSubmit={handleSubmit} className="pb-8 space-y-6" action="#" method="POST">
-        {errorMessage && <p class=" text-center   text-red-500 text-xl font-normal  max-w-full flex-initial">{errorMessage}</p>}
-
+         {errorMessage && <p className="flex-initial max-w-full text-xl font-normal text-center text-red-500 "></p>}
           <input type="hidden" name="remember" value="true" />
           <div className="relative">
             <label className="ml-3 text-sm font-bold tracking-wide text-gray-700">

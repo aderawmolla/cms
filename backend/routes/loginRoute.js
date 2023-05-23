@@ -2,8 +2,10 @@ const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
- const {Patient,sequlize}=require('../models/patientModel')
- 
+ const {Patient}=require('../models/patientModel')
+ const {Admin}=require('../models/adminModel')
+ const {Doctor}=require('../models/doctorModel')
+
   router.post('/login', async (req, res) => {
     const username = req.body.username;
     const password = req.body.password;
@@ -35,12 +37,15 @@ const jwt = require('jsonwebtoken');
           message: 'Authentication successful',
           token: token,
           userType:userType,
+          id:user.id,
           decodedTOken:decodedToken
         };
-    
+  
         res.json(response);
       } else {
-        res.json({ message: 'Incorrect password' });
+        res.json({ message: 'Incorrect password' ,
+            userType:user.constructor.name
+      });
       }
     } catch (error) {
       console.error(error);

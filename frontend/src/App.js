@@ -1,6 +1,6 @@
 import { Routes, Route } from "react-router-dom";
 import DashbordContent from "./components/admin/dashbordContent";
-
+import PatientHome from "./components/patient/patientHome";
 import PatientComponent from "./components/admin/patientComponent";
 import DoctorComponent from "./components/admin/doctorComponent";
 import AppointmentComponent from "./components/admin/appointmenComponent";
@@ -11,6 +11,7 @@ import AddAppointment from "./views/registration/addAppointment";
 import Login from "./views/login/login";
 import AdminDashbord from "./views/dashbord/adminDashbord";
 import Home from "./views/home/home";
+import PatientDetail from "./components/patient/patientDetail";
 import DoctorDashbord from "./views/dashbord/doctorDashbord";
 import DoctorContent from "./components/doctor/doctorContent";
 import DoctorAppointmentComponent from "./components/doctor/doctorAppointmentComponent";
@@ -23,12 +24,12 @@ import Verify from "./views/login/verify";
 import LabDoctorDashbord from "./views/dashbord/labDoctorDashbord";
 import LabRequest from "./views/dashbord/labRequest";
 import LabResult from "./views/dashbord/labResult";
-
-import PatientDetail from "./components/patient/patientDetail";
+ import PatientProfile from "./views/dashbord/profile/patientProfile";
 import DoctorDetail from "./components/doctor/doctorDetail";
 import DoctorPrescription from "./components/prescription/doctorPrescription";
 import LaboratoryPrescription from "./components/prescription/labPrescription";
 export default function App() {
+
 
   return (
     <>
@@ -47,12 +48,12 @@ export default function App() {
         </Route>
        
         <Route path="/signIn" element={<Login />}>
-          <Route path="" element={<SingIn />} />
+          <Route path="" element={<SingIn/>} />
           <Route path="signUp" element={<SingUp />} />
           <Route path="payment" element={<Payment />} />
        </Route>
         {/* <Route path="/doctor" element={<DoctorComponent />} /> */}
-        {/* <Route path="/patient" element={<PatientHome />} /> */}
+        <Route path="/patient/:id" element={<PatientProfile/>} />
         <Route path="/verify" element={<Verify />} />
         <Route path="/adminDashbord/" element={<AdminDashbord />}>
           <Route path="" element={<DashbordContent />} />

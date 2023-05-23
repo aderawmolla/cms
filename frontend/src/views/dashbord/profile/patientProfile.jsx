@@ -1,21 +1,57 @@
-import React from "react";
+import React ,{useEffect,useState} from "react";
+import axios from 'axios'
+import { useParams } from "react-router-dom";
 
-export default function PatientProfile() {
+export default function PatientProfile(props) {
+
+  const { id } = useParams();
+  const [isLoading, setIsLoading] = useState(true);
+
+  const [data, setData] = useState(null);
+  
+  useEffect(() => {
+    console.log(id)
+    try {
+      const fetchData = async () => {
+        if (id) {
+          try {
+            const response = await axios.get(`http://localhost:5000/patients/${id}`);
+            setData(response.data);
+            setIsLoading(false);
+
+            console.log("............");
+            console.log("............");
+            console.log(response.data);
+          } catch (error) {
+            console.error(error);
+          }
+        }
+      };
+  
+      fetchData();
+    } catch (error) {
+      console.error(error);
+    }
+  }, []);
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
   return (
-    <div className="h-full bg-gray-200 p-8">
-      <div className="bg-white rounded-lg shadow-xl pb-8">
+    <div className="h-full p-8 bg-gray-200">
+      <div className="pb-8 bg-white rounded-lg shadow-xl">
         <div
           x-data="{ openSettings: false }"
-          className="  mt-4 rounded"
+          className="mt-4 rounded "
         >
           <button
             onClick="openSettings = !openSettings"
-            className="border border-gray-400 p-2 rounded text-gray-300 hover:text-gray-300 bg-gray-100 bg-opacity-10 hover:bg-opacity-20"
+            className="p-2 text-gray-300 bg-gray-100 border border-gray-400 rounded hover:text-gray-300 bg-opacity-10 hover:bg-opacity-20"
             title="Settings"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              className="h-4 w-4"
+              className="w-4 h-4"
               fill="currentColor"
               viewBox="0 0 24 24"
               stroke="currentColor"
@@ -31,17 +67,17 @@ export default function PatientProfile() {
           <div
             x-show="openSettings"
             onClick="openSettings = false"
-            className="bg-white absolute right-0 w-40 py-2 mt-1 border border-gray-200 shadow-2xl"
+            className="absolute right-0 w-40 py-2 mt-1 bg-white border border-gray-200 shadow-2xl"
             style={{ display: "none" }}
           >
             <div className="py-2 border-b">
-              <p className="text-gray-400 text-xs px-6 uppercase mb-1">
+              <p className="px-6 mb-1 text-xs text-gray-400 uppercase">
                 Settings
               </p>
               <button className="w-full flex items-center px-6 py-1.5 space-x-2 hover:bg-gray-200">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  className="h-4 w-4 text-gray-400"
+                  className="w-4 h-4 text-gray-400"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
@@ -58,7 +94,7 @@ export default function PatientProfile() {
               <button className="w-full flex items-center py-1.5 px-6 space-x-2 hover:bg-gray-200">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  className="h-4 w-4 text-gray-400"
+                  className="w-4 h-4 text-gray-400"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
@@ -75,7 +111,7 @@ export default function PatientProfile() {
               <button className="w-full flex items-center py-1.5 px-6 space-x-2 hover:bg-gray-200">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  className="h-4 w-4 text-gray-400"
+                  className="w-4 h-4 text-gray-400"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
@@ -91,13 +127,13 @@ export default function PatientProfile() {
               </button>
             </div>
             <div className="py-2">
-              <p className="text-gray-400 text-xs px-6 uppercase mb-1">
+              <p className="px-6 mb-1 text-xs text-gray-400 uppercase">
                 Feedback
               </p>
               <button className="w-full flex items-center py-1.5 px-6 space-x-2 hover:bg-gray-200">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  className="h-4 w-4 text-gray-400"
+                  className="w-4 h-4 text-gray-400"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
@@ -124,9 +160,9 @@ export default function PatientProfile() {
               src="https://vojislavd.com/ta-template-demo/assets/img/profile.jpg"
               className="w-40 border-4 border-white rounded-full"
             />
-            <div className="flex items-center space-x-2 mt-2">
-              <p className="text-2xl">Blen Abatua</p>
-              <span className="bg-blue-500 rounded-full p-1" title="Verified">
+            <div className="flex items-center mt-2 space-x-2">
+              <p className="text-2xl">{data.firstName}  {data.lastName}</p>
+              <span className="p-1 bg-blue-500 rounded-full" title="Verified">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   className="text-gray-100 h-2.5 w-2.5"
@@ -143,14 +179,14 @@ export default function PatientProfile() {
                 </svg>
               </span>
             </div>
-            <p className="text-sm text-gray-500">Bahir Dar, Poly</p>
+            <p className="text-sm text-gray-500">{data.wereda},{data.kebele}</p>
           </div>
-          <div className="flex-1 flex flex-col items-center lg:items-end justify-end px-8 mt-2">
-            <div className="flex items-center space-x-4 mt-2">
-              <button className="flex items-center bg-blue-600 hover:bg-blue-700 text-gray-100 px-4 py-2 rounded text-sm space-x-2 transition duration-100">
+          <div className="flex flex-col items-center justify-end flex-1 px-8 mt-2 lg:items-end">
+            <div className="flex items-center mt-2 space-x-4">
+              <button className="flex items-center px-4 py-2 space-x-2 text-sm text-gray-100 transition duration-100 bg-blue-600 rounded hover:bg-blue-700">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  className="h-4 w-4"
+                  className="w-4 h-4"
                   viewBox="0 0 20 20"
                   fill="currentColor"
                 >
@@ -166,46 +202,46 @@ export default function PatientProfile() {
           </div>
         </div>
 
-        <div className="my-4 flex flex-col 2xl:flex-row space-y-4 2xl:space-y-0 2xl:space-x-4">
-          <div className="w-full flex flex-col 2xl:w-1/3">
-            <div className="flex-1 bg-white rounded-lg shadow-xl p-8">
-              <h4 className="text-xl text-gray-900 font-bold">Personal Info</h4>
+        <div className="flex flex-col my-4 space-y-4 2xl:flex-row 2xl:space-y-0 2xl:space-x-4">
+          <div className="flex flex-col w-full 2xl:w-1/3">
+            <div className="flex-1 p-8 bg-white rounded-lg shadow-xl">
+              <h4 className="text-xl font-bold text-gray-900">Personal Info</h4>
               <ul className="mt-2 text-gray-700">
-                <li className="flex border-y py-2">
-                  <span className="font-bold w-24">Full name:</span>
-                  <span className="text-gray-700">Blen Abatua</span>
+                <li className="flex py-2 border-y">
+                  <span className="w-24 font-bold">Full name:</span>
+                  <span className="text-gray-700">{data.firstName} {data.lastName}</span>
                 </li>
-                <li className="flex border-b py-2">
-                  <span className="font-bold w-24">Birthday:</span>
+                {/* <li className="flex py-2 border-b">
+                  <span className="w-24 font-bold">Birthday:</span>
                   <span className="text-gray-700">24 Jul, 1992</span>
-                </li>
-                <li className="flex border-b py-2">
-                  <span className="font-bold w-24">Registered:</span>
+                </li> */}
+                <li className="flex py-2 border-b">
+                  <span className="w-24 font-bold">Registered:</span>
                   <span className="text-gray-700">
-                    10 Jan 2022 (25 days ago)
+                   {data.createdAt}
                   </span>
                 </li>
-                <li className="flex border-b py-2">
-                  <span className="font-bold w-24">Mobile:</span>
-                  <span className="text-gray-700">+25 192 164 4607</span>
+                <li className="flex py-2 border-b">
+                  <span className="w-24 font-bold">Contact</span>
+                  <span className="text-gray-700">{data.contact}</span>
                 </li>
-                <li className="flex border-b py-2">
-                  <span className="font-bold w-24">Email:</span>
-                  <span className="text-gray-700">blen@example.com</span>
+                <li className="flex py-2 border-b">
+                  <span className="w-24 font-bold">Email:</span>
+                  <span className="text-gray-700">{data.email}</span>
                 </li>
-                <li className="flex border-b py-2">
-                  <span className="font-bold w-24">Location:</span>
-                  <span className="text-gray-700">Bahir Dar, Poly</span>
+                <li className="flex py-2 border-b">
+                  <span className="w-24 font-bold">Address:</span>
+                  <span className="text-gray-700">{data.wereda}, {data.kebele}</span>
                 </li>
               </ul>
             </div>
-            <div className="flex-1 bg-white rounded-lg shadow-xl mt-4 p-8">
-              <h4 className="text-xl text-gray-900 font-bold">Patient History </h4>
+            <div className="flex-1 p-8 mt-4 bg-white rounded-lg shadow-xl">
+              <h4 className="text-xl font-bold text-gray-900">Patient History </h4>
               <div className="relative px-4">
                 <div className="absolute h-full border border-dashed border-opacity-20 border-secondary"></div>
 
                 <div className="flex items-center w-full my-6 -ml-1.5">
-                  <div className="w-1/12 z-10">
+                  <div className="z-10 w-1/12">
                     <div className="w-3.5 h-3.5 bg-blue-600 rounded-full"></div>
                   </div>
                   <div className="w-11/12">
@@ -214,7 +250,7 @@ export default function PatientProfile() {
                   </div>
                 </div>
                 <div className="flex items-center w-full my-6 -ml-1.5">
-                  <div className="w-1/12 z-10">
+                  <div className="z-10 w-1/12">
                     <div className="w-3.5 h-3.5 bg-blue-600 rounded-full"></div>
                   </div>
                   <div className="w-11/12">
@@ -223,7 +259,7 @@ export default function PatientProfile() {
                   </div>
                 </div>
                 <div className="flex items-center w-full my-6 -ml-1.5">
-                  <div className="w-1/12 z-10">
+                  <div className="z-10 w-1/12">
                     <div className="w-3.5 h-3.5 bg-blue-600 rounded-full"></div>
                   </div>
                   <div className="w-11/12">
@@ -232,7 +268,7 @@ export default function PatientProfile() {
                   </div>
                 </div>
                 <div className="flex items-center w-full my-6 -ml-1.5">
-                  <div className="w-1/12 z-10">
+                  <div className="z-10 w-1/12">
                     <div className="w-3.5 h-3.5 bg-blue-600 rounded-full"></div>
                   </div>
                   <div className="w-11/12">
@@ -241,7 +277,7 @@ export default function PatientProfile() {
                   </div>
                 </div>
                 <div className="flex items-center w-full my-6 -ml-1.5">
-                  <div className="w-1/12 z-10">
+                  <div className="z-10 w-1/12">
                     <div className="w-3.5 h-3.5 bg-blue-600 rounded-full"></div>
                   </div>
                   <div className="w-11/12">
@@ -250,7 +286,7 @@ export default function PatientProfile() {
                   </div>
                 </div>
                 <div className="flex items-center w-full my-6 -ml-1.5">
-                  <div className="w-1/12 z-10">
+                  <div className="z-10 w-1/12">
                     <div className="w-3.5 h-3.5 bg-blue-600 rounded-full"></div>
                   </div>
                   <div className="w-11/12">
@@ -263,8 +299,8 @@ export default function PatientProfile() {
             </div>
           </div>
           <div className="flex flex-col w-full 2xl:w-2/3">
-            <div className="flex-1 bg-white rounded-lg shadow-xl p-8">
-              <h4 className="text-xl text-gray-900 font-bold">About</h4>
+            <div className="flex-1 p-8 bg-white rounded-lg shadow-xl">
+              <h4 className="text-xl font-bold text-gray-900">About</h4>
               <p className="mt-2 text-gray-700">
                 Lorem ipsum dolor sit amet consectetur adipisicing elit.
                 Nesciunt voluptates obcaecati numquam error et ut fugiat
@@ -275,13 +311,13 @@ export default function PatientProfile() {
                 autem odio laudantium eligendi commodi distinctio!
               </p>
             </div>
-            <div className="flex-1 bg-white rounded-lg shadow-xl mt-4 p-8">
-              <h4 className="text-xl text-gray-900 font-bold">Statistics</h4>
+            <div className="flex-1 p-8 mt-4 bg-white rounded-lg shadow-xl">
+              <h4 className="text-xl font-bold text-gray-900">Statistics</h4>
 
-              <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mt-4">
+              <div className="grid grid-cols-1 gap-8 mt-4 lg:grid-cols-3">
                 <div className="px-6 py-6 bg-gray-100 border border-gray-300 rounded-lg shadow-xl">
                   <div className="flex items-center justify-between">
-                    <span className="font-bold text-sm text-indigo-600">
+                    <span className="text-sm font-bold text-indigo-600">
                       Hear Beat per Minute
                     </span>
 
@@ -303,12 +339,13 @@ export default function PatientProfile() {
                         ></path>
                       </svg>
                     </div>
+                    
                     <div className="flex flex-col">
                       <div className="flex items-end">
-                        <span className="text-xl  font-bold">
+                        <span className="text-xl font-bold">
                           72 per minute
                         </span>
-                        <div className="flex items-center ml-2 mb-1">
+                        <div className="flex items-center mb-1 ml-2">
 
                         </div>
                       </div>
@@ -317,10 +354,10 @@ export default function PatientProfile() {
                 </div>
                 <div className="px-6 py-6 bg-gray-100 border border-gray-300 rounded-lg shadow-xl">
                   <div className="flex items-center justify-between">
-                    <span className="font-bold text-sm text-green-600">
+                    <span className="text-sm font-bold text-green-600">
                       Blood Pressure
                     </span>
-                    <span className="text-xs bg-gray-200 hover:bg-gray-500 text-gray-500 hover:text-gray-200 px-2 py-1 rounded-lg transition duration-200 cursor-default">
+                    <span className="px-2 py-1 text-xs text-gray-500 transition duration-200 bg-gray-200 rounded-lg cursor-default hover:bg-gray-500 hover:text-gray-200">
                       100 
                     </span>
                   </div>
@@ -343,10 +380,10 @@ export default function PatientProfile() {
                     </div>
                     <div className="flex flex-col">
                       <div className="flex items-end">
-                        <span className="text-2xl 2xl:text-3xl font-bold">
+                        <span className="text-2xl font-bold 2xl:text-3xl">
                           217
                         </span>
-                        <div className="flex items-center ml-2 mb-1">
+                        <div className="flex items-center mb-1 ml-2">
                         </div>
                       </div>
                     </div>
@@ -354,20 +391,19 @@ export default function PatientProfile() {
                 </div>
                 <div className="px-6 py-6 bg-gray-100 border border-gray-300 rounded-lg shadow-xl">
                   <div className="flex items-center justify-between">
-                    <span className="font-bold text-sm text-blue-600">
+                    <span className="text-sm font-bold text-blue-600">
                       Blood Type
                     </span>
-
                   </div>
                   <div className="flex items-center justify-between mt-6">
                     <div>
                     </div>
                     <div className="flex flex-col">
                       <div className="flex items-end">
-                        <span className="text-2xl 2xl:text-3xl font-bold">
+                        <span className="text-2xl font-bold 2xl:text-3xl">
                           O+
                         </span>
-                        <div className="flex items-center ml-2 mb-1">
+                        <div className="flex items-center mb-1 ml-2">
 
                         </div>
                       </div>
@@ -375,7 +411,6 @@ export default function PatientProfile() {
                   </div>
                 </div>
               </div>
-
               <div className="mt-4">
                 <canvas
                   id="verticalBarChart"
@@ -392,15 +427,15 @@ export default function PatientProfile() {
             </div>
           </div>
         </div>
-        {/* <div className="bg-white rounded-lg shadow-xl p-8">
+        {/* <div className="p-8 bg-white rounded-lg shadow-xl">
           <div className="flex items-center justify-between">
-            <h4 className="text-xl text-gray-900 font-bold">
+            <h4 className="text-xl font-bold text-gray-900">
               Connections (532)
             </h4>
             <a href="/" title="View All">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                className="h-6 w-6 text-gray-500 hover:text-gray-700"
+                className="w-6 h-6 text-gray-500 hover:text-gray-700"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
@@ -414,7 +449,7 @@ export default function PatientProfile() {
               </svg>
             </a>
           </div>
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-8 gap-8 mt-8">
+          <div className="grid grid-cols-2 gap-8 mt-8 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-8">
             <a
               href="/"
               className="flex flex-col items-center justify-center text-gray-800 hover:text-blue-600"
@@ -424,10 +459,10 @@ export default function PatientProfile() {
                 src="https://vojislavd.com/ta-template-demo/assets/img/connections/connection1.jpg"
                 className="w-16 rounded-full"
               />
-              <p className="text-center font-bold text-sm mt-1">
+              <p className="mt-1 text-sm font-bold text-center">
                 Diane Aguilar
               </p>
-              <p className="text-xs text-gray-500 text-center">
+              <p className="text-xs text-center text-gray-500">
                 UI/UX Design at Upwork
               </p>
             </a>
@@ -440,10 +475,10 @@ export default function PatientProfile() {
                 src="https://vojislavd.com/ta-template-demo/assets/img/connections/connection2.jpg"
                 className="w-16 rounded-full"
               />
-              <p className="text-center font-bold text-sm mt-1">
+              <p className="mt-1 text-sm font-bold text-center">
                 Frances Mather
               </p>
-              <p className="text-xs text-gray-500 text-center">
+              <p className="text-xs text-center text-gray-500">
                 Software Engineer at Facebook
               </p>
             </a>
@@ -456,10 +491,10 @@ export default function PatientProfile() {
                 src="https://vojislavd.com/ta-template-demo/assets/img/connections/connection3.jpg"
                 className="w-16 rounded-full"
               />
-              <p className="text-center font-bold text-sm mt-1">
+              <p className="mt-1 text-sm font-bold text-center">
                 Carlos Friedrich
               </p>
-              <p className="text-xs text-gray-500 text-center">
+              <p className="text-xs text-center text-gray-500">
                 Front-End Developer at Tailwind CSS
               </p>
             </a>
@@ -472,10 +507,10 @@ export default function PatientProfile() {
                 src="https://vojislavd.com/ta-template-demo/assets/img/connections/connection4.jpg"
                 className="w-16 rounded-full"
               />
-              <p className="text-center font-bold text-sm mt-1">
+              <p className="mt-1 text-sm font-bold text-center">
                 Donna Serrano
               </p>
-              <p className="text-xs text-gray-500 text-center">
+              <p className="text-xs text-center text-gray-500">
                 System Engineer at Tesla
               </p>
             </a>
@@ -488,10 +523,10 @@ export default function PatientProfile() {
                 src="https://vojislavd.com/ta-template-demo/assets/img/connections/connection5.jpg"
                 className="w-16 rounded-full"
               />
-              <p className="text-center font-bold text-sm mt-1">
+              <p className="mt-1 text-sm font-bold text-center">
                 Randall Tabron
               </p>
-              <p className="text-xs text-gray-500 text-center">
+              <p className="text-xs text-center text-gray-500">
                 Software Developer at Upwork
               </p>
             </a>
@@ -504,10 +539,10 @@ export default function PatientProfile() {
                 src="https://vojislavd.com/ta-template-demo/assets/img/connections/connection6.jpg"
                 className="w-16 rounded-full"
               />
-              <p className="text-center font-bold text-sm mt-1">
+              <p className="mt-1 text-sm font-bold text-center">
                 John McCleary
               </p>
-              <p className="text-xs text-gray-500 text-center">
+              <p className="text-xs text-center text-gray-500">
                 Software Engineer at Laravel
               </p>
             </a>
@@ -520,8 +555,8 @@ export default function PatientProfile() {
                 src="https://vojislavd.com/ta-template-demo/assets/img/connections/connection7.jpg"
                 className="w-16 rounded-full"
               />
-              <p className="text-center font-bold text-sm mt-1">Amanda Noble</p>
-              <p className="text-xs text-gray-500 text-center">
+              <p className="mt-1 text-sm font-bold text-center">Amanda Noble</p>
+              <p className="text-xs text-center text-gray-500">
                 Graphic Designer at Tailwind CSS
               </p>
             </a>
@@ -534,10 +569,10 @@ export default function PatientProfile() {
                 src="https://vojislavd.com/ta-template-demo/assets/img/connections/connection8.jpg"
                 className="w-16 rounded-full"
               />
-              <p className="text-center font-bold text-sm mt-1">
+              <p className="mt-1 text-sm font-bold text-center">
                 Christine Drew
               </p>
-              <p className="text-xs text-gray-500 text-center">
+              <p className="text-xs text-center text-gray-500">
                 Senior Android Developer at Google
               </p>
             </a>
@@ -550,8 +585,8 @@ export default function PatientProfile() {
                 src="https://vojislavd.com/ta-template-demo/assets/img/connections/connection9.jpg"
                 className="w-16 rounded-full"
               />
-              <p className="text-center font-bold text-sm mt-1">Lucas Bell</p>
-              <p className="text-xs text-gray-500 text-center">
+              <p className="mt-1 text-sm font-bold text-center">Lucas Bell</p>
+              <p className="text-xs text-center text-gray-500">
                 Creative Writer at Upwork
               </p>
             </a>
@@ -564,10 +599,10 @@ export default function PatientProfile() {
                 src="https://vojislavd.com/ta-template-demo/assets/img/connections/connection10.jpg"
                 className="w-16 rounded-full"
               />
-              <p className="text-center font-bold text-sm mt-1">
+              <p className="mt-1 text-sm font-bold text-center">
                 Debra Herring
               </p>
-              <p className="text-xs text-gray-500 text-center">
+              <p className="text-xs text-center text-gray-500">
                 Co-Founder at Alpine.js
               </p>
             </a>
@@ -580,10 +615,10 @@ export default function PatientProfile() {
                 src="https://vojislavd.com/ta-template-demo/assets/img/connections/connection11.jpg"
                 className="w-16 rounded-full"
               />
-              <p className="text-center font-bold text-sm mt-1">
+              <p className="mt-1 text-sm font-bold text-center">
                 Benjamin Farrior
               </p>
-              <p className="text-xs text-gray-500 text-center">
+              <p className="text-xs text-center text-gray-500">
                 Software Engineer Lead at Microsoft
               </p>
             </a>
@@ -596,8 +631,8 @@ export default function PatientProfile() {
                 src="https://vojislavd.com/ta-template-demo/assets/img/connections/connection12.jpg"
                 className="w-16 rounded-full"
               />
-              <p className="text-center font-bold text-sm mt-1">Maria Heal</p>
-              <p className="text-xs text-gray-500 text-center">
+              <p className="mt-1 text-sm font-bold text-center">Maria Heal</p>
+              <p className="text-xs text-center text-gray-500">
                 Linux System Administrator at Twitter
               </p>
             </a>
@@ -610,8 +645,8 @@ export default function PatientProfile() {
                 src="https://vojislavd.com/ta-template-demo/assets/img/connections/connection13.jpg"
                 className="w-16 rounded-full"
               />
-              <p className="text-center font-bold text-sm mt-1">Edward Ice</p>
-              <p className="text-xs text-gray-500 text-center">
+              <p className="mt-1 text-sm font-bold text-center">Edward Ice</p>
+              <p className="text-xs text-center text-gray-500">
                 Customer Support at Instagram
               </p>
             </a>
@@ -624,10 +659,10 @@ export default function PatientProfile() {
                 src="https://vojislavd.com/ta-template-demo/assets/img/connections/connection14.jpg"
                 className="w-16 rounded-full"
               />
-              <p className="text-center font-bold text-sm mt-1">
+              <p className="mt-1 text-sm font-bold text-center">
                 Jeffery Silver
               </p>
-              <p className="text-xs text-gray-500 text-center">
+              <p className="text-xs text-center text-gray-500">
                 Software Engineer at Twitter
               </p>
             </a>
@@ -640,10 +675,10 @@ export default function PatientProfile() {
                 src="https://vojislavd.com/ta-template-demo/assets/img/connections/connection15.jpg"
                 className="w-16 rounded-full"
               />
-              <p className="text-center font-bold text-sm mt-1">
+              <p className="mt-1 text-sm font-bold text-center">
                 Jennifer Schultz
               </p>
-              <p className="text-xs text-gray-500 text-center">
+              <p className="text-xs text-center text-gray-500">
                 Project Manager at Google
               </p>
             </a>
@@ -656,10 +691,10 @@ export default function PatientProfile() {
                 src="https://vojislavd.com/ta-template-demo/assets/img/connections/connection16.jpg"
                 className="w-16 rounded-full"
               />
-              <p className="text-center font-bold text-sm mt-1">
+              <p className="mt-1 text-sm font-bold text-center">
                 Joseph Marlatt
               </p>
-              <p className="text-xs text-gray-500 text-center">
+              <p className="text-xs text-center text-gray-500">
                 Team Lead at Facebook
               </p>
             </a>

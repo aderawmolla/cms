@@ -6,6 +6,7 @@ const cors=require('cors')
 const PORT=5000
 const patientRoutes=require('./routes/patientRoutes')
 const adminRoutes=require('./routes/adminRoutes')
+const doctorRoutes=require('./routes/doctorRoutes')
 
 const loginRoutes=require('./routes/loginRoute')
 app.use(express.json());
@@ -19,6 +20,6 @@ app.listen(PORT,()=>{
 })
 app.use('/patients', patientRoutes);
 app.use('/authenticate',loginRoutes);
-app.use('/admin',adminRoutes);
-
+app.use('/admins',adminRoutes);
+app.use('/doctors',doctorRoutes)
 

@@ -1,11 +1,10 @@
-
 const { Sequelize } = require('sequelize');
 const sequelize = new Sequelize(
   'cms', 'root', '', {
   host: 'localhost',
   dialect: 'mysql',
 });
-const Patient = sequelize.define('Patient', {
+const Doctor= sequelize.define('Doctor', {
   id: {
     type: Sequelize.INTEGER,
     autoIncrement: true,
@@ -19,27 +18,19 @@ const Patient = sequelize.define('Patient', {
     type: Sequelize.STRING(255),
     allowNull: false,
   },
-  age: {
-    type: Sequelize.STRING(10),
-    allowNull: true,
-  },
-  description: {
-    type: Sequelize.TEXT,
-    allowNull: true,
-  },
   photo: {
     type: Sequelize.STRING(255),
+    allowNull: true,
+  },
+  specialization: {
+    type: Sequelize.STRING(10),
     allowNull: true,
   },
   gender: {
     type: Sequelize.STRING(10),
     allowNull: true,
   },
-  password: {
-    type: Sequelize.STRING(255),
-    allowNull: false,
-  },
-  contact: {
+  email: {
     type: Sequelize.STRING(255),
     allowNull: true,
   },
@@ -47,12 +38,12 @@ const Patient = sequelize.define('Patient', {
     type: Sequelize.STRING(255),
     allowNull: false,
   },
-  email: {
+  password: {
     type: Sequelize.STRING(255),
-    allowNull: true,
+    allowNull: false,
   },
-  date: {
-    type: Sequelize.DATEONLY,
+  contact: {
+    type: Sequelize.STRING(255),
     allowNull: true,
   },
   state: {
@@ -66,10 +57,6 @@ const Patient = sequelize.define('Patient', {
   kebele: {
     type: Sequelize.STRING(200),
     allowNull: true,
-  },
-  cardNumber: {
-    type: Sequelize.STRING(20),
-    allowNull: true,
-  },
+  },  
 });
-module.exports = {Patient,sequelize};
+module.exports = {Doctor,sequelize};

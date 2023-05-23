@@ -3,6 +3,9 @@ import axios from 'axios';
 import React, { useState } from 'react';
 
 export default function AddPatient(props){
+    const [errorMessage,setErrorMessage]=useState("")
+    const [successMessage,setSuccessMessage]=useState("")
+
     const [formData,setFormData]= useState(
       
       {
@@ -39,8 +42,12 @@ export default function AddPatient(props){
       try {
         const response = await axios.post(' http://localhost:5000/patients', formData);
         console.log(response.data);
+        console.log("success patient registration")
+        setSuccessMessage("patient registered successfully")
+         
       } catch (error) {
         console.error(error);
+        setErrorMessage("Unable to register patient try again")
       }
     };
   
@@ -48,11 +55,9 @@ export default function AddPatient(props){
 return(
 <>  
 <form onSubmit={handleSubmit}  class="m-auto mt-10 border-2 border-gray-200 box-content p-10 w-full max-w-lg">
+
 <h1 class="font-bold text-xl text-center mb-10">Kidane Mihret Patient Registration Form</h1>
-  <div class="flex flex-wrap -mx-3 mb-6">
-
-
-    
+  <div class="flex flex-wrap -mx-3 mb-6"> 
   <div class="w-full md:w-1/2 px-3">
       <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-last-name">
         First Name
@@ -157,11 +162,7 @@ return(
       </label>
       <input name="contact" value={formData.contact} onChange={handleChange} class="appearance-none block w-full  text-gray-700 border  rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-password" type="text" placeholder="Fill phone number"/>
       {/* <p class="text-gray-600 text-xs italic">Make it as long and </p> */}
-    </div>
-   
-
-   
-    
+    </div> 
   </div>
   <div class="flex flex-wrap -mx-3 mb-2">
 
@@ -196,6 +197,8 @@ return(
     </div>
   </div>
   <button type="submit" class="bg-primary text-white font-bold px-10 py-2 mt-5 rounded focus:outline-none shadow hover:bg-blue-700 transition-colors">Register Patient</button>
+  {successMessage && <p class=" text-center   text-green-500 text-xl font-normal  max-w-full flex-initial"></p>}
+
 </form>
 </>
 );
