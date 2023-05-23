@@ -1,18 +1,25 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 // import doctors from "../../models/doctors.json";
 
 import { useSelector, useDispatch } from "react-redux";
 import { deleteDoctor } from "../../redux/doctorSlice";
 import Swal from "sweetalert2";
+import UpdateDoctor from "../../views/update/updateDoctor";
 
 export default function DoctorComponent(props) {
   const doctors = useSelector((state) => state.doctors.doctors);
   const dispatch = useDispatch();
 
+  const [showModal, setShowModal] = useState(false);
+  const [toBeUpdated, setToBeUpdated] = useState(doctors[0]);
+
+  const handleClose = () => setShowModal(false);
+  const handleShow = () => setShowModal(true);
+
   useEffect(() => {
-    console.log(doctors);
-  }, []);
+    console.log(toBeUpdated);
+  }, [toBeUpdated]);
 
   return (
     <>
@@ -131,10 +138,13 @@ export default function DoctorComponent(props) {
                     <td className="px-4 py-3 text-sm">{doctor.contact}</td>
                     <td className="px-2 py-3">
                       <div className="inline-flex items-center space-x-3">
-                        <Link
-                          to="/adminDashbord/patientDetail"
+                        <button
                           title="Edit"
                           className="hover:text-black"
+                          onClick={async () => {
+                            await setToBeUpdated(doctor);
+                            await handleShow();
+                          }}
                         >
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
@@ -150,7 +160,7 @@ export default function DoctorComponent(props) {
                               d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10"
                             />
                           </svg>
-                        </Link>
+                        </button>
                         <button
                           className="w-5 h-5"
                           x-data="{ tooltip: 'Delete' }"
@@ -158,24 +168,24 @@ export default function DoctorComponent(props) {
                           title="Delete"
                           onClick={() => {
                             Swal.fire({
-                                title: "Are you sure?",
-                                text: "You won't be able to revert this!",
-                                icon: "warning",
-                                showCancelButton: true,
-                                confirmButtonColor: "#3085d6",
-                                cancelButtonColor: "#d33",
-                                confirmButtonText: "Yes, delete it!",
-                              }).then((result) => {
-                                if (result.isConfirmed) {
-                                  dispatch(deleteDoctor(doctor))
-                                  Swal.fire(
-                                    "Deleted!",
-                                    "The doctor has been deleted.",
-                                    "success"
-                                  );
-                                }
-                              });
-                            }}
+                              title: "Are you sure?",
+                              text: "You won't be able to revert this!",
+                              icon: "warning",
+                              showCancelButton: true,
+                              confirmButtonColor: "#3085d6",
+                              cancelButtonColor: "#d33",
+                              confirmButtonText: "Yes, delete it!",
+                            }).then((result) => {
+                              if (result.isConfirmed) {
+                                dispatch(deleteDoctor(doctor));
+                                Swal.fire(
+                                  "Deleted!",
+                                  "The doctor has been deleted.",
+                                  "success"
+                                );
+                              }
+                            });
+                          }}
                         >
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
@@ -208,6 +218,11 @@ export default function DoctorComponent(props) {
           </div>
         </div>
       </div>
+      <UpdateDoctor
+        showModal={showModal}
+        handleClose={handleClose}
+        patientToBeUpdated={toBeUpdated}
+      />
     </>
   );
 }

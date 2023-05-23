@@ -162,23 +162,6 @@ export default function UpdatePatient({
                   </div>
                 </div>
 
-                {/* <div className="w-full px-3 ">
-                  <label
-                    className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                    for="grid-zip"
-                  >
-                    Age
-                  </label>
-                  <input
-                    className="appearance-none block w-full  text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                    id="grid-zip"
-                    type="number"
-                    placeholder="Fill age"
-                    value={age}
-                    onChange={(e) => setAge(e.target.value)}
-                  />
-                </div> */}
-
                 <div className="w-full px-3 mt-6">
                   <label
                     className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
