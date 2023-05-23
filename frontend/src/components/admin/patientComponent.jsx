@@ -35,7 +35,9 @@ export default function PatientComponent() {
 
   const handleClose = () => setShowModal(false);
   const handleShow = () => setShowModal(true);
-
+  if (!patients) {
+    return <div>Loading...</div>; // Or any other appropriate loading state
+  }
   return (
     <>
       <div className="mx-4 mt-4">

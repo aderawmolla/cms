@@ -2,9 +2,10 @@ import React from 'react'
 import {Outlet,Link} from 'react-router-dom'
 import './styles.css'
 import SidebarComponent from '../../components/admin/sidebarComponent'
-
+ import {useSelector} from 'react-redux'
 export default function AdminDashbord(props){
- 
+  const patients = useSelector((state) => state.patients.quantity);
+
   const setup = () => {
     const getTheme = () => {
       if (window.localStorage.getItem('dark')) {
@@ -124,7 +125,7 @@ export default function AdminDashbord(props){
                         </svg>
                     </div>
                     <div class="text-right">
-                      <p class="text-2xl">230</p>
+                      <p class="text-2xl">{patients}</p>
                       <p>Patients</p>
                     </div>
                   </div>

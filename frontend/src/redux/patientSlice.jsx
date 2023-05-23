@@ -1,7 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-
-import patientsData from "../models/patients.json";
-
 import axios from 'axios'
 function removeObjectWithId(arr, id) {
   const objWithIdIndex = arr.findIndex((obj) => obj.id === id);
@@ -41,11 +38,11 @@ export const patientSlice = createSlice({
       );
       if (itemIndex === -1) {
         state.patients.push(action.payload);
+        state.quantity += 1;
          const response=  axios.post('http://localhost:5000/patients',action.payload).then(()=>{
-            console.log(response.data)
+          console.log(response.data)
  
         })
-        state.quantity += 1;
 
       } else {
         state.patients[itemIndex].quantity += action.payload.quantity;
@@ -54,19 +51,28 @@ export const patientSlice = createSlice({
       state.quantity = quantity;
       localStorage.setItem("patients", JSON.stringify(state));
     },
-    deletePatient: (state, action) => {
+    deletePatient:  (state, action) => {
+      try {
+        axios.delete(`http://localhost:5000/patients/${action.payload.id}`);
+        console.log('Patient deleted successfully');
+        // Optionally perform any additional actions after deletion
+      } catch (error) {
+        console.error('Error deleting patient:', error);
+        throw error; // Rethrow the error or handle it as needed
+      }
       removeObjectWithId(state.patients, action.payload.id);
       const { quantity } = calculateQuantity(state.patients);
       state.quantity = quantity;
       localStorage.setItem("patients", JSON.stringify(state));
     },
 
-    updatePatient: (state, action) => {
+    updatePatient:(state, action) => {
       const itemIndex = state.patients.findIndex(
-        (item) => item.id === action.payload.id
+        (item) => item.id=== action.payload.id
       );
       if (itemIndex === -1) {
       } else {
+          axios.put(`http://localhost:5000/patients/${action.payload.id}`,action.payload); 
         removeObjectWithId(state.patients, action.payload.id);
         state.patients.push(action.payload);
       }
