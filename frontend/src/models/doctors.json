@@ -14,14 +14,14 @@
         "kebele": "Poly"
     },
     {
-        "firstName": "Samuael",
-        "lastName": "Ketema",
+        "firstName": "Abebe",
+        "lastName": "Kebede",
         "photo": "https://avatars.githubusercontent.com/u/101696125?v=4",
         "specialization": "Dentist",
         "gender": "Male",
         "id":"doc2",
-        "email": "lijsamuael@gmail.com",
-        "password": "sami",
+        "email": "user@gmail.com",
+        "password": "abe",
         "contact": "0921644607",
         "state": "Amhara",
         "wereda": "Bahir Dar",

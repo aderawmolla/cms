@@ -1,36 +1,30 @@
 import React, { useState, useEffect } from "react";
 // import './add.js'
-import doctors from "../../models/doctors.json";
+import specializations from "../../models/specializations.json";
 import { v4 as uuidv4 } from "uuid";
 import Swal from "sweetalert2";
 import { useDispatch } from "react-redux";
 import { addPatient, updatePatient } from "../../redux/patientSlice.jsx";
 
-export default function UpdatePatient({
+export default function UpdateDoctor({
   showModal,
   handleClose,
   patientToBeUpdated,
 }) {
   const [firstName, setFirstName] = useState(patientToBeUpdated.firstName);
   const [lastName, setLastName] = useState(patientToBeUpdated.lastName);
-  const [description, setDescription] = useState(
-    patientToBeUpdated.description
-  );
-  const [assignedDoctor, setAssignedDoctor] = useState(
-    patientToBeUpdated.doctorId
-  );
   const [gender, setGender] = useState(patientToBeUpdated.gender);
+  const [specialization, setSpecialization] = useState(
+    patientToBeUpdated.specialization
+  );
   const [id, setId] = useState(patientToBeUpdated.id);
-  const [age, setAge] = useState(0);
   const [password, setPassword] = useState(patientToBeUpdated.password);
   const [phone, setPhone] = useState(patientToBeUpdated.contact);
   const [userName, setUserName] = useState(patientToBeUpdated.userName);
   const [email, setEmail] = useState(patientToBeUpdated.email);
-  const [date, setDate] = useState(patientToBeUpdated.date);
   const [state, setState] = useState(patientToBeUpdated.state);
   const [wereda, setWereda] = useState(patientToBeUpdated.wereda);
   const [kebele, setKebele] = useState(patientToBeUpdated.kebele);
-  const [cardNumber, setCardNumber] = useState(patientToBeUpdated.cardNumber);
   const [selectedImage, setSelectedImage] = useState(patientToBeUpdated.photo);
   const [imagePreview, setImagePreview] = useState(patientToBeUpdated.photo);
 
@@ -49,20 +43,16 @@ export default function UpdatePatient({
   const patient = {
     firstName: firstName,
     lastName: lastName,
-    description: description,
     photo: selectedImage,
-    doctorId: assignedDoctor,
     gender: gender,
     id: id,
     password: password,
     contact: phone,
     username: userName,
     email: email,
-    date: date,
     state: state,
     wereda: wereda,
     kebele: kebele,
-    cardNumber: cardNumber,
   };
 
   const handleSubmit = (event) => {
@@ -162,6 +152,23 @@ export default function UpdatePatient({
                   </div>
                 </div>
 
+                {/* <div className="w-full px-3 ">
+                  <label
+                    className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                    for="grid-zip"
+                  >
+                    Age
+                  </label>
+                  <input
+                    className="appearance-none block w-full  text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                    id="grid-zip"
+                    type="number"
+                    placeholder="Fill age"
+                    value={age}
+                    onChange={(e) => setAge(e.target.value)}
+                  />
+                </div> */}
+
                 <div className="w-full px-3 mt-6">
                   <label
                     className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
@@ -214,40 +221,6 @@ export default function UpdatePatient({
                     onChange={(e) => setEmail(e.target.value)}
                   />
                   {/* <p className="text-gray-600 text-xs italic">Make it as long and </p> */}
-                </div>
-
-                <div className="w-full  px-3">
-                  <label
-                    className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                    for="grid-last-name"
-                  >
-                    Birth Date
-                  </label>
-                  <input
-                    className="appearance-none block w-full  text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                    id="grid-last-name"
-                    type="date"
-                    placeholder="fill date in E.C"
-                    value={date}
-                    onChange={(e) => setDate(e.target.value)}
-                  />
-                </div>
-
-                <div className="w-full  px-3">
-                  <label
-                    className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                    for="grid-last-name"
-                  >
-                    Card Number
-                  </label>
-                  <input
-                    className="appearance-none block w-full  text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                    id="grid-last-name"
-                    type="text"
-                    placeholder="Fill Card Number"
-                    value={cardNumber}
-                    onChange={(e) => setCardNumber(e.target.value)}
-                  />
                 </div>
 
                 <div className="w-full px-3 ">
@@ -336,40 +309,21 @@ export default function UpdatePatient({
                   />
                 </div>
               </div>
-              <div className="w-full  px-3  pt-8">
-                <label
-                  className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                  for="grid-zip"
-                >
-                  Patient Description
-                </label>
-                <textarea
-                  className="appearance-none flex items-start w-full h-32  text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                  id="grid-zip"
-                  type="text"
-                  placeholder="Write a short description and background about the patient."
-                  value={description}
-                  onChange={(e) => setDescription(e.target.value)}
-                />
-              </div>
-
               <div className="relative pt-8 m-4">
                 <label
                   className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
                   htmlFor=""
                 >
-                  Choose a doctor and assign to the patient
+                  Specialization
                 </label>
                 <select
                   className="block appearance-none w-full  border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                   id="grid-state"
-                  value={assignedDoctor}
-                  onChange={(e) => setAssignedDoctor(e.target.value)}
+                  value={specialization}
+                  onChange={(e) => setSpecialization(e.target.value)}
                 >
-                  {doctors.map((doctor, index) => (
-                    <option>
-                      {doctor.firstName} {doctor.lastName}
-                    </option>
+                  {specializations.specializations.map((item, index) => (
+                    <option>{item}</option>
                   ))}
                 </select>
                 <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
@@ -382,7 +336,6 @@ export default function UpdatePatient({
                   </svg>
                 </div>
               </div>
-
               <div className="mx-auto w-64 pt-8">
                 <img
                   className="mx-auto mt-12 h-52 w-52 rounded-lg border p-2 md:mt-0"
