@@ -3,7 +3,6 @@ import doctorsData from "../models/doctors.json";
 
 function removeObjectWithId(arr, id) {
   const objWithIdIndex = arr.findIndex((obj) => obj.id === id);
-
   if (objWithIdIndex > -1) {
     arr.splice(objWithIdIndex, 1);
   }

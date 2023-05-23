@@ -1,11 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState} from "react";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { deletePatient } from "../../redux/patientSlice";
 import Swal from "sweetalert2";
 import UpdatePatient from "../../views/update/updatePatient";
-
-// import patients from "../../models/patients.json"
 
 export default function PatientComponent() {
   const patients = useSelector((state) => state.patients.patients);
@@ -40,24 +38,24 @@ export default function PatientComponent() {
 
   return (
     <>
-      <div className="mt-4 mx-4">
+      <div className="mx-4 mt-4">
         <div className="flex flex-col items-end mb-10">
           <Link to="/adminDashbord/addPatient">
             <button
               onClick="popuphandler(true)"
-              className="focus:ring-2  bg-primary mb-5 focus:ring-offset-2 focus:ring-indigo-400 mt-4 sm:mt-0 inline-flex items-end justify-end px-6 py-3 primary hover:bg-indigo-600 focus:outline-none rounded"
+              className="inline-flex items-end justify-end px-6 py-3 mt-4 mb-5 rounded focus:ring-2 bg-primary focus:ring-offset-2 focus:ring-indigo-400 sm:mt-0 primary hover:bg-indigo-600 focus:outline-none"
             >
               <p className="text-sm font-medium leading-none text-white">
                 Add Patient
               </p>
             </button>
           </Link>
-          <form className="flex w-full items-center">
+          <form className="flex items-center w-full">
             <label for="voice-search" className="sr-only">
               Search
             </label>
             <div className="relative w-full">
-              <div className="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
+              <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                 <svg
                   className="w-5 h-5 text-gray-500 dark:text-gray-400"
                   fill="currentColor"
@@ -84,7 +82,7 @@ export default function PatientComponent() {
               className="inline-flex items-center py-2.5 px-3 ml-2 text-sm font-medium text-white bg-primary rounded-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
             >
               <svg
-                className="mr-2 -ml-1 w-5 h-5"
+                className="w-5 h-5 mr-2 -ml-1"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -101,13 +99,13 @@ export default function PatientComponent() {
             </button>
           </form>
         </div>
-        <div className="w-full  rounded-lg shadow-xs">
-          <div className="w-full   overflow-visible">
+        <div className="w-full rounded-lg shadow-xs">
+          <div className="w-full overflow-visible">
             <table className="w-full sm:w-full">
               <thead>
                 <tr className="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
                   <th className="px-4 py-3">Patient Full Name</th>
-                  <th className="pr-4 py-3">Associated Doctor</th>
+                  <th className="py-3 pr-4">Associated Doctor</th>
                   <th className="px-4 py-3">Gender</th>
                   <th className="px-4 py-3">Id</th>
                   <th className="px-4 py-3">password</th>
@@ -123,14 +121,14 @@ export default function PatientComponent() {
                       showModal={showModal}
                       handleClose={handleClose}
                       patientToBeUpdated={patient}
-                    />
+                  />
 
                     <tr className="text-gray-700 bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-900 dark:text-gray-400">
                       <td className="px-4 py-3">
                         <div className="flex items-center text-sm">
                           <div className="relative hidden w-8 h-8 mr-3 rounded-full md:block">
                             <img
-                              className=" w-8 h-8 object-cover object-center rounded-full"
+                              className="object-cover object-center w-8 h-8 rounded-full "
                               src={patient.image}
                               alt=""
                               loading="lazy"
@@ -220,7 +218,7 @@ export default function PatientComponent() {
                           <Link
                             to={`/adminDashbord/patient/${patient.id}`}
                             title="Edit"
-                            className=" text-blue-500 hover:text-blue-200"
+                            className="text-blue-500 hover:text-blue-200"
                           >
                             Detail
                           </Link>

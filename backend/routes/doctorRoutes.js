@@ -47,9 +47,6 @@ router.post('/', async (req, res) => {
   });
 // Update a patient by ID
 
-
-
-
 // Delete a patient by ID
 router.delete('/:id', async (req, res) => {
     const doctorId = req.params.id;

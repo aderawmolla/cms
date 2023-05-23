@@ -58,7 +58,7 @@ export default function App() {
         <Route path="/adminDashbord/" element={<AdminDashbord />}>
           <Route path="" element={<DashbordContent />} />
           <Route path="patient" element={<PatientComponent/>} />
-          <Route path="patient/:patientId" index element={<PatientDetail />} ></Route>
+          <Route path="patient/:patientId" index element={<PatientProfile />} ></Route>
           <Route path="doctor" element={<DoctorComponent />} />
           <Route path="doctor/:doctorId" index element={<DoctorDetail />} ></Route>
           <Route path="appointment" element={<AppointmentComponent />} />

@@ -1,27 +1,28 @@
 import React ,{useEffect,useState} from "react";
+import { useSelector } from 'react-redux';
+
 import axios from 'axios'
 import { useParams } from "react-router-dom";
 
 export default function PatientProfile(props) {
-
-  const { id } = useParams();
-  const [isLoading, setIsLoading] = useState(true);
+const patients = useSelector((state) => state.patients.patients);
+const {patientId } = useParams();
+const [isLoading, setIsLoading] = useState(true);
 
   const [data, setData] = useState(null);
   
   useEffect(() => {
-    console.log(id)
+    console.log(patientId)
     try {
       const fetchData = async () => {
-        if (id) {
+        if (patientId) {
           try {
-            const response = await axios.get(`http://localhost:5000/patients/${id}`);
-            setData(response.data);
-            setIsLoading(false);
+            const selectedPatient = patients.find(patient => patient.id ==patientId);
+            console.log("___________________")
+            console.log(selectedPatient)
+            setData(selectedPatient)
+            setIsLoading(false)
 
-            console.log("............");
-            console.log("............");
-            console.log(response.data);
           } catch (error) {
             console.error(error);
           }
@@ -34,7 +35,14 @@ export default function PatientProfile(props) {
     }
   }, []);
   if (isLoading) {
-    return <div>Loading...</div>;
+   return<> 
+   <div className="flex items-center justify-center h-screen">
+     <div className="text-center">
+      <h1 className="mb-4 text-3xl font-bold">Loading...</h1>
+      <div className="w-8 h-8 border-t-2 border-b-2 border-gray-900 rounded-full animate-spin"></div>
+     </div>
+    </div>
+    </>
   }
 
   return (
@@ -157,7 +165,7 @@ export default function PatientProfile(props) {
           </div>
           <div className="flex flex-col items-center -mt-20">
             <img
-              src="https://vojislavd.com/ta-template-demo/assets/img/profile.jpg"
+              src="https://t3.ftcdn.net/jpg/03/46/83/96/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg"
               className="w-40 border-4 border-white rounded-full"
             />
             <div className="flex items-center mt-2 space-x-2">

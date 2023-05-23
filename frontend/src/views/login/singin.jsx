@@ -4,7 +4,7 @@ import axios from 'axios'
 export default function SingIn() {
   const [responseData, setResponseData] = useState(null)
   const navigate= useNavigate(); // Create a history object
-  const [errorMessage, setErrorMessage] = useState('');
+  const [errorMessage,setErrorMessage] = useState('');
   useEffect(()=>{
     if (responseData && responseData.userType ==="Admin") {
       navigate("/adminDashbord");
@@ -41,7 +41,7 @@ export default function SingIn() {
     }
   };
   return (
-    <>
+     <>
     <div
       className="w-full p-8 bg-white md:flex md:items-center md:justify-center sm:w-auto md:h-full xl:w-2/5 md:p-10 lg:p-14 sm:rounded-lg md:rounded-none"
       style={{ fontFamily: "Poltawski Nowy" }}
@@ -105,7 +105,7 @@ export default function SingIn() {
             </div>
           </div>
           <div>
-            <button onSubmit={handleSubmit}
+            <button  onSubmit={handleSubmit}
               // to={`${username === "admin" ? "/adminDashbord" : username === "doctor" ? "/doctor" : username === "lab" ? "/lab" : "/patient"}
               // `}
               className="flex justify-center w-full p-4 font-semibold tracking-wide text-gray-100 transition duration-500 ease-in rounded-full shadow-lg cursor-pointer bg-gradient-to-r from-indigo-500 to-blue-600 hover:bg-gradient-to-l hover:from-blue-500 hover:to-indigo-600"
@@ -113,7 +113,7 @@ export default function SingIn() {
               Sign in
             </button>
           </div>
-          <p className="flex flex-col items-center justify-center mt-10 text-center text-gray-500 text-md">
+          <p  className="flex flex-col items-center justify-center mt-10 text-center text-gray-500 text-md">
             <span>Don't have an account?</span>
             <Link
               to="/signIn/signUp"

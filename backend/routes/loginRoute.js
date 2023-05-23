@@ -25,7 +25,7 @@ const jwt = require('jsonwebtoken');
         return res.json({ message: 'User not found' });
       }
 
-      const isPasswordMatch = await bcrypt.compare(password, user.password);
+      const isPasswordMatch =password==user.password;
     
       if (isPasswordMatch) {
         const userType = user.constructor.name;

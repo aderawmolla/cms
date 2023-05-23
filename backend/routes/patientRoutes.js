@@ -2,6 +2,7 @@
 const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcryptjs');
+
 const {Patient,sequelize}= require('../models/patientModel');
 
 router.get('/', async (req, res) => {
@@ -20,7 +21,6 @@ router.get('/', async (req, res) => {
 router.post('/', async (req, res) => {
     try {
       const newPatient = new Patient(req.body);
-      const hashedPassword = await bcrypt.hash(req.body.password, 10); // Hash password with 10 salt rounds
       await sequelize.sync(); // Sync the model definition with the database, creating the table if necessary
   
       const createdPatient = await Patient.create({
@@ -30,7 +30,7 @@ router.post('/', async (req, res) => {
         description: newPatient.description,
         photo: newPatient.photo,
         gender: newPatient.gender,
-        password: hashedPassword,
+        password: newPatient.password,
         contact: newPatient.contact,
         username: newPatient.username,
         email: newPatient.email,
@@ -93,7 +93,6 @@ router.delete('/:id', async (req, res) => {
   
   router.get('/:id', async (req, res) => {
     const patientId = req.params.id;
-  
     try {
       const patient = await Patient.findOne({ where: { id: patientId } });
       if (!patient) {

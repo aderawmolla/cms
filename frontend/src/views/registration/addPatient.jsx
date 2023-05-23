@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 // import './add.js'
 import doctors from "../../models/doctors.json";
-import { v4 as uuidv4 } from "uuid";
+
 import Swal from "sweetalert2";
 import { useDispatch } from "react-redux";
 import { addPatient } from "../../redux/patientSlice.jsx";
@@ -31,7 +31,6 @@ export default function AddPatient({
   const [imagePreview, setImagePreview] = useState("");
 
   const dispatch = useDispatch();
-
   const handleImageChange = (event) => {
     const file = event.target.files[0];
     setSelectedImage(file);
@@ -49,12 +48,12 @@ export default function AddPatient({
     photo: selectedImage.name,
     doctorId: assignedDoctor,
     gender: gender,
-    id: uuidv4(),
+    age:age,
     password: password,
     contact: phone,
     username: userName,
     email: email,
-    date: date,
+    date: Date.now(),
     state: state,
     wereda: wereda,
     kebele: kebele,
@@ -148,7 +147,7 @@ export default function AddPatient({
           </div>
         </div>
 
-        {/* <div className="w-full px-3 ">
+        <div className="w-full px-3 ">
           <label
             className="block mb-2 text-xs font-bold tracking-wide text-gray-700 uppercase"
             for="grid-zip"
@@ -163,7 +162,7 @@ export default function AddPatient({
             value={age}
             onChange={(e) => setAge(e.target.value)}
           />
-        </div> */}
+        </div>
 
         <div className="w-full px-3 ">
           <label
@@ -187,7 +186,7 @@ export default function AddPatient({
           <label
             className="block mb-2 text-xs font-bold tracking-wide text-gray-700 uppercase"
             for="grid-password"
-          >
+          >         
             Password
           </label>
           <input
@@ -198,7 +197,6 @@ export default function AddPatient({
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
-          {/* <p className="text-xs italic text-gray-600">Make it as long and </p> */}
         </div>
 
         <div className="w-full px-3 ">
@@ -214,28 +212,10 @@ export default function AddPatient({
             type="email"
             placeholder="email@gmail.com"
             value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={(e) =>setEmail(e.target.value)}
           />
           {/* <p className="text-xs italic text-gray-600">Make it as long and </p> */}
         </div>
-
-        <div className="w-full px-3">
-          <label
-            className="block mb-2 text-xs font-bold tracking-wide text-gray-700 uppercase"
-            for="grid-last-name"
-          >
-            Birth Date
-          </label>
-          <input
-            className="block w-full px-4 py-3 leading-tight text-gray-700 border border-gray-200 rounded appearance-none focus:outline-none focus:bg-white focus:border-gray-500"
-            id="grid-last-name"
-            type="date"
-            placeholder="fill date in E.C"
-            value={date}
-            onChange={(e) => setDate(e.target.value)}
-          />
-        </div>
-
         <div className="w-full px-3">
           <label
             className="block mb-2 text-xs font-bold tracking-wide text-gray-700 uppercase"
