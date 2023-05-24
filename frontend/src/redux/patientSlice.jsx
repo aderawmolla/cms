@@ -83,5 +83,5 @@ export const patientSlice = createSlice({
   },
 });
 
-export const { addPatient, deletePatient, updatePatient }=patientSlice.actions;
+export const { addPatient, deletePatient, updatePatient}=patientSlice.actions;
 export default patientSlice.reducer;
