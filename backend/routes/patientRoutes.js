@@ -15,14 +15,11 @@ router.get('/', async (req, res) => {
       res.status(500).json({ error: 'Internal server error' });
     }
   });
-  
-
 // Create a new patient
 router.post('/', async (req, res) => {
     try {
       const newPatient = new Patient(req.body);
       await sequelize.sync(); // Sync the model definition with the database, creating the table if necessary
-  
       const createdPatient = await Patient.create({
         firstName: newPatient.firstName,
         lastName: newPatient.lastName,

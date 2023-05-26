@@ -1,4 +1,4 @@
-import React, { useState} from "react";
+import React, { useState,useEffect} from "react";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { deletePatient } from "../../redux/patientSlice";
@@ -8,33 +8,23 @@ import UpdatePatient from "../../views/update/updatePatient";
 export default function PatientComponent() {
   const patients = useSelector((state) => state.patients.patients);
   const dispatch = useDispatch();
-
   // const [toBeUpdated, setToBeUpdated] = useState();
 
-  const handleUpdate = (patient) => {
-    Swal.fire({
-      title: "Are you sure?",
-      text: "You won't be able to revert this!",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, update it!",
-    }).then((result) => {
-      if (result.isConfirmed) {
-        Swal.fire(
-          "Updated!",
-          "Patient information has been updated.",
-          "success"
-        );
-      }
-    });
+  const [showModal,setShowModal]=useState(false);
+  const [patientToBeUpdated, setPatientToBeUpdated] = useState(null);
+
+  const handleClose = () => {
+    setShowModal(false);
+    setPatientToBeUpdated(null);
   };
+  const handleShow = (patient) => {
+    setShowModal(true);
+    setPatientToBeUpdated(patient);
+  };
+  useEffect(() => {
+    console.log(patientToBeUpdated);
+  }, [patientToBeUpdated]);
 
-  const [showModal, setShowModal] = useState(false);
-
-  const handleClose = () => setShowModal(false);
-  const handleShow = () => setShowModal(true);
   if (!patients) {
     return <div>Loading...</div>; // Or any other appropriate loading state
   }
@@ -119,12 +109,14 @@ export default function PatientComponent() {
               <tbody className="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
                 {patients.map((patient, index) => (
                   <>
-                    <UpdatePatient
-                      showModal={showModal}
-                      handleClose={handleClose}
-                      patientToBeUpdated={patient}
-                  />
-
+                <React.Fragment key={index}>
+                    {patientToBeUpdated && patientToBeUpdated.id === patient.id && (
+                      <UpdatePatient
+                        showModal={showModal}
+                        handleClose={handleClose}
+                        patientToBeUpdated={patientToBeUpdated}
+                      />
+                    )}
                     <tr className="text-gray-700 bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-900 dark:text-gray-400">
                       <td className="px-4 py-3">
                         <div className="flex items-center text-sm">
@@ -158,8 +150,8 @@ export default function PatientComponent() {
                           <button
                             title="Edit"
                             className="hover:text-black"
-                            onClick={async () => {
-                              await handleShow();
+                            onClick={()=>{
+                               handleShow(patient);
                             }}
                           >
                             <svg
@@ -227,6 +219,7 @@ export default function PatientComponent() {
                         </div>
                       </td>
                     </tr>
+                    </React.Fragment>
                   </>
                 ))}
               </tbody>

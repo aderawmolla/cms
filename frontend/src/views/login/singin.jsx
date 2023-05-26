@@ -17,11 +17,10 @@ export default function SingIn() {
       navigate(`/patient/${responseData.id}`)
     }
   },[responseData,navigate])
-
   const [formData, setFormData] = useState(
     {
-      username: '',
-      password: ''
+        username:'',
+        password:''
     });
   const handleChange = (e) => {
     setFormData((prevState) => ({
@@ -33,10 +32,10 @@ export default function SingIn() {
     e.preventDefault();
     try {
        await axios.post('http://localhost:5000/authenticate/login',formData).then(response => {
-        setResponseData(response.data);
-    });
-       
+       setResponseData(response.data);
+    });   
     } catch (error) {
+      console.log("invalid username or password")
       setErrorMessage('Invalid username or password');
     }
   };
@@ -56,8 +55,9 @@ export default function SingIn() {
           </p>
         </div>
 
-        <form onSubmit={handleSubmit} className="pb-8 space-y-6" action="#" method="POST">
-         {errorMessage && <p className="flex-initial max-w-full text-xl font-normal text-center text-red-500 "></p>}
+      <form onSubmit={handleSubmit} className="pb-8 space-y-6" action="#" method="POST">
+         {errorMessage && <p class="text-red-500 ">{errorMessage}</p>}
+
           <input type="hidden" name="remember" value="true" />
           <div className="relative">
             <label className="ml-3 text-sm font-bold tracking-wide text-gray-700">

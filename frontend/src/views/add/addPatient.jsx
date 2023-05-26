@@ -29,7 +29,7 @@ export default function AddPatient({
   const [cardNumber, setCardNumber] = useState("");
   const [selectedImage, setSelectedImage] = useState("");
   const [imagePreview, setImagePreview] = useState("");
-
+  
   const dispatch = useDispatch();
   const handleImageChange = (event) => {
     const file = event.target.files[0];

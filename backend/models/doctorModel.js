@@ -7,7 +7,7 @@ const sequelize = new Sequelize(
 const Doctor= sequelize.define('Doctor', {
   id: {
     type: Sequelize.INTEGER,
-    autoIncrement: true,
+    allowNull: false,
     primaryKey: true,
   },
   firstName: {

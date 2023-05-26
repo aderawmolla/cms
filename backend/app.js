@@ -7,11 +7,13 @@ const PORT=5000
 const patientRoutes=require('./routes/patientRoutes')
 const adminRoutes=require('./routes/adminRoutes')
 const doctorRoutes=require('./routes/doctorRoutes')
-
+const appointmentRoutes=require('./routes/appointmentRoutes')
 const loginRoutes=require('./routes/loginRoute')
 app.use(express.json());
+
 const bodyParser = require('body-parser');
 app.use(bodyParser.json());
+
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
 
@@ -22,4 +24,4 @@ app.use('/patients', patientRoutes);
 app.use('/authenticate',loginRoutes);
 app.use('/admins',adminRoutes);
 app.use('/doctors',doctorRoutes)
-
+app.use('/appointments',appointmentRoutes)

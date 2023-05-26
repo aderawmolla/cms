@@ -7,9 +7,9 @@ const sequelize = new Sequelize(
 });
 const Admin = sequelize.define('Admin', {  
  id: {
-        type: Sequelize.INTEGER,
-        autoIncrement: true,
-        primaryKey: true,
+   type: Sequelize.INTEGER,
+  autoIncrement: true,
+  primaryKey: true,
  },     
   photo: {
     type: Sequelize.STRING(255),

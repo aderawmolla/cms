@@ -6,12 +6,10 @@ router.post('/', async (req, res) => {
     try {
       const newAdmin = new Admin(req.body);
       await sequelize.sync(); // Sync the model definition with the database, creating the table if necessary
-      const hashedPassword = await bcrypt.hash(req.body.password, 10); // Hash password with 10 salt rounds
-
       const createdAdmin = await Admin.create({
-         photo:newAdmin.photo,
+          photo:newAdmin.photo,
          username: newAdmin.username,
-         password:hashedPassword 
+         password:newAdmin.password
       });
   
       res.json(createdAdmin);

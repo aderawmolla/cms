@@ -20,6 +20,7 @@ function calculateQuantity(patients) {
 // const storedPatientData = localStorage.getItem("patients");
 const response = await axios.get("http://localhost:5000/patients");
 const data = response.data;
+data.reverse();
 const quantity = data.length;
 console.log(quantity)
 const initialState = {
@@ -34,10 +35,10 @@ export const patientSlice = createSlice({
   reducers: {
     addPatient: (state, action) => {
       const itemIndex = state.patients.findIndex(
-        (item) => item.username === action.payload.username
+        (item) => item.username ==action.payload.username
       );
       if (itemIndex === -1) {
-        state.patients.push(action.payload);
+        state.patients.splice(0, 0, action.payload);
         state.quantity += 1;
          const response=  axios.post('http://localhost:5000/patients',action.payload).then(()=>{
           console.log(response.data)
@@ -68,13 +69,14 @@ export const patientSlice = createSlice({
 
     updatePatient:(state, action) => {
       const itemIndex = state.patients.findIndex(
-        (item) => item.id=== action.payload.id
+        (item) => item.id==action.payload.id
       );
       if (itemIndex === -1) {
       } else {
-          axios.put(`http://localhost:5000/patients/${action.payload.id}`,action.payload); 
+         axios.put(`http://localhost:5000/patients/${action.payload.id}`,action.payload); 
         removeObjectWithId(state.patients, action.payload.id);
-        state.patients.push(action.payload);
+        state.patients.splice(itemIndex, 0, action.payload);
+
       }
       const { quantity } = calculateQuantity(state.patients);
       state.quantity = quantity;

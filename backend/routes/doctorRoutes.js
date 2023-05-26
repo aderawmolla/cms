@@ -20,10 +20,11 @@ router.get('/', async (req, res) => {
 router.post('/', async (req, res) => {
     try {
       const newDoctor = new Doctor(req.body);
-      const hashedPassword = await bcrypt.hash(req.body.password, 10); // Hash password with 10 salt rounds
+      // const hashedPassword = await bcrypt.hash(req.body.password, 10); // Hash password with 10 salt rounds
       await sequelize.sync(); // Sync the model definition with the database, creating the table if necessary
   
       const createdDoctor = await Doctor.create({
+        id:newDoctor.id,
         firstName: newDoctor.firstName,
         lastName: newDoctor.lastName,
         photo: newDoctor.photo,
@@ -31,13 +32,12 @@ router.post('/', async (req, res) => {
         gender:newDoctor.gender,
         email: newDoctor.email,
         username: newDoctor.username,
-        password: hashedPassword,
+        password:newDoctor.password,
         contact:newDoctor.contact,
         state: newDoctor.state,
         wereda: newDoctor.wereda,
         kebele: newDoctor.kebele,
       });
-  
       res.json(createdDoctor);
       console.log(createdDoctor);
     } catch (error) {

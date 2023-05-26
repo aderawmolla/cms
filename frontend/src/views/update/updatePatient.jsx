@@ -4,7 +4,7 @@ import doctors from "../../models/doctors.json";
 import { v4 as uuidv4 } from "uuid";
 import Swal from "sweetalert2";
 import { useDispatch } from "react-redux";
-import { addPatient, updatePatient } from "../../redux/patientSlice.jsx";
+import {updatePatient } from "../../redux/patientSlice.jsx";
 
 export default function UpdatePatient({
   showModal,
@@ -13,14 +13,10 @@ export default function UpdatePatient({
 }) {
   const [firstName, setFirstName] = useState(patientToBeUpdated.firstName);
   const [lastName, setLastName] = useState(patientToBeUpdated.lastName);
-  const [description, setDescription] = useState(
-    patientToBeUpdated.description
-  );
-  const [assignedDoctor, setAssignedDoctor] = useState(
-    patientToBeUpdated.doctorId
-  );
+  const [description, setDescription] = useState(patientToBeUpdated.description);
+  const [assignedDoctor, setAssignedDoctor] = useState(patientToBeUpdated.doctorId);
   const [gender, setGender] = useState(patientToBeUpdated.gender);
-  const [id, setId] = useState(patientToBeUpdated.id);
+  // const [id, setId] = useState(patientToBeUpdated.id);
   const [age, setAge] = useState(0);
   const [password, setPassword] = useState(patientToBeUpdated.password);
   const [phone, setPhone] = useState(patientToBeUpdated.contact);
@@ -31,11 +27,9 @@ export default function UpdatePatient({
   const [wereda, setWereda] = useState(patientToBeUpdated.wereda);
   const [kebele, setKebele] = useState(patientToBeUpdated.kebele);
   const [cardNumber, setCardNumber] = useState(patientToBeUpdated.cardNumber);
-  const [selectedImage, setSelectedImage] = useState(patientToBeUpdated.photo);
+  const [selectedImage,setSelectedImage] = useState(patientToBeUpdated.photo);
   const [imagePreview, setImagePreview] = useState(patientToBeUpdated.photo);
-
   const dispatch = useDispatch();
-
   const handleImageChange = (event) => {
     const file = event.target.files[0];
     setSelectedImage(file);
@@ -46,7 +40,12 @@ export default function UpdatePatient({
     reader.readAsDataURL(file);
   };
 
-  const patient = {
+   useEffect(()=>{
+     
+   },[showModal])
+  
+  const patient ={
+    id:patientToBeUpdated.id,
     firstName: firstName,
     lastName: lastName,
     description: description,
@@ -64,33 +63,28 @@ export default function UpdatePatient({
     cardNumber: cardNumber,
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async(event) => {
     event.preventDefault();
-    Swal.fire({
-      title: "Are you sure?",
-      text: "You won't be able to revert this!",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, update it!",
-    }).then((result) => {
-      if (result.isConfirmed) {
         dispatch(updatePatient(patient));
-        Swal.fire("Updated!", "Your file has been updated.", "success");
-      }
-    });
-
-    dispatch(updatePatient(patient));
+       await   Swal.fire("Updated!",`the record updated successfully.`, "success").then((result)=>{
+           if(result.isConfirmed){
+          handleClose()
+          }
+        }) 
+        
   };
 
   useEffect(() => {
     console.log(patientToBeUpdated);
-  }, []);
-
+  },[]);
+ 
+  if (!patientToBeUpdated) {
+    return <div>Loading...</div>; // Or any other appropriate loading state
+  }
+  
   return (
-    <>
-      {showModal && (
+    <> 
+      {showModal &&(
         <div className="fixed top-0 left-0 z-10 flex items-start justify-end w-full h-full bg-gray-800 text-secondary-dark4 gap-x-4 bg-opacity-40">
           <div className="flex flex-col justify-between overflow-y-auto top-0 max-w-[1200px] rounded-lg mx-auto my-16 pb-28 ssm:w-[400px] bg-white h-full  space-y-4 px-4 ">
             <form className="box-content w-full max-w-lg p-10 m-auto mt-10 border-2 border-gray-200">
@@ -131,7 +125,6 @@ export default function UpdatePatient({
                     onChange={(e) => setLastName(e.target.value)}
                   />
                 </div>
-
                 <div className="w-full px-3 ">
                   <label
                     className="block mb-2 text-xs font-bold tracking-wide text-gray-700 uppercase"

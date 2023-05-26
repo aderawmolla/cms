@@ -12,10 +12,16 @@ export default function DoctorComponent(props) {
   const dispatch = useDispatch();
 
   const [showModal, setShowModal] = useState(false);
-  const [toBeUpdated, setToBeUpdated] = useState(doctors[0]);
+  const [toBeUpdated, setToBeUpdated] = useState(null);
 
-  const handleClose = () => setShowModal(false);
-  const handleShow = () => setShowModal(true);
+  const handleClose = () => {
+    setShowModal(false);
+    toBeUpdated(null);
+  };
+  const handleShow = (doctor) => {
+    setShowModal(true);
+    toBeUpdated(doctor);
+  };
 
   useEffect(() => {
     console.log(toBeUpdated);
@@ -80,7 +86,7 @@ export default function DoctorComponent(props) {
                   d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
                 ></path>
               </svg>
-              doctors Search
+               Search
             </button>
           </form>
         </div>
@@ -141,9 +147,9 @@ export default function DoctorComponent(props) {
                         <button
                           title="Edit"
                           className="hover:text-black"
-                          onClick={async () => {
-                            await setToBeUpdated(doctor);
-                            await handleShow();
+                          onClick={ () => {
+                            // await setToBeUpdated(doctor);
+                             handleShow(doctor);
                           }}
                         >
                           <svg
@@ -205,7 +211,7 @@ export default function DoctorComponent(props) {
                         </button>
                         <Link
                           to={`/adminDashbord/doctor/${doctor.id}`}
-                          className="text-blue-500  hover:text-blue-200"
+                          className="text-blue-500 hover:text-blue-200"
                         >
                           Detail
                         </Link>
