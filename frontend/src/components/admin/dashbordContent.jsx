@@ -7,12 +7,12 @@ export default function DashbordContent(props) {
     // <!-- This is an example component -->
     <>
       <main>
-        <div className="pt-6 px-4">
-          <div className="w-full grid grid-cols-1 xl:grid-cols-2 2xl:grid-cols-3 gap-4">
-            <div className="bg-white shadow rounded-lg p-4 sm:p-6 xl:p-8  2xl:col-span-2">
+        <div className="px-4 pt-6">
+          <div className="grid w-full grid-cols-1 gap-4 xl:grid-cols-2 2xl:grid-cols-3">
+            <div className="p-4 bg-white rounded-lg shadow sm:p-6 xl:p-8 2xl:col-span-2">
               <div className="flex flex-wrap items-center justify-between mb-4">
                 <div className="flex-shrink-0 mt-3">
-                  <span className="text-2xl sm:text-3xl leading-none font-bold text-gray-900">
+                  <span className="text-2xl font-bold leading-none text-gray-900 sm:text-3xl">
                     $45,385
                   </span>
                   <h3 className="text-base font-normal text-gray-500">
@@ -20,7 +20,7 @@ export default function DashbordContent(props) {
                   </h3>
                 </div>
                 <div className="flex-shrink-0 mt-3">
-                  <span className="text-2xl sm:text-3xl leading-none font-bold text-gray-900">
+                  <span className="text-2xl font-bold leading-none text-gray-900 sm:text-3xl">
                     $5,385
                   </span>
                   <h3 className="text-base font-normal text-gray-500">
@@ -30,10 +30,10 @@ export default function DashbordContent(props) {
               </div>
               <div id="main-chart"></div>
             </div>
-            <div className="bg-white shadow rounded-lg p-4 sm:p-6 xl:p-8 ">
-              <div className="mb-4 flex items-center justify-between">
+            <div className="p-4 bg-white rounded-lg shadow sm:p-6 xl:p-8 ">
+              <div className="flex items-center justify-between mb-4">
                 <div>
-                  <h3 className="text-xl font-bold text-gray-900 mb-2">
+                  <h3 className="mb-2 text-xl font-bold text-gray-900">
                     Recent Health Events
                   </h3>
                   <span className="text-base font-normal text-gray-500">
@@ -43,7 +43,7 @@ export default function DashbordContent(props) {
                 <div className="flex-shrink-0">
                   <a
                     href="/"
-                    className="text-sm font-medium text-cyan-600 hover:bg-gray-100 rounded-lg p-2"
+                    className="p-2 text-sm font-medium rounded-lg text-cyan-600 hover:bg-gray-100"
                   >
                     View all
                   </a>
@@ -51,20 +51,20 @@ export default function DashbordContent(props) {
               </div>
               <div className="flex flex-col mt-8">
                 <div className="overflow-x-auto rounded-lg">
-                  <div className="align-middle inline-block min-w-full">
-                    <div className="shadow overflow-hidden sm:rounded-lg">
+                  <div className="inline-block min-w-full align-middle">
+                    <div className="overflow-hidden shadow sm:rounded-lg">
                       <table className="min-w-full divide-y divide-gray-200">
                         <thead className="bg-gray-50">
                           <tr>
                             <th
                               scope="col"
-                              className="p-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                              className="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase"
                             >
                               Event
                             </th>
                             <th
                               scope="col"
-                              className="p-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                              className="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase"
                             >
                               Date & Time
                             </th>
@@ -86,63 +86,62 @@ export default function DashbordContent(props) {
             </div>
           </div>
 
-          <div className="mt-4 w-full grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
-            <div className="bg-white shadow rounded-lg p-4 sm:p-6 xl:p-8 ">
+          <div className="grid w-full grid-cols-1 gap-4 mt-4 md:grid-cols-2 xl:grid-cols-3">
+            <div className="p-4 bg-white rounded-lg shadow sm:p-6 xl:p-8 ">
               <div className="flex items-center">
                 <div className="flex-shrink-0">
-                  <span className="text-2xl sm:text-3xl leading-none font-bold text-gray-900">
+                  <span className="text-2xl font-bold leading-none text-gray-900 sm:text-3xl">
                     23
                   </span>
                   <h3 className="text-base font-normal text-gray-500">
                     New patients this week
                   </h3>
                 </div>
-                <div className="ml-5 w-0 flex items-center justify-end flex-1 text-green-500 text-base font-bold">
+                <div className="flex items-center justify-end flex-1 w-0 ml-5 text-base font-bold text-green-500">
                   14.6%
                 </div>
               </div>
             </div>
-            <div className="bg-white shadow rounded-lg p-4 sm:p-6 xl:p-8 ">
+            <div className="p-4 bg-white rounded-lg shadow sm:p-6 xl:p-8 ">
               <div className="flex items-center">
                 <div className="flex-shrink-0">
-                  <span className="text-2xl sm:text-3xl leading-none font-bold text-gray-900">
+                  <span className="text-2xl font-bold leading-none text-gray-900 sm:text-3xl">
                     20
                   </span>
                   <h3 className="text-base font-normal text-gray-500">
                     New Appointments of this week
                   </h3>
                 </div>
-                <div className="ml-5 w-0 flex items-center justify-end flex-1 text-green-500 text-base font-bold">
+                <div className="flex items-center justify-end flex-1 w-0 ml-5 text-base font-bold text-green-500">
                   32.9%
                 </div>
               </div>
             </div>
-            <div className="bg-white shadow rounded-lg p-4 sm:p-6 xl:p-8 ">
+            <div className="p-4 bg-white rounded-lg shadow sm:p-6 xl:p-8 ">
               <div className="flex items-center">
                 <div className="flex-shrink-0">
-                  <span className="text-2xl sm:text-3xl leading-none font-bold text-gray-900">
+                  <span className="text-2xl font-bold leading-none text-gray-900 sm:text-3xl">
                     385
                   </span>
                   <h3 className="text-base font-normal text-gray-500">
                     Prescription of this week
                   </h3>
                 </div>
-                <div className="ml-5 w-0 flex items-center justify-end flex-1 text-green-500 text-base font-bold">
+                <div className="flex items-center justify-end flex-1 w-0 ml-5 text-base font-bold text-green-500">
                   5%
                 </div>
               </div>
             </div>
           </div>
-
-          <div className="grid grid-cols-1 2xl:grid-cols-2 xl:gap-4 my-4">
-            <div className="bg-white shadow rounded-lg mb-4 p-4 sm:p-6 h-full">
+          <div className="grid grid-cols-1 my-4 2xl:grid-cols-2 xl:gap-4">
+            <div className="h-full p-4 mb-4 bg-white rounded-lg shadow sm:p-6">
               <div className="flex items-center justify-between mb-4">
                 <h3 className="text-xl font-bold leading-none text-gray-900">
                   New Registered Patients{" "}
                 </h3>
                 <a
                   href="/"
-                  className="text-sm font-medium text-cyan-600 hover:bg-gray-100 rounded-lg inline-flex items-center p-2"
+                  className="inline-flex items-center p-2 text-sm font-medium rounded-lg text-cyan-600 hover:bg-gray-100"
                 >
                   View all
                 </a>
@@ -150,7 +149,7 @@ export default function DashbordContent(props) {
 
               {/* new patient component */}
 
-              <div className="mt-4 mx-4">
+              <div className="mx-4 mt-4">
                 <div className="w-full overflow-hidden rounded-lg shadow-xs">
                   <div className="w-full overflow-x-auto">
                     <table className="w-full">
@@ -158,10 +157,12 @@ export default function DashbordContent(props) {
                         <tr className="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
                           <th className="px-4 py-3">Patient Full Name</th>
                           <th className="px-4 py-3">Gender</th>
-                          <th className="px-4 py-3">Id</th>
+                          <th className="px-4 py-3">Age</th>
                           <th className="px-4 py-3">Contact</th>
                           <th className="px-4 py-3">Date</th>
+                          <th className="px-4 py-3">Time</th>
                           <th className="px-4 py-4">Actions</th>
+                          <th className="px-4 py-4">payment</th>
                           <th></th>
                         </tr>
                       </thead>
@@ -239,36 +240,7 @@ export default function DashbordContent(props) {
               </div>
 
               {/* new patient component */}
-            </div>
-            <div className="bg-white shadow rounded-lg p-4 sm:p-6 xl:p-8 ">
-              <h3 className="text-xl leading-none font-bold text-gray-900 mb-10">
-                Last 7 Days Patient and Disese Statistics
-              </h3>
-              <div className="block w-full overflow-x-auto">
-                <table className="items-center w-full bg-transparent border-collapse">
-                  <thead>
-                    <tr>
-                      <th className="px-4 bg-gray-50 text-gray-700 align-middle py-3 text-xs font-semibold text-left uppercase border-l-0 border-r-0 whitespace-nowrap">
-                        Disease
-                      </th>
-                      <th className="px-4 bg-gray-50 text-gray-700 align-middle py-3 text-xs font-semibold text-left uppercase border-l-0 border-r-0 whitespace-nowrap">
-                        Number of Patients
-                      </th>
-                      <th className="px-4 bg-gray-50 text-gray-700 align-middle py-3 text-xs font-semibold text-left uppercase border-l-0 border-r-0 whitespace-nowrap min-w-140-px">
-                        percentage
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody className="divide-y divide-gray-100">
-                    <DiseaseComponent />
-                    <DiseaseComponent />
-                    <DiseaseComponent />
-                    <DiseaseComponent />
-                    <DiseaseComponent />
-                  </tbody>
-                </table>
-              </div>
-            </div>
+            </div>    
           </div>
         </div>
       </main>

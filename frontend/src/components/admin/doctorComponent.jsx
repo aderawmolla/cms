@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-// import doctors from "../../models/doctors.json";
-
 import { useSelector, useDispatch } from "react-redux";
 import { deleteDoctor } from "../../redux/doctorSlice";
 import Swal from "sweetalert2";
@@ -12,23 +10,25 @@ export default function DoctorComponent(props) {
   const dispatch = useDispatch();
 
   const [showModal, setShowModal] = useState(false);
-  const [toBeUpdated, setToBeUpdated] = useState(null);
+  const [doctorToBeUpdated, setDoctorToBeUpdated] = useState(null);
 
   const handleClose = () => {
     setShowModal(false);
-    toBeUpdated(null);
+    setDoctorToBeUpdated(null);
   };
   const handleShow = (doctor) => {
     setShowModal(true);
-    toBeUpdated(doctor);
+    setDoctorToBeUpdated(doctor);
   };
 
   useEffect(() => {
-    console.log(toBeUpdated);
-  }, [toBeUpdated]);
-
+    console.log(doctorToBeUpdated);
+  }, [doctorToBeUpdated]);
+  if (!doctors) {
+    return <div>Loading...</div>; // Or any other appropriate loading state
+  }
   return (
-    <>
+    <> 
       <div className="mx-4 mt-4">
         <div className="flex flex-col items-end mb-10">
           <Link to="/adminDashbord/addDoctor">
@@ -108,6 +108,17 @@ export default function DoctorComponent(props) {
               </thead>
               <tbody className="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
                 {doctors.map((doctor, index) => (
+
+                  <>
+                  
+                  {doctorToBeUpdated && doctorToBeUpdated.id ==doctor.id && (
+                      <UpdateDoctor
+                        showModal={showModal}
+                        handleClose={handleClose}
+                        doctorToBeUpdated={doctorToBeUpdated}
+                      />
+                    )}
+
                   <tr
                     key={index}
                     className="text-gray-700 bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-900 dark:text-gray-400"
@@ -147,7 +158,7 @@ export default function DoctorComponent(props) {
                         <button
                           title="Edit"
                           className="hover:text-black"
-                          onClick={ () => {
+                          onClick={()=>{
                             // await setToBeUpdated(doctor);
                              handleShow(doctor);
                           }}
@@ -218,17 +229,16 @@ export default function DoctorComponent(props) {
                       </div>
                     </td>
                   </tr>
-                ))}
+                
+                  </> 
+                ) 
+                )}
               </tbody>
             </table>
           </div>
         </div>
       </div>
-      <UpdateDoctor
-        showModal={showModal}
-        handleClose={handleClose}
-        patientToBeUpdated={toBeUpdated}
-      />
+     
     </>
   );
 }

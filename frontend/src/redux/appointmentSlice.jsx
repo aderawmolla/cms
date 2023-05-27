@@ -2,7 +2,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import axios from 'axios'
 function removeObjectWithId(arr, id) {
- const objWithIdIndex = arr.findIndex((obj) => obj.id === id);
+ const objWithIdIndex = arr.findIndex((obj) => obj.id == id);
   if (objWithIdIndex > -1) {
     arr.splice(objWithIdIndex, 1);
   }
@@ -33,7 +33,7 @@ export const appointmentSlice = createSlice({
   reducers: {
     addAppointment: (state, action) => {
       const itemIndex = state.appointments.findIndex(
-        (item) => item.id === action.payload.id
+        (item) =>item.id ==action.payload.id
       );
       if (itemIndex === -1) {
         state.appointments.splice(0, 0, action.payload);
@@ -52,17 +52,16 @@ export const appointmentSlice = createSlice({
     },
     deleteAppointment:  (state, action) => {
       try {
-        axios.delete(`http://localhost:5000/appointments${action.payload.id}`);
+        axios.delete(`http://localhost:5000/appointments/${action.payload.id}`);
         console.log('appointment deleted successfully');
         // Optionally perform any additional actions after deletion
       } catch (error) {
         console.error('Error deleting patient:', error);
-        throw error; // Rethrow the error or handle it as needed
       }
-      removeObjectWithId(state.doctors, action.payload.id);
-      const { quantity } = calculateQuantity(state.doctors);
+      removeObjectWithId(state.appointments,action.payload.id);
+      const { quantity } = calculateQuantity(state.appointments);
       state.quantity = quantity;
-      localStorage.setItem("doctors", JSON.stringify(state));
+      localStorage.setItem("appointments", JSON.stringify(state));
     },
     
     updateAppointment:(state, action) => {
@@ -71,7 +70,7 @@ export const appointmentSlice = createSlice({
       );
       if (itemIndex === -1) {
       } else {
-         axios.put(`http://localhost:5000/appointments/${action.payload.id}`,action.payload); 
+       axios.put(`http://localhost:5000/appointments/${action.payload.id}`,action.payload); 
         removeObjectWithId(state.appointments, action.payload.id);
         state.appointments.splice(itemIndex, 0, action.payload);
     }

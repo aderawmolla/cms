@@ -53,12 +53,11 @@ export default function AddDoctor({
     wereda: wereda,
     kebele: kebele,
   };
-
   const handleSubmit = async (event) => {
     console.log(patient);
 
     event.preventDefault();
-    await dispatch(addDoctor(patient));
+     dispatch(addDoctor(patient));
 
     await Swal.fire({
       icon: "success",
@@ -356,7 +355,7 @@ export default function AddDoctor({
           type=""
           className="px-10 py-2 mt-5 font-bold text-white transition-colors rounded shadow bg-primary focus:outline-none hover:bg-blue-700"
         >
-          Add Doctor
+        Add Doctor
         </button>
       </div>
     </form>

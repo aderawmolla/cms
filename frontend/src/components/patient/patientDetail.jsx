@@ -16,7 +16,7 @@ export default function PatientDetail() {
                 <div x-data="{ openSettings: false }" className="mt-4 rounded ">
 
                   <div className="w-full h-[250px]">
-                    <img
+                    <img alt="new patient"
                       src="https://vojislavd.com/ta-template-demo/assets/img/profile-background.jpg"
                       className="w-full h-full rounded-tl-lg rounded-tr-lg"
                     />

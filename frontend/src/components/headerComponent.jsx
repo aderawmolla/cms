@@ -1,12 +1,14 @@
 import React from "react";
 export default function HeaderComponent(props) {
   return (
+    
     <div className="fixed z-10 flex items-center justify-between w-full text-white h-14">
       <div className="flex items-center justify-start pl-3 bg-blue-800 border-none md:justify-center w-14 md:w-64 h-14 dark:bg-gray-800">
         <img
           className="mr-2 overflow-hidden rounded-full w-30 h-30 md:w-10 md:h-10"
           src="https://therminic2018.eu/wp-content/uploads/2018/07/dummy-avatar.jpg"
         />
+        
         <span className="hidden md:block">ADMIN</span>
       </div>
       <div className="flex items-center justify-between bg-blue-800 h-14 dark:bg-gray-800 header-right">

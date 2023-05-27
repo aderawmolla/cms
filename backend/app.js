@@ -7,6 +7,7 @@ const PORT=5000
 const patientRoutes=require('./routes/patientRoutes')
 const adminRoutes=require('./routes/adminRoutes')
 const doctorRoutes=require('./routes/doctorRoutes')
+const paymentRoutes=require('./routes/paymentRoutes')
 const appointmentRoutes=require('./routes/appointmentRoutes')
 const loginRoutes=require('./routes/loginRoute')
 app.use(express.json());
@@ -25,3 +26,6 @@ app.use('/authenticate',loginRoutes);
 app.use('/admins',adminRoutes);
 app.use('/doctors',doctorRoutes)
 app.use('/appointments',appointmentRoutes)
+app.use('/payments',paymentRoutes)
+
+

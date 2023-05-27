@@ -1,6 +1,7 @@
 import { Link,useNavigate } from "react-router-dom";
 import React, { useEffect,useState } from 'react'
 import axios from 'axios'
+import {v4} from 'uuid'
 export default function SingUp() {
 
   const [responseData, setResponseData] = useState(null)
@@ -8,13 +9,20 @@ export default function SingUp() {
   const [errorMessage, setErrorMessage] = useState('');
   useEffect(()=>{
     console.log(responseData)
+   
     if (responseData) {
-      navigate("/signIn/payment");
+      const firstName=responseData.firstName;
+      const lastName=responseData.lastName;
+      const phoneNumber=responseData.contact;
+      const email=responseData.email;
+      navigate('/signIn/payment', { state: {firstName:firstName,lastName:lastName,phoneNumber:phoneNumber,email:email} });
+
     } else {
     }
   },[responseData,navigate])
   const [formData, setFormData] = useState(
     {
+      id:v4(),
       firstName: '',
       lastName: '',
       age: '',
@@ -29,7 +37,9 @@ export default function SingUp() {
       state: "Amhara",
       wereda: "Bahir Dar",
       kebele: "Poly",
-      cardNumber: ""
+      cardNumber: "",
+      isNew:'yes',
+      fee:""
     });
 
   const handleChange = (e) => {
@@ -177,7 +187,7 @@ export default function SingUp() {
             <input
               className="content-center w-full px-4 py-2 text-base border-2 border-gray-300 focus:outline-none focus:border-indigo-500"
               type="text"
-              placeholder="Enter your password"
+              placeholder="Enter your phone number"
               onChange={handleChange} value={formData.contact} name="contact"
 
             // value={""}

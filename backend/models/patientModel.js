@@ -7,8 +7,8 @@ const sequelize = new Sequelize(
 });
 const Patient = sequelize.define('Patient', {
   id: {
-    type: Sequelize.INTEGER,
-    autoIncrement: true,
+    type: Sequelize.STRING(255),
+    autoIncrement:false,
     primaryKey: true,
   },
   firstName: {
@@ -35,6 +35,7 @@ const Patient = sequelize.define('Patient', {
     type: Sequelize.STRING(10),
     allowNull: true,
   },
+  
   password: {
     type: Sequelize.STRING(255),
     allowNull: false,
@@ -71,5 +72,13 @@ const Patient = sequelize.define('Patient', {
     type: Sequelize.STRING(20),
     allowNull: true,
   },
+  isNew: {
+    type: Sequelize.STRING(10),
+    allowNull: false,
+  },
+  fee: {
+    type: Sequelize.STRING(100),
+    allowNull: true,
+  }, 
 });
 module.exports = {Patient,sequelize};

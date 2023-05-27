@@ -10,7 +10,6 @@ function removeObjectWithId(arr, id) {
 
   return arr;
 }
-
 function calculateQuantity(doctors) {
   let quantity = 0;
   for (const item of doctors) {
@@ -24,9 +23,9 @@ const data = response.data;
 data.reverse();
 const quantity = data.length;
 console.log(quantity)
-const initialState = {
-  doctors: data,
-  quantity: quantity,
+const initialState={
+  doctors:data,
+  quantity:quantity,
 };
     // Call the fetchData function to fetch the data and update the initial state
   
@@ -39,7 +38,8 @@ export const doctorSlice = createSlice({
         (item) => item.username === action.payload.username
       );
       if (itemIndex === -1) {
-        state.doctors.push(action.payload);
+        state.doctors.splice(0, 0, action.payload);
+
         state.quantity += 1;
          const response=  axios.post('http://localhost:5000/doctors',action.payload).then(()=>{
           console.log(response.data)
@@ -59,7 +59,7 @@ export const doctorSlice = createSlice({
         console.log('doctor deleted successfully');
         // Optionally perform any additional actions after deletion
       } catch (error) {
-        console.error('Error deleting patient:', error);
+        console.error('Error deleting doctor:', error);
         throw error; // Rethrow the error or handle it as needed
       }
       removeObjectWithId(state.doctors, action.payload.id);
@@ -75,8 +75,9 @@ export const doctorSlice = createSlice({
       if (itemIndex === -1) {
       } else {
           axios.put(`http://localhost:5000/doctors/${action.payload.id}`,action.payload); 
-        removeObjectWithId(state.docors, action.payload.id);
-        state.patients.push(action.payload);
+        removeObjectWithId(state.doctors, action.payload.id);
+        state.doctors.splice(itemIndex, 0, action.payload);
+
       }
       const { quantity } = calculateQuantity(state.doctors);
       state.quantity = quantity;

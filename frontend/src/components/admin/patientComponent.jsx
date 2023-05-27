@@ -108,8 +108,8 @@ export default function PatientComponent() {
               </thead>
               <tbody className="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
                 {patients.map((patient, index) => (
-                  <>
-                <React.Fragment key={index}>
+                  <>  
+                   <React.Fragment key={index}>
                     {patientToBeUpdated && patientToBeUpdated.id === patient.id && (
                       <UpdatePatient
                         showModal={showModal}
@@ -192,7 +192,7 @@ export default function PatientComponent() {
                             }}
                             className="w-5 h-5"
                             x-data="{ tooltip: 'Delete' }"
-                          >
+                          >                     
                             <svg
                               xmlns="http://www.w3.org/2000/svg"
                               fill="none"

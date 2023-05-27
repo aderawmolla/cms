@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from "react";
 // import './add.js'
 import specializations from "../../models/specializations.json";
-import { v4 as uuidv4 } from "uuid";
 import Swal from "sweetalert2";
 import { useDispatch } from "react-redux";
-import { addPatient, updatePatient } from "../../redux/patientSlice.jsx";
 import { updateDoctor } from "../../redux/doctorSlice";
 
 export default function UpdateDoctor({
@@ -28,10 +26,7 @@ export default function UpdateDoctor({
   const [kebele, setKebele] = useState(doctorToBeUpdated.kebele);
   const [selectedImage, setSelectedImage] = useState(doctorToBeUpdated.photo);
   const [imagePreview, setImagePreview] = useState(doctorToBeUpdated.photo);
-  
-
   const dispatch = useDispatch();
-
   const handleImageChange = (event) => {
     const file = event.target.files[0];
     setSelectedImage(file);
@@ -43,11 +38,11 @@ export default function UpdateDoctor({
   };
 
   const doctor = {
+    id:id,
     firstName: firstName,
     lastName: lastName,
     photo: selectedImage,
     gender: gender,
-    id: id,
     password: password,
     contact: phone,
     username: userName,
@@ -61,14 +56,22 @@ export default function UpdateDoctor({
     event.preventDefault();
    
         dispatch(updateDoctor(doctor));
-        Swal.fire("Updated!", "Your file has been updated.", "success");
+        Swal.fire("Updated!", "Your file has been updated.", "success").then((result)=>{
+          if(result.isConfirmed){
+            handleClose()
+          }
+        })
 
   };
-
+  useEffect(()=>{
+     
+  },[showModal])
   useEffect(() => {
     console.log(doctorToBeUpdated);
   }, [doctorToBeUpdated]);
-
+  if (!doctorToBeUpdated) {
+    return <div>Loading...</div>; // Or any other appropriate loading state
+  }
   return (
     <>
       {showModal && (

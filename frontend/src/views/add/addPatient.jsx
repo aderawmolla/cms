@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 // import './add.js'
 import doctors from "../../models/doctors.json";
+import { v4} from "uuid";
 
 import Swal from "sweetalert2";
 import { useDispatch } from "react-redux";
@@ -16,10 +17,11 @@ export default function AddPatient({
   const [description, setDescription] = useState("");
   const [assignedDoctor, setAssignedDoctor] = useState("");
   const [gender, setGender] = useState("");
-  // const [id, setId] = useState("");
+  // const [id, setId] = useState(v4());
   const [age, setAge] = useState(0);
   const [password, setPassword] = useState("");
   const [phone, setPhone] = useState("");
+  const [fee, setFee] = useState("");
   const [userName, setUserName] = useState("");
   const [email, setEmail] = useState("");
   const [date, setDate] = useState("");
@@ -42,6 +44,7 @@ export default function AddPatient({
   };
 
   const patient = {
+    id:v4(),
     firstName: firstName,
     lastName: lastName,
     description: description,
@@ -58,6 +61,9 @@ export default function AddPatient({
     wereda: wereda,
     kebele: kebele,
     cardNumber: cardNumber,
+    isNew:"no",
+    fee:fee,
+
   };
 
   const handleSubmit = async (event) => {
@@ -81,7 +87,7 @@ export default function AddPatient({
   return (
     <form className="box-content w-full max-w-lg p-10 m-auto mt-10 border-2 border-gray-200">
       <h1 className="mb-10 text-xl font-bold text-center">
-        Update The Information of the Patient
+        Add Information of the Patient
       </h1>
       <div className="grid grid-cols-2 gap-8 mb-6 -mx-3">
         <div className="w-full px-3">
@@ -247,6 +253,23 @@ export default function AddPatient({
             placeholder="Fill phone number"
             value={phone}
             onChange={(e) => setPhone(e.target.value)}
+          />
+          {/* <p className="text-xs italic text-gray-600">Make it as long and </p> */}
+        </div>
+        <div className="w-full px-3 ">
+          <label
+            className="block mb-2 text-xs font-bold tracking-wide text-gray-700 uppercase"
+            for="grid-password"
+          >
+            Registration Fee
+          </label>
+          <input
+            className="block w-full px-4 py-3 mb-3 leading-tight text-gray-700 border rounded appearance-none focus:outline-none focus:bg-white focus:border-gray-500"
+            id="grid-password"
+            type="number"
+            placeholder="Fill payment"
+            value={fee}
+            onChange={(e) => setFee(e.target.value)}
           />
           {/* <p className="text-xs italic text-gray-600">Make it as long and </p> */}
         </div>

@@ -62,7 +62,6 @@ export default function UpdatePatient({
     kebele: kebele,
     cardNumber: cardNumber,
   };
-
   const handleSubmit = async(event) => {
     event.preventDefault();
         dispatch(updatePatient(patient));
@@ -188,7 +187,6 @@ export default function UpdatePatient({
                   />
                   {/* <p className="text-xs italic text-gray-600">Make it as long and </p> */}
                 </div>
-
                 <div className="w-full px-3 mt-6">
                   <label
                     className="block mb-2 text-xs font-bold tracking-wide text-gray-700 uppercase"

@@ -5,6 +5,7 @@ export default function SingIn() {
   const [responseData, setResponseData] = useState(null)
   const navigate= useNavigate(); // Create a history object
   const [errorMessage,setErrorMessage] = useState('');
+  
   useEffect(()=>{
     if (responseData && responseData.userType ==="Admin") {
       navigate("/adminDashbord");
@@ -17,6 +18,8 @@ export default function SingIn() {
       navigate(`/patient/${responseData.id}`)
     }
   },[responseData,navigate])
+
+  
   const [formData, setFormData] = useState(
     {
         username:'',
@@ -29,6 +32,8 @@ export default function SingIn() {
     }));
   };
   const handleSubmit = async (e) => {
+
+    
     e.preventDefault();
     try {
        await axios.post('http://localhost:5000/authenticate/login',formData).then(response => {
@@ -118,8 +123,8 @@ export default function SingIn() {
             <Link
               to="/signIn/signUp"
               className="text-indigo-400 no-underline transition duration-300 ease-in cursor-pointer hover:text-blue-500 hover:underline"
-            >             
-              Register
+            >         
+            Register
             </Link>
           </p>
         </form>

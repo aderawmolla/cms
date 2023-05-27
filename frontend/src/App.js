@@ -20,7 +20,6 @@ import ResponseLabratoryComponent from "./components/doctor/responseLabratoryCom
 import SingUp from "./views/login/signup";
 import SingIn from "./views/login/singin";
 import Payment from "./views/login/payment";
-import Verify from "./views/login/verify";
 import LabDoctorDashbord from "./views/dashbord/labDoctorDashbord";
 import LabRequest from "./views/dashbord/labRequest";
 import LabResult from "./views/dashbord/labResult";
@@ -28,6 +27,7 @@ import LabResult from "./views/dashbord/labResult";
 import DoctorDetail from "./components/doctor/doctorDetail";
 import DoctorPrescription from "./components/prescription/doctorPrescription";
 import LaboratoryPrescription from "./components/prescription/labPrescription";
+import PaymentSuccess from "./views/login/paymentSuccess";
 export default function App() {
 
 
@@ -36,6 +36,7 @@ export default function App() {
       <Routes>
         <Route path="/" index element={<Home />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/paymentSuccess" element={<PaymentSuccess />} />
         <Route path="/doctor" element={<DoctorDashbord />}>
           <Route path="" element={<DoctorContent />} />
           <Route path="labratory" element={<ResponseLabratoryComponent />} />
@@ -46,7 +47,6 @@ export default function App() {
           <Route path="" element={<LabRequest/>} />
           <Route path="result" element={<LabResult />} />
         </Route>
-       
         <Route path="/signIn" element={<Login />}>
           <Route path="" element={<SingIn/>} />
           <Route path="signUp" element={<SingUp />} />
@@ -54,7 +54,6 @@ export default function App() {
        </Route>
         {/* <Route path="/doctor" element={<DoctorComponent />} /> */}
         <Route path="/patient/:id" element={<PatientProfile/>} />
-        <Route path="/verify" element={<Verify />} />
         <Route path="/adminDashbord/" element={<AdminDashbord />}>
           <Route path="" element={<DashbordContent />} />
           <Route path="patient" element={<PatientComponent/>} />

@@ -21,6 +21,7 @@ router.post('/', async (req, res) => {
       const newPatient = new Patient(req.body);
       await sequelize.sync(); // Sync the model definition with the database, creating the table if necessary
       const createdPatient = await Patient.create({
+        id:newPatient.id,
         firstName: newPatient.firstName,
         lastName: newPatient.lastName,
         age: newPatient.age,
@@ -36,6 +37,8 @@ router.post('/', async (req, res) => {
         wereda: newPatient.wereda,
         kebele: newPatient.kebele,
         cardNumber: newPatient.cardNumber,
+        isNew:newPatient.isNew,
+        fee:newPatient.fee
       });
   
       res.json(createdPatient);
