@@ -1,11 +1,21 @@
 import React from 'react'
+import { useEffect } from 'react';
 import {Link } from 'react-router-dom'
+import {useSelector,useDispatch} from 'react-redux'
+import { updatePatient } from '../../redux/patientSlice';
+
 export default function PaymentSuccess(props){
+ const patients = useSelector((state) => state.patients.patients);
+//  console.log(patients)
+const dispatch=useDispatch()
+  useEffect(() => {
+    const updatedPatient = { ...patients[0], fee: '100' };
+    dispatch(updatePatient(updatedPatient));
+    console.log(updatePatient)
+}, []);
+ 
+ console.log(patients[0])
     return <>
-     
-
-
-
     <div class="bg-gray-100 h-screen">
       <div class="bg-white p-6  md:mx-auto">
         <svg viewBox="0 0 24 24" class="text-green-600 w-16 h-16 mx-auto my-6">

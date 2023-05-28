@@ -8,10 +8,8 @@ import UpdateDoctor from "../../views/update/updateDoctor";
 export default function DoctorComponent(props) {
   const doctors = useSelector((state) => state.doctors.doctors);
   const dispatch = useDispatch();
-
   const [showModal, setShowModal] = useState(false);
   const [doctorToBeUpdated, setDoctorToBeUpdated] = useState(null);
-
   const handleClose = () => {
     setShowModal(false);
     setDoctorToBeUpdated(null);
@@ -108,9 +106,7 @@ export default function DoctorComponent(props) {
               </thead>
               <tbody className="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
                 {doctors.map((doctor, index) => (
-
-                  <>
-                  
+                  <> 
                   {doctorToBeUpdated && doctorToBeUpdated.id ==doctor.id && (
                       <UpdateDoctor
                         showModal={showModal}

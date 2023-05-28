@@ -23,9 +23,7 @@ const jwt = require('jsonwebtoken');
     if (!user) {
       return res.json({ message: 'User not found' });
     }
-
     const isPasswordMatch = password.trim() === user.password.trim();
-
     if (isPasswordMatch) {
       const userType = user.constructor.name;
       const token = jwt.sign({ userId: user.id, userType }, 'clinic-management', { expiresIn: '1h' });

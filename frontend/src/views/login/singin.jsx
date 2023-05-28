@@ -9,18 +9,19 @@ export default function SingIn() {
   useEffect(()=>{
     if (responseData && responseData.userType ==="Admin") {
       navigate("/adminDashbord");
-    } else if (responseData&& responseData.userType === "Doctor") {
+    } else if (responseData && responseData.userType === "Doctor") {
       navigate("/doctor");  
     } else if (responseData && responseData.userType === "Labratoriest") {
       navigate("/lab");
     }
-    else if(responseData && responseData.userType === "Patient") {
+    else if(responseData && responseData.userType ==="Patient") {
       navigate(`/patient/${responseData.id}`)
+      console.log(responseData)
     }
-  },[responseData,navigate])
+  },
+  [responseData,navigate])
 
-  
-  const [formData, setFormData] = useState(
+  const [formData,setFormData] = useState(
     {
         username:'',
         password:''
@@ -31,19 +32,20 @@ export default function SingIn() {
       [e.target.name]: e.target.value,
     }));
   };
+  
+  
   const handleSubmit = async (e) => {
-
-    
     e.preventDefault();
     try {
        await axios.post('http://localhost:5000/authenticate/login',formData).then(response => {
-       setResponseData(response.data);
+        setResponseData(response.data);
     });   
     } catch (error) {
       console.log("invalid username or password")
       setErrorMessage('Invalid username or password');
     }
   };
+  
   return (
      <>
     <div

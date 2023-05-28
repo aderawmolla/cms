@@ -1,25 +1,15 @@
 import { Link,useNavigate } from "react-router-dom";
 import React, { useEffect,useState } from 'react'
-import axios from 'axios'
 import {v4} from 'uuid'
+import axios from 'axios'
+import { useDispatch } from "react-redux";
+import { addPatient } from "../../redux/patientSlice";
 export default function SingUp() {
 
   const [responseData, setResponseData] = useState(null)
   const navigate= useNavigate(); // Create a history object
   const [errorMessage, setErrorMessage] = useState('');
-  useEffect(()=>{
-    console.log(responseData)
-   
-    if (responseData) {
-      const firstName=responseData.firstName;
-      const lastName=responseData.lastName;
-      const phoneNumber=responseData.contact;
-      const email=responseData.email;
-      navigate('/signIn/payment', { state: {firstName:firstName,lastName:lastName,phoneNumber:phoneNumber,email:email} });
-
-    } else {
-    }
-  },[responseData,navigate])
+  const dispatch=useDispatch()
   const [formData, setFormData] = useState(
     {
       id:v4(),
@@ -38,7 +28,7 @@ export default function SingUp() {
       wereda: "Bahir Dar",
       kebele: "Poly",
       cardNumber: "",
-      isNew:'yes',
+      isNew:"yes",
       fee:""
     });
 
@@ -48,11 +38,23 @@ export default function SingUp() {
       [e.target.name]: e.target.value,
     }));
   };
+  // useEffect(()=>{
+  //   console.log(formData)
+  //   if (responseData) {
+  //     navigate("/signIn/payment");
+  //   } else {
+  //   }
+  // },[responseData,navigate])
   const handleSubmit = async (e) => {
     e.preventDefault();
+    
     try {
-      const response = await axios.post(' http://localhost:5000/patients',formData);
-       setResponseData(response.data)
+     dispatch(addPatient(formData))
+     const firstName=formData.firstName;
+     const lastName=formData.lastName;
+     const phoneNumber=formData.contact;
+     const email=formData.email;
+     navigate('/signIn/payment', { state: {firstName:firstName,lastName:lastName,phoneNumber:phoneNumber,email:email} });
     } catch (error) {
       console.error(error);
     }
@@ -187,7 +189,7 @@ export default function SingUp() {
             <input
               className="content-center w-full px-4 py-2 text-base border-2 border-gray-300 focus:outline-none focus:border-indigo-500"
               type="text"
-              placeholder="Enter your phone number"
+              placeholder="Enter your password"
               onChange={handleChange} value={formData.contact} name="contact"
 
             // value={""}

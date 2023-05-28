@@ -20,11 +20,12 @@ function calculateQuantity(doctors) {
 // const storedPatientData = localStorage.getItem("patients");
 const response = await axios.get("http://localhost:5000/doctors");
 const data = response.data;
-data.reverse();
+const sortedData = data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+const reversedData=sortedData.reverse()
 const quantity = data.length;
 console.log(quantity)
 const initialState={
-  doctors:data,
+  doctors:reversedData,
   quantity:quantity,
 };
     // Call the fetchData function to fetch the data and update the initial state

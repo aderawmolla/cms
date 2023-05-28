@@ -2,7 +2,7 @@ import React from "react";
 export default function DoctorPrescriptionComponent(props) {
   return (
     <>
-      <div className="mx-4 mt-7">
+     <div className="mx-4 mt-7">
         <div className="flex flex-col items-end mb-10">
           <form className="flex items-center w-full">
             <label for="voice-search" className="sr-only">

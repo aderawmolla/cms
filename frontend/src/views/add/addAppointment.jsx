@@ -16,9 +16,9 @@ export default function AddAppointment({
 
   const [formData, setFormData] = useState({
     id: uuidv4(),
-    doctorId: '',
-    patientId: '',
-    appointmentFee: '',
+    doctorId: "",
+    patientId: "",
+    appointmentFee:"100",
     location: "",
     date: '',
     time: '',

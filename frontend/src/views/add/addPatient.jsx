@@ -21,7 +21,7 @@ export default function AddPatient({
   const [age, setAge] = useState(0);
   const [password, setPassword] = useState("");
   const [phone, setPhone] = useState("");
-  const [fee, setFee] = useState("");
+  const [fee, setFee] = useState("100");
   const [userName, setUserName] = useState("");
   const [email, setEmail] = useState("");
   const [date, setDate] = useState("");

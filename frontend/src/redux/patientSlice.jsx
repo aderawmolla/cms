@@ -20,11 +20,13 @@ function calculateQuantity(patients) {
 // const storedPatientData = localStorage.getItem("patients");
 const response = await axios.get("http://localhost:5000/patients");
 const data = response.data;
+const sortedData = data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+const reversedData=sortedData.reverse()
 data.reverse();
-const quantity = data.length;
+const quantity = sortedData.length;
 console.log(quantity)
 const initialState = {
-  patients: data,
+  patients: reversedData,
   quantity: quantity,
 };
     // Call the fetchData function to fetch the data and update the initial state
@@ -33,17 +35,17 @@ export const patientSlice = createSlice({
   name:"patients",
   initialState,
   reducers: {
-    addPatient: (state, action) => {
+    addPatient:(state, action) => {
       const itemIndex = state.patients.findIndex(
         (item) => item.username ==action.payload.username
       );
       if (itemIndex === -1) {
         state.patients.splice(0, 0, action.payload);
         state.quantity += 1;
-         const response=  axios.post('http://localhost:5000/patients',action.payload).then(()=>{
-          console.log(response.data)
- 
-        })
+       const response= axios.post('http://localhost:5000/patients',action.payload).then(()=>{
+        console.log(response)
+      
+      })
 
       } else {
         state.patients[itemIndex].quantity += action.payload.quantity;

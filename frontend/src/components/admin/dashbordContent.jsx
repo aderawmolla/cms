@@ -1,13 +1,177 @@
 import React from "react";
+import {useSelector,useDispatch} from 'react-redux'
 import DiseaseComponent from "./diseaseComponent";
+import {Link } from 'react-router-dom'
 import EventComponent from "./eventComponent";
-import PatientRecord from "./patientRecord";
 export default function DashbordContent(props) {
+  const patients = useSelector((state) =>
+  state.patients.patients.filter((patient) =>patient.isNew=="yes")
+);
   return (
     // <!-- This is an example component -->
     <>
       <main>
         <div className="px-4 pt-6">
+          <div className="grid grid-cols-1 my-4 2xl:grid-cols-2 xl:gap-4">
+            <div className="h-full p-4 mb-4 bg-white rounded-lg shadow sm:p-6">
+              <div className="flex items-center justify-between mb-4">
+                <h3 className="text-xl font-bold leading-none text-gray-900">
+                  New Registered Patients{" "}
+                </h3>
+                <a
+                  href="/"
+                  className="inline-flex items-center p-2 text-sm font-medium rounded-lg text-cyan-600 hover:bg-gray-100"
+                >
+                  View all
+                </a>
+              </div>
+
+              {/* new patient component */}
+
+              <div className="mx-4 mt-4">
+                <div className="w-full overflow-hidden rounded-lg shadow-xs">
+                  <div className="w-full overflow-x-auto">
+                    <table className="w-full">
+                      <thead>
+                        <tr className="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
+                          <th className="px-4 py-3">Patient Full Name</th>
+                          <th className="px-4 py-3">Gender</th>
+                          <th className="px-4 py-3">Age</th>
+                          <th className="px-4 py-3">Contact</th>
+                          <th className="px-4 py-3">Date</th>
+                          <th className="px-4 py-3">Time</th>
+                          <th className="px-4 py-3">Actions</th>
+                          <th className="px-4 py-4">payment</th>
+                        </tr>
+                      </thead>
+                      <tbody className="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
+                       {patients.map((patient,index)=>(
+                       <tr className="text-gray-700 bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-900 dark:text-gray-400">
+                       <td className="px-4 py-3">
+                         <div className="flex items-center text-sm">
+                           <div className="relative hidden w-8 h-8 mr-3 rounded-full md:block">
+                             <img
+                               className="object-cover w-full h-full rounded-full"
+                               src="https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&amp;q=80&amp;fm=jpg&amp;crop=entropy&amp;cs=tinysrgb&amp;w=200&amp;fit=max&amp;ixid=eyJhcHBfaWQiOjE3Nzg0fQ"
+                               alt=""
+                               loading="lazy"
+                             />
+                             <div
+                               className="absolute inset-0 rounded-full shadow-inner"
+                               aria-hidden="true"
+                             ></div>
+                           </div>
+                           <div>
+                             <p className="font-semibold">{patient.firstName} {patient.lastName}</p>
+                           </div>
+                         </div>
+                       </td>
+                       <td className="px-4 py-3 text-sm">{patient.gender}</td>
+                 
+                       <td className="px-4 py-3 text-sm">{patient.age}</td>
+                 
+                       <td className="px-4 py-3 text-sm">{patient.contact}</td>
+                       
+                       <td className="px-4 py-3 text-sm">{   
+                      patient.date}</td>
+                        <td className="px-4 py-3 text-sm">{   
+                      patient.date}</td>
+                        <td>
+                       <div className="flex-shrink-0">
+                         <Link to="/adminDashbord/addAppointment"
+                           href="/"
+                           className="p-2 text-sm font-medium text-white rounded-lg bg-primary hover:bg-blue-700"
+                         >
+                          Assign Doctor
+                         </Link>
+                       </div></td>
+                        <td className="px-4 py-3 text-sm">
+                       {patient.fee ? (
+                        <><div className="text-center text-white bg-green-600 rounded ">
+                        Successful
+                      </div></>
+                           ) : (
+                         <>
+                      <div className="text-center text-white bg-red-600 rounded ">
+                         Failed
+                      </div>
+                        </>
+                    )} 
+                       </td>
+                      
+                     </tr>  
+                       )
+                       )}
+                      </tbody>
+                    </table>
+                  </div>
+                  <div className="grid px-4 py-3 text-xs font-semibold tracking-wide text-gray-500 uppercase border-t dark:border-gray-700 bg-gray-50 sm:grid-cols-9 dark:text-gray-400 dark:bg-gray-800">
+                    <span className="flex items-center col-span-3">
+                      {" "}
+                      Showing 21-30 of 100{" "}
+                    </span>
+                    <span className="col-span-2"></span>
+                    {/* <!-- Pagination --> */}
+                    <span className="flex col-span-4 mt-2 sm:mt-auto sm:justify-end">
+                      <nav aria-label="Table navigation">
+                        <ul className="inline-flex items-center">
+                          <li>
+                            <button
+                              className="px-3 py-1 rounded-md rounded-l-lg focus:outline-none focus:shadow-outline-purple"
+                              aria-label="Previous"
+                            >
+                              <svg
+                                aria-hidden="true"
+                                className="w-4 h-4 fill-current"
+                                viewBox="0 0 20 20"
+                              >
+                                <path
+                                  d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
+                                  clip-rule="evenodd"
+                                  fill-rule="evenodd"
+                                ></path>
+                              </svg>
+                            </button>
+                          </li>
+                          <li>
+                            <button className="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-purple">
+                              1
+                            </button>
+                          </li>
+                          <li>
+                            <button className="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-purple">
+                              2
+                            </button>
+                          </li>
+
+                          <li>
+                            <button
+                              className="px-3 py-1 rounded-md rounded-r-lg focus:outline-none focus:shadow-outline-purple"
+                              aria-label="Next"
+                            >
+                              <svg
+                                className="w-4 h-4 fill-current"
+                                aria-hidden="true"
+                                viewBox="0 0 20 20"
+                              >
+                                <path
+                                  d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                                  clip-rule="evenodd"
+                                  fill-rule="evenodd"
+                                ></path>
+                              </svg>
+                            </button>
+                          </li>
+                        </ul>
+                      </nav>
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              {/* new patient component */}
+            </div>    
+          </div>
           <div className="grid w-full grid-cols-1 gap-4 xl:grid-cols-2 2xl:grid-cols-3">
             <div className="p-4 bg-white rounded-lg shadow sm:p-6 xl:p-8 2xl:col-span-2">
               <div className="flex flex-wrap items-center justify-between mb-4">
@@ -133,117 +297,9 @@ export default function DashbordContent(props) {
               </div>
             </div>
           </div>
-          <div className="grid grid-cols-1 my-4 2xl:grid-cols-2 xl:gap-4">
-            <div className="h-full p-4 mb-4 bg-white rounded-lg shadow sm:p-6">
-              <div className="flex items-center justify-between mb-4">
-                <h3 className="text-xl font-bold leading-none text-gray-900">
-                  New Registered Patients{" "}
-                </h3>
-                <a
-                  href="/"
-                  className="inline-flex items-center p-2 text-sm font-medium rounded-lg text-cyan-600 hover:bg-gray-100"
-                >
-                  View all
-                </a>
-              </div>
-
-              {/* new patient component */}
-
-              <div className="mx-4 mt-4">
-                <div className="w-full overflow-hidden rounded-lg shadow-xs">
-                  <div className="w-full overflow-x-auto">
-                    <table className="w-full">
-                      <thead>
-                        <tr className="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
-                          <th className="px-4 py-3">Patient Full Name</th>
-                          <th className="px-4 py-3">Gender</th>
-                          <th className="px-4 py-3">Age</th>
-                          <th className="px-4 py-3">Contact</th>
-                          <th className="px-4 py-3">Date</th>
-                          <th className="px-4 py-3">Time</th>
-                          <th className="px-4 py-4">Actions</th>
-                          <th className="px-4 py-4">payment</th>
-                          <th></th>
-                        </tr>
-                      </thead>
-                      <tbody className="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
-                        <PatientRecord />
-                        <PatientRecord />
-                        <PatientRecord />
-                        <PatientRecord />
-                        <PatientRecord />
-                      </tbody>
-                    </table>
-                  </div>
-                  <div className="grid px-4 py-3 text-xs font-semibold tracking-wide text-gray-500 uppercase border-t dark:border-gray-700 bg-gray-50 sm:grid-cols-9 dark:text-gray-400 dark:bg-gray-800">
-                    <span className="flex items-center col-span-3">
-                      {" "}
-                      Showing 21-30 of 100{" "}
-                    </span>
-                    <span className="col-span-2"></span>
-                    {/* <!-- Pagination --> */}
-                    <span className="flex col-span-4 mt-2 sm:mt-auto sm:justify-end">
-                      <nav aria-label="Table navigation">
-                        <ul className="inline-flex items-center">
-                          <li>
-                            <button
-                              className="px-3 py-1 rounded-md rounded-l-lg focus:outline-none focus:shadow-outline-purple"
-                              aria-label="Previous"
-                            >
-                              <svg
-                                aria-hidden="true"
-                                className="w-4 h-4 fill-current"
-                                viewBox="0 0 20 20"
-                              >
-                                <path
-                                  d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
-                                  clip-rule="evenodd"
-                                  fill-rule="evenodd"
-                                ></path>
-                              </svg>
-                            </button>
-                          </li>
-                          <li>
-                            <button className="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-purple">
-                              1
-                            </button>
-                          </li>
-                          <li>
-                            <button className="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-purple">
-                              2
-                            </button>
-                          </li>
-
-                          <li>
-                            <button
-                              className="px-3 py-1 rounded-md rounded-r-lg focus:outline-none focus:shadow-outline-purple"
-                              aria-label="Next"
-                            >
-                              <svg
-                                className="w-4 h-4 fill-current"
-                                aria-hidden="true"
-                                viewBox="0 0 20 20"
-                              >
-                                <path
-                                  d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                                  clip-rule="evenodd"
-                                  fill-rule="evenodd"
-                                ></path>
-                              </svg>
-                            </button>
-                          </li>
-                        </ul>
-                      </nav>
-                    </span>
-                  </div>
-                </div>
-              </div>
-
-              {/* new patient component */}
-            </div>    
-          </div>
+          
         </div>
-      </main>
+       </main>
       <script async defer src="https://buttons.github.io/buttons.js"></script>
       <script src="https://demo.themesberg.com/windster/app.bundle.js"></script>
     </>

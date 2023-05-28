@@ -6,18 +6,18 @@ import { useParams } from "react-router-dom";
 
 export default function PatientProfile(props) {
 const patients = useSelector((state) => state.patients.patients);
-const {patientId } = useParams();
+const {id } = useParams();
 const [isLoading, setIsLoading] = useState(true);
 
   const [data, setData] = useState(null);
   
   useEffect(() => {
-    console.log(patientId)
+    console.log(id)
     try {
       const fetchData = async () => {
-        if (patientId) {
+        if (id) {
           try {
-            const selectedPatient = patients.find(patient => patient.id ==patientId);
+            const selectedPatient = patients.find(patient => patient.id ==id);
             console.log("___________________")
             console.log(selectedPatient)
             setData(selectedPatient)
@@ -52,7 +52,7 @@ const [isLoading, setIsLoading] = useState(true);
           x-data="{ openSettings: false }"
           className="mt-4 rounded "
         >
-          <button
+          {/* <button
             onClick="openSettings = !openSettings"
             className="p-2 text-gray-300 bg-gray-100 border border-gray-400 rounded hover:text-gray-300 bg-opacity-10 hover:bg-opacity-20"
             title="Settings"
@@ -71,7 +71,7 @@ const [isLoading, setIsLoading] = useState(true);
                 d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z"
               ></path>
             </svg>
-          </button>
+          </button> */}
           <div
             x-show="openSettings"
             onClick="openSettings = false"
@@ -209,7 +209,6 @@ const [isLoading, setIsLoading] = useState(true);
             </div>
           </div>
         </div>
-
         <div className="flex flex-col my-4 space-y-4 2xl:flex-row 2xl:space-y-0 2xl:space-x-4">
           <div className="flex flex-col w-full 2xl:w-1/3">
             <div className="flex-1 p-8 bg-white rounded-lg shadow-xl">

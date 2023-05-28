@@ -2,14 +2,12 @@ import { Link,useLocation,useParams } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
 import {useState ,useEffect} from 'react'
 export default function Payment(props) {
-//  const [firstName,setFirstName]=useState()
-//  const [lastName,setLastName]=useState()
+  
 const location = useLocation();
-const { firstName, lastName,phoneNumber,email } = location.state;
+const { firstName, lastName,phoneNumber,email} = location.state;
 console.log(firstName,lastName,phoneNumber,email)
   useEffect(()=>{
 
-    
   },[])
    
  const [id,setId]=useState(uuidv4())
@@ -74,7 +72,6 @@ console.log(firstName,lastName,phoneNumber,email)
               </h2>
               <p className="leading-relaxed font-laonoto">
                 Choose your payment meathod Available from the list {"  "}
-                {/* <b>100 Eth Br</b>. */}
               </p>
             </div>
           </div>

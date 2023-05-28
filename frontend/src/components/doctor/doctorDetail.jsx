@@ -8,7 +8,8 @@ export default function DoctorDetail() {
 
   return (
     <>
-    {doctors.map((doctor, index) => doctor.id === doctorId && (
+    {
+    doctors.map((doctor, index) => doctor.id === doctorId && (
               <div className="h-full p-8 bg-gray-200">
               <div className="pb-8 bg-white rounded-lg shadow-xl">
                 <div x-data="{ openSettings: false }" className="mt-4 rounded ">
@@ -22,7 +23,7 @@ export default function DoctorDetail() {
                   <div className="relative bottom-[100px] flex flex-col items-center">
                     <img
                       src={doctor.photo}
-                      className="w-40 h-40 object-center object-cover border-4 border-white rounded-full"
+                      className="object-cover object-center w-40 h-40 border-4 border-white rounded-full"
                     />
                     <div className="flex items-center mt-2 space-x-2">
                       <p className="text-2xl">Dr. {doctor.firstName} {doctor.lastName}</p>
@@ -322,7 +323,7 @@ export default function DoctorDetail() {
                                     </a>
                                     <Link
   to={`/adminDashbord/doctor/${doctor.id}`}
-  className=" text-blue-500 hover:text-blue-200"
+  className="text-blue-500  hover:text-blue-200"
 >
 Detail
 </Link>

@@ -18,11 +18,12 @@ function calculateQuantity(appointments) {
 // const storedPatientData = localStorage.getItem("patients");
 const response = await axios.get("http://localhost:5000/appointments");
 const data = response.data;
-data.reverse();
+const sortedData = data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+const reversedData=sortedData.reverse()
 const quantity = data.length;
 console.log(quantity)
 const initialState = {
-  appointments: data,
+  appointments: reversedData,
   quantity: quantity,
 };
     // Call the fetchData function to fetch the data and update the initial state
@@ -73,7 +74,7 @@ export const appointmentSlice = createSlice({
        axios.put(`http://localhost:5000/appointments/${action.payload.id}`,action.payload); 
         removeObjectWithId(state.appointments, action.payload.id);
         state.appointments.splice(itemIndex, 0, action.payload);
-    }
+    }  
       const { quantity } = calculateQuantity(state.appointments);
       state.quantity = quantity;
       localStorage.setItem("appointments", JSON.stringify(state));
