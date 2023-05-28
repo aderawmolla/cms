@@ -14,7 +14,7 @@ function removeObjectWithId(arr, id) {
 const storedDoctorData = localStorage.getItem("doctors");
 
 const initialState =
-  storedDoctorData.length !== 0
+  storedDoctorData
     ? JSON.parse(storedDoctorData)
     : 
     {

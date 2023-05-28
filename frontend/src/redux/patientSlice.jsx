@@ -21,9 +21,11 @@ function calculateQuantity(patients) {
 
 const storedPatientData = localStorage.getItem("patients");
 
-const initialState = storedPatientData
+const initialState = 
+storedPatientData
   ? JSON.parse(storedPatientData)
-  : {
+  : 
+  {
       patients: patientsData,
       quantity: 3,
     };

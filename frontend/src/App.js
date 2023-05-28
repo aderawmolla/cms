@@ -1,5 +1,6 @@
 import { Routes, Route } from "react-router-dom";
 import DashbordContent from "./components/admin/dashbordContent";
+import PatientProfile from "./views/dashbord/profile/patientProfile";
 
 import PatientComponent from "./components/admin/patientComponent";
 import DoctorComponent from "./components/admin/doctorComponent";
@@ -42,8 +43,8 @@ export default function App() {
           <Route path="appointment" element={<DoctorAppointmentComponent />} />
         </Route>
         <Route path="/lab" element={<LabDoctorDashbord />}>
-          <Route path="" element={<LabRequest/>} />
-          <Route path="result" element={<LabResult />} />
+          <Route path="prescriptions" element={<LabRequest/>} />
+          <Route path="prescriptions/:id" element={<LabResult />} />
         </Route>
        
         <Route path="/signIn" element={<Login />}>
@@ -52,7 +53,7 @@ export default function App() {
           <Route path="payment" element={<Payment />} />
        </Route>
         {/* <Route path="/doctor" element={<DoctorComponent />} /> */}
-        {/* <Route path="/patient" element={<PatientHome />} /> */}
+        <Route path="/patient" element={<PatientProfile />} />
         <Route path="/verify" element={<Verify />} />
         <Route path="/adminDashbord/" element={<AdminDashbord />}>
           <Route path="" element={<DashbordContent />} />
