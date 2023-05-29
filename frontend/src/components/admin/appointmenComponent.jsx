@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import Swal from "sweetalert2";
 import { useSelector, useDispatch } from "react-redux";
 import { deleteAppointment } from '../../redux/appointmentSlice';
+import { HiOutlineMail, HiOutlineRefresh } from 'react-icons/hi';
 
 import UpdateAppointment from '../../views/update/updateAppointment';
 
@@ -10,10 +11,8 @@ export default function AppointmentComponent(props) {
   const appointments=useSelector((state) => state.appointments.appointments);
   const  dispatch = useDispatch();
   // const [toBeUpdated, setToBeUpdated] = useState();
-
   const [showModal,setShowModal]=useState(false);
   const [appointmentToBeUpdated, setAppointementToBeUpdated] = useState(null);
-
   const handleClose = () => {
     setShowModal(false);
     setAppointementToBeUpdated(null);
@@ -33,11 +32,11 @@ export default function AppointmentComponent(props) {
    <>
       <div class="mt-4 mx-4">
         <div class="flex flex-col items-end mb-10">
-          <Link to="/adminDashbord/addAppointment">
+          {/* <Link to="/adminDashbord/addAppointment">
             <button onclick="popuphandler(true)" class="focus:ring-2  mb-5 bg-primary mb-5 focus:ring-offset-2 focus:ring-indigo-400 mt-4 sm:mt-0 inline-flex items-end justify-end px-6 py-3 primary hover:bg-indigo-600 focus:outline-none rounded">
               <p class="text-sm font-medium leading-none text-white">Add Appointment</p>
             </button>
-          </Link>
+          </Link> */}
           <form class="flex w-full items-center">
             <label for="voice-search" class="sr-only">Search</label>
             <div class="relative w-full">
@@ -115,10 +114,11 @@ export default function AppointmentComponent(props) {
                        {/* Confirmed */}
                        Scheduled{" "}
                      </span>
-                   </td>
+                   </td>             
                    <td className="px-2 py-3">
                      <div className="inline-flex items-center space-x-3">
-                        <button
+                     <Link to={`/adminDashbord/addAppointment/${appointment.patientId}`} class="rounded-lg border-2 border-transparent bg-blue-600 px-4 py-1 font-medium text-white focus:outline-none focus:ring hover:bg-blue-700">Resend</Link>
+                       <button
                           title="Edit"
                           className="hover:text-black"
                           onClick={ ()=>{

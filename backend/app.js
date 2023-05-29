@@ -11,7 +11,6 @@ const paymentRoutes=require('./routes/paymentRoutes')
 const appointmentRoutes=require('./routes/appointmentRoutes')
 const loginRoutes=require('./routes/loginRoute')
 app.use(express.json());
-
 const bodyParser = require('body-parser');
 app.use(bodyParser.json());
 

@@ -66,7 +66,8 @@ export default function App() {
           <Route path="prescription/:laboratoryId/:prescriptionId" index element={<LaboratoryPrescription />} ></Route>
           <Route path="addPatient" element={<AddPatient />} />
           <Route path="addDoctor" element={<AddDoctor />} />
-          <Route path="addAppointment" element={<AddAppointment />} />
+          {/* <Route path="addAppointment" element={<AddAppointment />} /> */}
+          <Route path="addAppointment/:patientId" element={<AddAppointment />} />
         </Route>
       </Routes>
     </>

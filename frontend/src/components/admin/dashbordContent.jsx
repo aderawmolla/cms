@@ -78,11 +78,10 @@ export default function DashbordContent(props) {
                       patient.date}</td>
                         <td>
                        <div className="flex-shrink-0">
-                         <Link to="/adminDashbord/addAppointment"
-                           href="/"
+                         <Link to={`/adminDashbord/addAppointment/${patient.id}`}
                            className="p-2 text-sm font-medium text-white rounded-lg bg-primary hover:bg-blue-700"
                          >
-                          Assign Doctor
+                         Send Appointment
                          </Link>
                        </div></td>
                         <td className="px-4 py-3 text-sm">

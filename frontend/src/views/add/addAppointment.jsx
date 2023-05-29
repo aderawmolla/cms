@@ -5,19 +5,25 @@ import { useSelector, useDispatch } from 'react-redux';
 import Swal from "sweetalert2";
 import { addAppointment } from '../../redux/appointmentSlice.jsx';
 import { v4 as uuidv4 } from "uuid";
+import { useParams,useNavigate} from 'react-router-dom';
 
 export default function AddAppointment({
   showModal,
   handleClose,
   appointmentToBeUpdated
 }) {
-  const doctors = useSelector((state) => state.doctors.doctors);
-  const dispatch = useDispatch();
+const doctors = useSelector((state) => state.doctors.doctors);
+const dispatch = useDispatch();
 
+const navigate=useNavigate();
+const goBack = () => {
+  navigate('/adminDashbord/appointment'); // Navigates back one step in the history stack
+};
+ const {patientId}=useParams()
   const [formData, setFormData] = useState({
     id: uuidv4(),
     doctorId: "",
-    patientId: "",
+    patientId: patientId,
     appointmentFee:"100",
     location: "",
     date: '',
@@ -35,17 +41,21 @@ export default function AddAppointment({
     setFormData({ ...formData, doctorId: selectedDoctorId });
   };
   const handleSubmit = async (event) => {
-    console.log(formData);
-
     event.preventDefault();
+  
+    console.log(formData);
     await dispatch(addAppointment(formData));
-    await Swal.fire({
+  
+    Swal.fire({
       icon: "success",
       title: "Appointment Added Successfully",
-      showConfirmButton: false,
-      timer: 1500,
+      showConfirmButton: true,
+      timer: 1800,
     });
+  
+    navigate('/adminDashbord/appointment');
   };
+  
   return (
     <>
       <form class="m-auto mt-10 border-2 border-gray-200 box-content p-10 w-full max-w-lg">
@@ -112,7 +122,7 @@ export default function AddAppointment({
 
         <div className="flex justify-around w-full">
           <button
-            onClick={handleClose}
+            onClick={goBack}
             type=""
             className="px-10 py-2 mt-5 font-bold text-white transition-colors bg-red-500 rounded shadow focus:outline-none hover:bg-red-700"
           >
