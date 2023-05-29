@@ -30,6 +30,17 @@ const initialState={
 };
     // Call the fetchData function to fetch the data and update the initial state
   
+
+// const storedDoctorData = localStorage.getItem("doctors");
+
+// const initialState =
+//   storedDoctorData
+//     ? JSON.parse(storedDoctorData)
+//     : 
+//     {
+//         doctors: doctorsData,
+//       };
+
 export const doctorSlice = createSlice({
   name:"doctors",
   initialState,

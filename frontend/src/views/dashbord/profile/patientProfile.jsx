@@ -3,8 +3,50 @@ import { useSelector } from 'react-redux';
 
 import axios from 'axios'
 import { useParams } from "react-router-dom";
+import Modal from "../../update/profileUpdateModal";
+import EditPatientInfo from "../../update/editPersonalInformation";
 
-export default function PatientProfile(props) {
+// export default function PatientProfile({ patient }) {
+//   patient = {
+//     firstName: "Kidist",
+//     lastName: "Ketema",
+//     description:
+//       "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt voluptates obcaecati numquam error et ut fugiat asperiores. Sunt nulla ad incidunt laboriosam, laudantium est unde natus cum numquam, neque facere. Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut, magni odio magnam commodi sunt ipsum eum! Voluptas eveniet aperiam at maxime, iste id dicta autem odio laudantium eligendi commodi distinctio!",
+//     photo:
+//       "https://img.freepik.com/free-photo/beautiful-young-female-doctor-looking-camera-office_1301-7807.jpg?w=2000",
+//     doctorId: "doc1",
+//     gender: "Female",
+//     id: "takami1",
+//     password: "titi",
+//     contact: "0920000000",
+//     username: "titi",
+//     email: "tita@gmail.com",
+//     date: "24 jul, 1992",
+//     state: "Amhara",
+//     wereda: "Bahir Dar",
+//     kebele: "Poly",
+//     cardNumber: "patientCard1",
+//   };
+export default function PatientProfile() {
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  // const [patientData, setPatientData] = useState(null);
+
+  const handleEdit = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
+
+  const handleSubmit = (updatedInfo) => {
+    console.log(updatedInfo);
+    // Save the updated information to the database
+    setIsModalOpen(false); // close the modal
+  };
+
+
 const patients = useSelector((state) => state.patients.patients);
 const {id } = useParams();
 const [isLoading, setIsLoading] = useState(true);
@@ -204,7 +246,7 @@ const [isLoading, setIsLoading] = useState(true);
                     clip-rule="evenodd"
                   ></path>
                 </svg>
-                <span>Message</span>
+                <button onClick={handleEdit}>Update Profile</button>
               </button>
             </div>
           </div>
@@ -301,7 +343,6 @@ const [isLoading, setIsLoading] = useState(true);
                     <p className="text-xs text-gray-500">3 min ago</p>
                   </div>
                 </div>
-
               </div>
             </div>
           </div>
@@ -327,7 +368,6 @@ const [isLoading, setIsLoading] = useState(true);
                     <span className="text-sm font-bold text-indigo-600">
                       Hear Beat per Minute
                     </span>
-
                   </div>
                   <div className="flex items-center justify-between mt-6">
                     <div>
@@ -403,8 +443,7 @@ const [isLoading, setIsLoading] = useState(true);
                     </span>
                   </div>
                   <div className="flex items-center justify-between mt-6">
-                    <div>
-                    </div>
+                    <div></div>
                     <div className="flex flex-col">
                       <div className="flex items-end">
                         <span className="text-2xl font-bold 2xl:text-3xl">
@@ -708,6 +747,15 @@ const [isLoading, setIsLoading] = useState(true);
           </div>
         </div> */}
       </div>
+      {isModalOpen && (
+        <Modal onClose={handleCloseModal}>
+          <EditPatientInfo
+            patientInfo={data}
+            onSubmit={handleSubmit}
+            onClose={handleCloseModal}
+          />
+        </Modal>
+      )}
     </div>
   );
 }

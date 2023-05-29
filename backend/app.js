@@ -1,5 +1,7 @@
 //sudo service apache2 stop
 //sudo /opt/lampp/xampp start
+// git pull origin front
+
 const express=require("express")
 const app=express()
 const cors=require('cors')

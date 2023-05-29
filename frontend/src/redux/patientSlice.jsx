@@ -31,6 +31,18 @@ const initialState = {
 };
     // Call the fetchData function to fetch the data and update the initial state
   
+
+// const storedPatientData = localStorage.getItem("patients");
+
+// const initialState = 
+// storedPatientData
+//   ? JSON.parse(storedPatientData)
+//   : 
+//   {
+//       patients: patientsData,
+//       quantity: 3,
+//     };
+
 export const patientSlice = createSlice({
   name:"patients",
   initialState,

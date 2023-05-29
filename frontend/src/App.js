@@ -1,6 +1,7 @@
 import { Routes, Route } from "react-router-dom";
 import DashbordContent from "./components/admin/dashbordContent";
 import PatientHome from "./components/patient/patientHome";
+import PatientProfile from "./views/dashbord/profile/patientProfile";
 import PatientComponent from "./components/admin/patientComponent";
 import DoctorComponent from "./components/admin/doctorComponent";
 import AppointmentComponent from "./components/admin/appointmenComponent";
@@ -23,7 +24,6 @@ import Payment from "./views/login/payment";
 import LabDoctorDashbord from "./views/dashbord/labDoctorDashbord";
 import LabRequest from "./views/dashbord/labRequest";
 import LabResult from "./views/dashbord/labResult";
- import PatientProfile from "./views/dashbord/profile/patientProfile";
 import DoctorDetail from "./components/doctor/doctorDetail";
 import DoctorPrescription from "./components/prescription/doctorPrescription";
 import LaboratoryPrescription from "./components/prescription/labPrescription";
@@ -44,8 +44,8 @@ export default function App() {
           <Route path="appointment" element={<DoctorAppointmentComponent />} />
         </Route>
         <Route path="/lab" element={<LabDoctorDashbord />}>
-          <Route path="" element={<LabRequest/>} />
-          <Route path="result" element={<LabResult />} />
+          <Route path="prescriptions" element={<LabRequest/>} />
+          <Route path="prescriptions/:id" element={<LabResult />} />
         </Route>
         <Route path="/signIn" element={<Login />}>
           <Route path="" element={<SingIn/>} />
