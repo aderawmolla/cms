@@ -30,6 +30,7 @@ import DoctorDetail from "./components/doctor/doctorDetail";
 import DoctorPrescription from "./components/prescription/doctorPrescription";
 import LaboratoryPrescription from "./components/prescription/labPrescription";
 import PatientHome from "./components/patient/patientHome";
+import PaginationDisplay from "./components/prescription/pagination/displayTemp";
 export default function App() {
 
   return (
@@ -37,14 +38,18 @@ export default function App() {
       <Routes>
         <Route path="/" index element={<Home />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/pagination" element={<PaginationDisplay />} />
         <Route path="/doctor" element={<DoctorDashbord />}>
           <Route path="" element={<DoctorContent />} />
           <Route path="labratory" element={<ResponseLabratoryComponent />} />
           <Route path="prescription" element={<DoctorPrescriptionComponent />} />
+          <Route path="prescription/:prescriptionId" index element={<DoctorPrescription />} ></Route>
           <Route path="appointment" element={<DoctorAppointmentComponent />} />
         </Route>
         <Route path="/lab" element={<LabDoctorDashbord />}>
           <Route path="" element={<LabRequest/>} />
+          <Route path="prescription" element={<DoctorPrescriptionComponent />} />
+          <Route path="prescription/:laboratoryId/:prescriptionId" index element={<LaboratoryPrescription />} ></Route>
           <Route path="result" element={<LabResult />} />
         </Route>
        

@@ -13,7 +13,7 @@ export default function PatientComponent() {
   const patients = useSelector((state) => state.patients.patients)
   const dispatch = useDispatch();
 
-  // const [toBeUpdated, setToBeUpdated] = useState();
+  const [patientToBeUpdated, setPatientToBeUpdated] = useState({});
 
 
 
@@ -42,11 +42,18 @@ export default function PatientComponent() {
   const handleClose = () => setShowModal(false);
   const handleShow = () => setShowModal(true);
 
+  useEffect(() => {
+    console.log(patientToBeUpdated)
+    handleShow();
+  }, [patientToBeUpdated]);
+
 
 
 
   return (
 <>
+<UpdatePatient showModal={showModal} handleClose={handleClose} patientToBeUpdated={patientToBeUpdated} />
+
 <div class="mt-4 mx-4">
     <div class="flex flex-col items-end mb-10">
       <Link to="/adminDashbord/addPatient">
@@ -87,8 +94,6 @@ export default function PatientComponent() {
           <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
           {patients.map((patient, index) => (
 <>
-<UpdatePatient showModal={showModal} handleClose={handleClose} patientToBeUpdated={patient} />
-
 <tr classNameName="text-gray-700 bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-900 dark:text-gray-400">
 <td className="px-4 py-3">
 <div className="flex items-center text-sm">
@@ -120,7 +125,9 @@ export default function PatientComponent() {
 <button
   title="Edit"
   className="hover:text-black"
-  onClick={async () => {await handleShow()}}
+  onClick={async () => {
+    await setPatientToBeUpdated(patient);  
+    }}
 >
   <svg
     xmlns="http://www.w3.org/2000/svg"
@@ -176,7 +183,7 @@ export default function PatientComponent() {
 </button>
 <Link
   to={`/adminDashbord/patient/${patient.id}`}
-  title="Edit"
+  title="Detail"
   className=" text-blue-500 hover:text-blue-200"
 >
 Detail
@@ -194,6 +201,7 @@ Detail
 
     </div>
   </div>
+
 </>
   );
 }
