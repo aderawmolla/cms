@@ -31,26 +31,6 @@ export default function PatientProfile() {
           x-data="{ openSettings: false }"
           className="  mt-4 rounded"
         >
-          <button
-            onClick="openSettings = !openSettings"
-            className="border border-gray-400 p-2 rounded text-gray-300 hover:text-gray-300 bg-gray-100 bg-opacity-10 hover:bg-opacity-20"
-            title="Settings"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-4 w-4"
-              fill="currentColor"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="3"
-                d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z"
-              ></path>
-            </svg>
-          </button>
           <div
             x-show="openSettings"
             onClick="openSettings = false"
@@ -233,7 +213,7 @@ export default function PatientProfile() {
                         <div className="w-3.5 h-3.5 bg-blue-600 rounded-full"></div>
                       </div>
                       <div className="w-11/12">
-                        <p className="text-sm text-black">{prsc.disease} diagnostic with Dr.Kidist</p>
+                        <p className="text-sm text-black">{prsc.disease} diagnostic with {prsc.docId}</p>
                         <p className="text-xs text-gray-500">3 min ago</p>
                       </div>
                   </div>
@@ -245,25 +225,41 @@ export default function PatientProfile() {
               <div className="relative px-4">
                 <div className="absolute h-full border border-dashed border-opacity-20 border-secondary"></div>
                 <table className="min-w-full bg-white">
-        <thead>
-          <tr className="bg-blue-800 text-white">
-            <th className="px-4 py-2">Doctor</th>
-            <th className="px-4 py-2">Date</th>
-            <th className="px-4 py-2">Office Number</th>
-            <th className="px-4 py-2">Time</th>
-          </tr>
-        </thead>
-        <tbody>
-          {patientApt.map((apt, index) => (
-            <tr key={index} className={`text-center ${index % 2 === 0 ? 'bg-gray-100' : 'bg-white'}`}>
-              <td className="border px-4 py-2">{apt.docId}</td>
-              <td className="border px-4 py-2">{apt.date}</td>
-              <td className="border px-4 py-2">{apt.officeNo}</td>
-              <td className="border px-4 py-2">{apt.time}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+  <thead>
+    <tr className="bg-blue-800 text-white">
+      <th className="px-4 py-2">Doctor</th>
+      <th className="px-4 py-2">Date</th>
+      <th className="px-4 py-2">Office Number</th>
+      <th className="px-4 py-2">Time</th>
+      <th className="px-4 py-2">Status</th> {/* New column for status */}
+    </tr>
+  </thead>
+  <tbody>
+    {patientApt.map((apt, index) => {
+      const currentDate = new Date(); // Current date and time
+      const [mm, dd, yy] = apt.date.split('-'); // Splitting date into month, day, and year
+      const [hh, min, period] = apt.time.split(/:|\s/); // Splitting time into hours, minutes, and AM/PM
+
+      // Create a new date object with the correct format
+      const aptDate = new Date(yy, mm - 1, dd, hh, min, 0);
+      const status = aptDate > currentDate ? 'Active' : 'Closed'; // Compare dates
+
+      return (
+        <tr
+          key={index}
+          className={`text-center ${index % 2 === 0 ? 'bg-gray-100' : 'bg-white'}`}
+        >
+          <td className="border px-4 py-2">{apt.docId}</td>
+          <td className="border px-4 py-2">{apt.date}</td>
+          <td className="border px-4 py-2">{apt.officeNo}</td>
+          <td className="border px-4 py-2">{apt.time}</td>
+          <td className="border px-4 py-2">{status}</td> {/* Display the status */}
+        </tr>
+      );
+    })}
+  </tbody>
+</table>
+
               </div>
             </div>
 
