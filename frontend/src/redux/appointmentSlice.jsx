@@ -26,8 +26,7 @@ const initialState = {
   appointments: reversedData,
   quantity: quantity,
 };
-    // Call the fetchData function to fetch the data and update the initial state
-  
+    // Call the fetchData function to fetch the data and update the initial state 
 export const appointmentSlice = createSlice({
   name:"appointments",
   initialState,
@@ -38,12 +37,10 @@ export const appointmentSlice = createSlice({
       );
       if (itemIndex === -1) {
         state.appointments.splice(0, 0, action.payload);
-        state.quantity += 1;
+        state.quantity = state.quantity+1;
          const response=  axios.post('http://localhost:5000/appointments',action.payload).then(()=>{
           console.log(response.data)
- 
         })
-
       } else {
         state.appointments[itemIndex].quantity += action.payload.quantity;
       }
@@ -64,7 +61,6 @@ export const appointmentSlice = createSlice({
       state.quantity = quantity;
       localStorage.setItem("appointments", JSON.stringify(state));
     },
-    
     updateAppointment:(state, action) => {
       const itemIndex = state.appointments.findIndex(
         (item) => item.id=== action.payload.id
@@ -81,5 +77,5 @@ export const appointmentSlice = createSlice({
     },
   },
 });
-export const { addAppointment, deleteAppointment, updateAppointment}=appointmentSlice.actions;
+export const {addAppointment,deleteAppointment,updateAppointment}=appointmentSlice.actions;
 export default appointmentSlice.reducer;

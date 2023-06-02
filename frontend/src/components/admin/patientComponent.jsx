@@ -24,7 +24,6 @@ export default function PatientComponent() {
   useEffect(() => {
     console.log(patientToBeUpdated);
   }, [patientToBeUpdated]);
-
   if (!patients) {
     return <div>Loading...</div>; // Or any other appropriate loading state
   }

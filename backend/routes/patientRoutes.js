@@ -40,7 +40,6 @@ router.post('/', async (req, res) => {
         isNew:newPatient.isNew,
         fee:newPatient.fee
       });
-  
       res.json(createdPatient);
       console.log(createdPatient);
     } catch (error) {

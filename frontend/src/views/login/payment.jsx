@@ -114,11 +114,11 @@ console.log(firstName,lastName,phoneNumber,email)
           <input type="hidden" name="callback_url" value="https://example.com/callbackurl" />
           <input type="hidden" name="return_url" value="http://localhost:3000/paymentSuccess" />
           <input type="hidden" name="meta[title]" value="test" />
-          <button type="submit"
+           <button type="submit"
            className="text-center w-full mx-[7%] block rounded-md border bg-blue-500  py-2 text-white outline-none"
             >Complete Payment
          </button>
-        </form>    
+      </form>    
       </div>
     </div>
   );

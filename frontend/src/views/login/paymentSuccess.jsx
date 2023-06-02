@@ -12,8 +12,7 @@ const dispatch=useDispatch()
     const updatedPatient = { ...patients[0], fee: '100' };
     dispatch(updatePatient(updatedPatient));
     console.log(updatePatient)
-}, []);
- 
+},[]);
  console.log(patients[0])
     return <>
     <div class="bg-gray-100 h-screen">

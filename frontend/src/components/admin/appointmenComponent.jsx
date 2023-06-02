@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom'
 import Swal from "sweetalert2";
 import { useSelector, useDispatch } from "react-redux";
 import { deleteAppointment } from '../../redux/appointmentSlice';
-import { HiOutlineMail, HiOutlineRefresh } from 'react-icons/hi';
 
 import UpdateAppointment from '../../views/update/updateAppointment';
 
@@ -17,7 +16,7 @@ export default function AppointmentComponent(props) {
     setShowModal(false);
     setAppointementToBeUpdated(null);
   };
-  const handleShow=(appointment) => {
+  const handleShow=(appointment)=>{
     setShowModal(true);
     setAppointementToBeUpdated(appointment);
   };
@@ -66,8 +65,6 @@ export default function AppointmentComponent(props) {
                 </tr>
               </thead>
               <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
-
-            
               {appointments.map((appointment, index) => (
                  < React.Fragment key={index}>
                  {appointmentToBeUpdated && appointmentToBeUpdated.id==appointment.id && (

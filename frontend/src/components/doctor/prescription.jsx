@@ -1,8 +1,6 @@
 import {useState} from "react";
 export default function DoctorPrescriptionComponent(props) {
-
-
-  
+ 
   return (
     <>
      <div className="mx-4 mt-7">

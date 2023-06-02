@@ -7,7 +7,6 @@ export default function AdminDashbord(props){
   const patients = useSelector((state) => state.patients.quantity);
   const doctors = useSelector((state) => state.doctors.quantity);
   const appointments = useSelector((state) => state.appointments.quantity);
-
   const setup = () => {
     const getTheme = () => {
       if (window.localStorage.getItem('dark')) {
@@ -146,8 +145,6 @@ export default function AdminDashbord(props){
                       <p>Appointments</p>
                     </div>
                   </div>
-               
-
                   <div class="bg-blue-500 dark:bg-gray-800 shadow-lg rounded-md flex items-center justify-between p-3 border-b-4 border-blue-600 dark:border-gray-600 text-white font-medium group">
                     <div class="flex justify-center items-center w-14 h-14 bg-white rounded-full transition-all duration-300 transform group-hover:rotate-12">
                     <img src="/icons/prescription.png" alt="" class="w-8 h-8 rounded-full h-30 stroke-current bg-blue-500 text-blue-800 dark:text-gray-800 transform transition-transform duration-500 ease-in-out"/>

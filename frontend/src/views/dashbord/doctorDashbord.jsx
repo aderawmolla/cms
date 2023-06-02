@@ -3,8 +3,10 @@ import { Outlet, Link } from "react-router-dom";
 import "./styles.css";
 import SidebarComponent from "../../components/doctor/sidebarComponent";
 import Notifications from "../update/notification";
-
+import {useSelector,useDispatch } from 'react-redux'
+import currentUser from "../../redux/currentUser";
 export default function DoctorDashbord(props) {
+ const  currentDoctor=useSelector((state)=>state.currentUser.currentUser)
   const setup = () => {
     const getTheme = () => {
       if (window.localStorage.getItem("dark")) {
@@ -27,31 +29,32 @@ export default function DoctorDashbord(props) {
       },
     };
   };
+  
   return (
     <>
       <div x-data="setup()" className="bg-black">
-        <div className="min-h-screen flex flex-col flex-auto flex-shrink-0 antialiased bg-white dark:bg-gray-700 text-black dark:text-white">
+        <div className="flex flex-col flex-auto flex-shrink-0 min-h-screen antialiased text-black bg-white dark:bg-gray-700 dark:text-white">
           {/* <!-- Header --> */}
-          <div className="fixed w-full flex items-center justify-between h-14 text-white z-10">
-            <div className="flex items-center justify-start md:justify-center pl-3 w-14 md:w-64 h-14 bg-blue-800 dark:bg-gray-800 border-none">
+          <div className="fixed z-10 flex items-center justify-between w-full text-white h-14">
+            <div className="flex items-center justify-start pl-3 bg-blue-800 border-none md:justify-center w-14 md:w-64 h-14 dark:bg-gray-800">
               <img
-                className="rounded-full mr-2 w-10 h-10 relative object-cover"
+                className="relative object-cover w-10 h-10 mr-2 rounded-full"
                 src="https://img.freepik.com/free-photo/no-problem-concept-bearded-man-makes-okay-gesture-has-everything-control-all-fine-gesture-wears-spectacles-jumper-poses-against-pink-wall-says-i-got-this-guarantees-something_273609-42817.jpg?w=1800&t=st=1669749937~exp=1669750537~hmac=4c5ab249387d44d91df18065e1e33956daab805bee4638c7fdbf83c73d62f125"
                 alt=""
               />
 
               <div>
-                <p className="font-medium group-hover:text-indigo-400 leading-4">
-                  Doctor Samson Abebe
+                <p className="font-medium leading-4 group-hover:text-indigo-400">
+                  Doctor {currentDoctor && currentDoctor.firstName}
                 </p>
-                <span className="text-xs text-slate-400">Dentist</span>
+                <span className="text-xs text-slate-400">{currentDoctor.specialization}</span>
               </div>
             </div>
-            <div className="flex justify-between items-center h-14 bg-blue-800 dark:bg-gray-800 header-right">
-              <div className="bg-white rounded flex items-center w-full max-w-xl mr-4 p-2 shadow-sm border border-gray-200">
+            <div className="flex items-center justify-between bg-blue-800 h-14 dark:bg-gray-800 header-right">
+              <div className="flex items-center w-full max-w-xl p-2 mr-4 bg-white border border-gray-200 rounded shadow-sm">
                 <button className="outline-none focus:outline-none">
                   <svg
-                    className="w-5 text-gray-600 h-5 cursor-pointer"
+                    className="w-5 h-5 text-gray-600 cursor-pointer"
                     fill="none"
                     stroke-linecap="round"
                     stroke-linejoin="round"
@@ -67,7 +70,7 @@ export default function DoctorDashbord(props) {
                   name=""
                   id=""
                   placeholder="Search"
-                  className="w-full pl-3 text-sm text-black outline-none focus:outline-none bg-transparent"
+                  className="w-full pl-3 text-sm text-black bg-transparent outline-none focus:outline-none"
                 />
               </div>
               <ul className="flex items-center gap-x-8">
@@ -78,13 +81,13 @@ export default function DoctorDashbord(props) {
                   <button
                     aria-hidden="true"
                     onCick={setup}
-                    className="group p-2 transition-colors duration-200 rounded-full shadow-md bg-blue-200 hover:bg-blue-200 dark:bg-gray-50 dark:hover:bg-gray-200 text-gray-900 focus:outline-none"
+                    className="p-2 text-gray-900 transition-colors duration-200 bg-blue-200 rounded-full shadow-md group hover:bg-blue-200 dark:bg-gray-50 dark:hover:bg-gray-200 focus:outline-none"
                   >
                     <svg
                       x-show="isDark"
                       width="24"
                       height="24"
-                      className="fill-current text-gray-700 group-hover:text-gray-500 group-focus:text-gray-700 dark:text-gray-700 dark:group-hover:text-gray-500 dark:group-focus:text-gray-700"
+                      className="text-gray-700 fill-current group-hover:text-gray-500 group-focus:text-gray-700 dark:text-gray-700 dark:group-hover:text-gray-500 dark:group-focus:text-gray-700"
                       xmlns="http://www.w3.org/2000/svg"
                       fill="none"
                       viewBox="0 0 24 24"
@@ -130,15 +133,15 @@ export default function DoctorDashbord(props) {
             </div>
           </div>
           <SidebarComponent />
-          <div className="h-full ml-14 mt-14 mb-10 md:ml-64">
-            <div className="flex flex-wrap  ml-4  mr-4 justify-center my-5 -mx-2">
-              <div className="w-full lg:w-1/3 p-2">
-                <div className="flex items-center flex-row w-full bg-blue-500 dark:from-cyan-500 dark:to-blue-500 from-indigo-500 via-purple-500 to-pink-500 rounded-md p-3">
+          <div className="h-full mb-10 ml-14 mt-14 md:ml-64">
+            <div className="flex flex-wrap justify-center my-5 ml-4 mr-4 -mx-2">
+              <div className="w-full p-2 lg:w-1/3">
+                <div className="flex flex-row items-center w-full p-3 bg-blue-500 rounded-md dark:from-cyan-500 dark:to-blue-500 from-indigo-500 via-purple-500 to-pink-500">
                   <div className="flex text-indigo-500 dark:text-white items-center bg-white dark:bg-[#0F172A] p-2 rounded-md flex-none w-8 h-8 md:w-12 md:h-12 ">
                     <img
                       src="icons/appointment.jpg"
                       alt=""
-                      className="w-8 h-8 rounded-full h-30 stroke-current bg-blue-500 text-blue-800 dark:text-gray-800 transform transition-transform duration-500 ease-in-out"
+                      className="w-8 h-8 text-blue-800 transition-transform duration-500 ease-in-out transform bg-blue-500 rounded-full stroke-current h-30 dark:text-gray-800"
                     />
                   </div>
                   <div className="flex flex-col justify-around flex-grow ml-5 text-white">
@@ -149,13 +152,13 @@ export default function DoctorDashbord(props) {
                   </div>
                 </div>
               </div>
-              <div className="w-full md:w-1/2 lg:w-1/3 p-2 ">
-                <div className="flex items-center flex-row w-full bg-blue-500 dark:from-cyan-500 dark:to-blue-500 from-indigo-500 via-purple-500 to-pink-500 rounded-md p-3">
-                  <div className="flex text-indigo-500 dark:text-white items-center bg-white  p-2 rounded-md flex-none w-8 h-8 md:w-12 md:h-12 ">
+              <div className="w-full p-2 md:w-1/2 lg:w-1/3 ">
+                <div className="flex flex-row items-center w-full p-3 bg-blue-500 rounded-md dark:from-cyan-500 dark:to-blue-500 from-indigo-500 via-purple-500 to-pink-500">
+                  <div className="flex items-center flex-none w-8 h-8 p-2 text-indigo-500 bg-white rounded-md dark:text-white md:w-12 md:h-12 ">
                     <img
                       src="/icons/prescription.png"
                       alt=""
-                      className="w-8 h-8 rounded-full h-30 stroke-current bg-blue-500 text-blue-800 dark:text-gray-800 transform transition-transform duration-500 ease-in-out"
+                      className="w-8 h-8 text-blue-800 transition-transform duration-500 ease-in-out transform bg-blue-500 rounded-full stroke-current h-30 dark:text-gray-800"
                     />
                   </div>
                   <div className="flex flex-col justify-around flex-grow ml-5 text-white">
@@ -166,13 +169,13 @@ export default function DoctorDashbord(props) {
                   </div>
                 </div>
               </div>
-              <div className="w-full md:w-1/2 lg:w-1/3 p-2">
-                <div className="flex items-center flex-row w-full bg-blue-500 dark:from-cyan-500 dark:to-blue-500 from-indigo-500 via-purple-500 to-pink-500 rounded-md p-3">
+              <div className="w-full p-2 md:w-1/2 lg:w-1/3">
+                <div className="flex flex-row items-center w-full p-3 bg-blue-500 rounded-md dark:from-cyan-500 dark:to-blue-500 from-indigo-500 via-purple-500 to-pink-500">
                   <div className="flex text-indigo-500 dark:text-white items-center bg-white dark:bg-[#0F172A] p-2 rounded-md flex-none w-8 h-8 md:w-12 md:h-12 ">
                     <img
                       src="/icons/lab.png"
                       alt=""
-                      className="w-8 h-8 rounded-full h-30 stroke-current bg-blue-500 text-blue-800 dark:text-gray-800 transform transition-transform duration-500 ease-in-out"
+                      className="w-8 h-8 text-blue-800 transition-transform duration-500 ease-in-out transform bg-blue-500 rounded-full stroke-current h-30 dark:text-gray-800"
                     />
                   </div>
                   <div className="flex flex-col justify-around flex-grow ml-5 text-white">
@@ -185,7 +188,7 @@ export default function DoctorDashbord(props) {
               </div>
             </div>
 
-            <Outlet />
+            <Outlet/>
           </div>
         </div>
       </div>

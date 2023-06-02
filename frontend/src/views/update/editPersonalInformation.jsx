@@ -20,7 +20,7 @@ const EditPatientInfo = ({ onClose, patientInfo, onSubmit }) => {
       kebele,
     });
   };
-
+  
   const addressAssignment = (e) => {
     const temp = e.split(",", 3);
     setStateT(temp[0]);
@@ -30,12 +30,12 @@ const EditPatientInfo = ({ onClose, patientInfo, onSubmit }) => {
 
   return (
     <div className="max-w-lg mx-auto">
-      <h2 className="text-2xl font-bold mb-6">Edit Personal Information</h2>
+      <h2 className="mb-6 text-2xl font-bold">Edit Personal Information</h2>
       <form onSubmit={handleSubmit}>
         <div className="mb-4">
           <label
             htmlFor="firstName"
-            className="block text-gray-700 font-bold mb-2"
+            className="block mb-2 font-bold text-gray-700"
           >
             First Name
           </label>
@@ -44,14 +44,14 @@ const EditPatientInfo = ({ onClose, patientInfo, onSubmit }) => {
             id="firstName"
             value={firstName}
             onChange={(e) => setFirstName(e.target.value)}
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            className="w-full px-3 py-2 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
             required
           />
         </div>
         <div className="mb-4">
           <label
             htmlFor="lastName"
-            className="block text-gray-700 font-bold mb-2"
+            className="block mb-2 font-bold text-gray-700"
           >
             Last Name
           </label>
@@ -60,12 +60,12 @@ const EditPatientInfo = ({ onClose, patientInfo, onSubmit }) => {
             id="lastName"
             value={lastName}
             onChange={(e) => setLastName(e.target.value)}
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            className="w-full px-3 py-2 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
             required
           />
         </div>
         <div className="mb-4">
-          <label htmlFor="email" className="block text-gray-700 font-bold mb-2">
+          <label htmlFor="email" className="block mb-2 font-bold text-gray-700">
             Email
           </label>
           <input
@@ -73,14 +73,14 @@ const EditPatientInfo = ({ onClose, patientInfo, onSubmit }) => {
             id="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            className="w-full px-3 py-2 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
             required
           />
         </div>
         <div className="mb-4">
           <label
             htmlFor="contact"
-            className="block text-gray-700 font-bold mb-2"
+            className="block mb-2 font-bold text-gray-700"
           >
             Phone Number
           </label>
@@ -89,14 +89,14 @@ const EditPatientInfo = ({ onClose, patientInfo, onSubmit }) => {
             id="contact"
             value={contact}
             onChange={(e) => setContact(e.target.value)}
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            className="w-full px-3 py-2 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
             required
           />
         </div>
         <div className="mb-4">
           <label
             htmlFor="address"
-            className="block text-gray-700 font-bold mb-2"
+            className="block mb-2 font-bold text-gray-700"
           >
             Address
           </label>
@@ -104,7 +104,7 @@ const EditPatientInfo = ({ onClose, patientInfo, onSubmit }) => {
             id="address"
             value={`${state}, ${wereda}, ${kebele}`}
             onChange={(e) => addressAssignment(e.target.value)}
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            className="w-full px-3 py-2 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
             required
           />
         </div>
@@ -112,13 +112,13 @@ const EditPatientInfo = ({ onClose, patientInfo, onSubmit }) => {
           <button
             type="button"
             onClick={onClose}
-            className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+            className="px-4 py-2 font-bold text-white bg-red-500 rounded hover:bg-red-700 focus:outline-none focus:shadow-outline"
           >
             Cancel
           </button>
           <button
             type="submit"
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+            className="px-4 py-2 font-bold text-white bg-blue-500 rounded hover:bg-blue-700 focus:outline-none focus:shadow-outline"
           >
             Save
           </button>

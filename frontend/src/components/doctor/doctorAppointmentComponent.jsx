@@ -1,7 +1,6 @@
 import React from 'react'
 export default function DoctorAppointmentComponent(props){
  return <>
- 
  <div class="mt-4 mx-4">
         <div class="flex flex-col items-end mb-10">      
           <form class="flex w-full items-center">

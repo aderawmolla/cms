@@ -17,16 +17,12 @@ export default function SendLabratoryComponent(props) {
             <button type="submit" class="inline-flex items-center py-2.5 px-3 ml-2 text-sm font-medium text-white bg-primary rounded-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"><svg class="mr-2 -ml-1 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>Search</button>
           </form>
           <div class="w-full  rounded-lg shadow-xs">
-
             <div class="w-full   overflow-visible">
-
-
               <table class="w-full sm:w-full">
                 <thead>
                   <tr class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
                     <th class="px-4 py-3">Patient Full Name</th>
                     <th class="px-4 py-3"></th>
-
                     <th class="px-4 py-3">Gender</th>
                     <th class="px-4 py-3">Card Number</th>
                     <th class="px-4 py-3">Contact</th>
@@ -86,7 +82,12 @@ export default function SendLabratoryComponent(props) {
                           >
                             Detail
                           </a>
-                        </div>
+                          <path
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10"
+                            />
+          </div>
                       </div>
                     </td>
                   </tr>

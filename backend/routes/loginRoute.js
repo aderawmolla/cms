@@ -2,27 +2,29 @@ const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
- const {Patient}=require('../models/patientModel')
- const {Admin}=require('../models/adminModel')
- const {Doctor}=require('../models/doctorModel')
+const {Patient}=require('../models/patientModel')
+const {Admin}=require('../models/adminModel')
+const {Doctor}=require('../models/doctorModel');
+const { Labratoriest}=require('../models/labModel');
 
  router.post('/login', async (req, res) => {
   const username = req.body.username;
   const password = req.body.password;
-  try {
+  try {  
     let user = await Patient.findOne({ where: { username } });
-
     if (!user) {
       user = await Admin.findOne({ where: { username } });
     }
-
     if (!user) {
       user = await Doctor.findOne({ where: { username } });
     }
-
     if (!user) {
+      user = await Labratoriest.findOne({ where: { username } });
+    }  
+    if (!user){
       return res.json({ message: 'User not found' });
-    }
+    } 
+  
     const isPasswordMatch = password.trim() === user.password.trim();
     if (isPasswordMatch) {
       const userType = user.constructor.name;
@@ -35,7 +37,7 @@ const jwt = require('jsonwebtoken');
         token: token,
         userType: userType,
         id: user.id,
-        decodedToken: decodedToken
+        user:user
       };
 
       res.json(response);

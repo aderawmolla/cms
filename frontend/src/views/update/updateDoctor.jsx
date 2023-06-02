@@ -115,7 +115,6 @@ export default function UpdateDoctor({
                     onChange={(e) => setLastName(e.target.value)}
                   />
                 </div>
-
                 <div className="w-full px-3 ">
                   <label
                     className="block mb-2 text-xs font-bold tracking-wide text-gray-700 uppercase"

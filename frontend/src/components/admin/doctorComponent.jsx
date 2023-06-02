@@ -106,7 +106,8 @@ export default function DoctorComponent(props) {
               </thead>
               <tbody className="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
                 {doctors.map((doctor, index) => (
-                  <> 
+                 
+                 <> 
                   {doctorToBeUpdated && doctorToBeUpdated.id ==doctor.id && (
                       <UpdateDoctor
                         showModal={showModal}
@@ -225,7 +226,7 @@ export default function DoctorComponent(props) {
                       </div>
                     </td>
                   </tr>
-                
+  
                   </> 
                 ) 
                 )}

@@ -1,10 +1,8 @@
 // patientRoutes.js
 const express = require('express');
 const router = express.Router();
-const bcrypt = require('bcryptjs');
-
+// const bcrypt = require('bcryptjs');
 const {Appointment,sequelize}= require('../models/apointmentModel');
-
 router.get('/', async (req, res) => {
     try {
       const appointments= await Appointment.findAll();
@@ -68,7 +66,7 @@ router.delete('/:id', async (req, res) => {
       if (updatedAppointment[0] === 0) {
         res.status(404).json({ error: 'Appointment not found' });
       } else {
-        res.json({ message: 'Appointment updated successfully' });
+        res.json({ message:'Appointment updated successfully' });
       }
     } catch (err) {
       console.error(err);
@@ -90,7 +88,4 @@ router.delete('/:id', async (req, res) => {
       res.status(500).json({ error: 'Internal server error' });
     }
   });
-  
-  
-
 module.exports = router;

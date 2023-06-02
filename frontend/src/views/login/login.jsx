@@ -5,11 +5,10 @@ import data from "../../models/data.json";
 export default function LogIn() {
   const [info, setInfo] = useState();
   const [activeButton, setActiveButton] = useState(null);
-
   const handleButtonClick = (button) => {
     setActiveButton(button);
   };
-
+  
   return (
     <div className="relative flex min-h-screen ">
       <div className="flex flex-col items-center flex-auto min-w-0 bg-white sm:flex-row md:items-start sm:justify-center md:justify-start">

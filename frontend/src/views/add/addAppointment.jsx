@@ -11,7 +11,8 @@ export default function AddAppointment({
   showModal,
   handleClose,
   appointmentToBeUpdated
-}) {
+})
+ {
 const doctors = useSelector((state) => state.doctors.doctors);
 const dispatch = useDispatch();
 

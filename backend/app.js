@@ -12,6 +12,11 @@ const doctorRoutes=require('./routes/doctorRoutes')
 const paymentRoutes=require('./routes/paymentRoutes')
 const appointmentRoutes=require('./routes/appointmentRoutes')
 const loginRoutes=require('./routes/loginRoute')
+const testNameRoutes=require('./routes/testNameRoutes')
+const prescriptionRoutes=require('./routes/prescriptionRoutes')
+const labRoutes=require('./routes/labRoutes')
+
+
 app.use(express.json());
 const bodyParser = require('body-parser');
 app.use(bodyParser.json());
@@ -28,5 +33,8 @@ app.use('/admins',adminRoutes);
 app.use('/doctors',doctorRoutes)
 app.use('/appointments',appointmentRoutes)
 app.use('/payments',paymentRoutes)
+app.use('/testNames',testNameRoutes)
+app.use('/prescriptions',prescriptionRoutes)
+app.use('/labratories',labRoutes)
 
 

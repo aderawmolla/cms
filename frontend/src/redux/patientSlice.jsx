@@ -53,7 +53,7 @@ export const patientSlice = createSlice({
       );
       if (itemIndex === -1) {
         state.patients.splice(0, 0, action.payload);
-        state.quantity += 1;
+        state.quantity = state.quantity+1;
        const response= axios.post('http://localhost:5000/patients',action.payload).then(()=>{
         console.log(response)
       
@@ -91,7 +91,8 @@ export const patientSlice = createSlice({
         removeObjectWithId(state.patients, action.payload.id);
         state.patients.splice(itemIndex, 0, action.payload);
 
-      }
+      }         axios.put(`http://localhost:5000/patients/${action.payload.id}`,action.payload); 
+
       const { quantity } = calculateQuantity(state.patients);
       state.quantity = quantity;
       localStorage.setItem("patients", JSON.stringify(state));

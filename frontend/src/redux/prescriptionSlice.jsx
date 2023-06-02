@@ -1,36 +1,49 @@
 import { createSlice } from "@reduxjs/toolkit";
 import prescriptionData from "../models/prescriptions.json";
 import Swal from "sweetalert2";
-
+import axios from 'axios'
 function removeObjectWithId(arr, id) {
   const objWithIdIndex = arr.findIndex((obj) => obj.id === id);
-
   if (objWithIdIndex > -1) {
     arr.splice(objWithIdIndex, 1);
   }
 
   return arr;
 }
+// const storedPrescriptionData = localStorage.getItem("prescriptions");
 
-const storedPrescriptionData = localStorage.getItem("prescriptions");
-
-const initialState =
-  storedPrescriptionData !== null
-    ? JSON.parse(storedPrescriptionData)
-    : {
-        prescriptions: prescriptionData,
-      };
-
+// const initialState =
+//   storedPrescriptionData !== null
+//     ? JSON.parse(storedPrescriptionData)
+//     : {
+//         prescriptions: prescriptionData,
+//       };
+const response = await axios.get("http://localhost:5000/prescriptions");
+const data = response.data;
+const sortedData = data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+const reversedData = sortedData.reverse()
+data.reverse();
+const quantity = sortedData.length;
+console.log(quantity)
+const initialState = {
+  prescriptions: reversedData,
+  quantity: quantity,
+};
 export const prescriptionSlice = createSlice({
   name: "prescriptions",
   initialState,
   reducers: {
     sendPrescriptions: (state, action) => {
       const itemIndex = state.prescriptions.findIndex(
-        (item) => item.id === action.payload.id
+        (prescription) => prescription.id === action.payload.id
       );
       if (itemIndex === -1) {
+        const response= axios.post('http://localhost:5000/prescriptions',action.payload).then(()=>{
+          console.log(response)
+
+        })
         state.prescriptions.push(action.payload);
+        state.quantity = state.quantity + 1;
         Swal.fire("Prescription Sent.", "Success");
       } else {
         console.log("not added");
@@ -45,18 +58,19 @@ export const prescriptionSlice = createSlice({
 
     sendBackPrescription: (state, action) => {
       const itemIndex = state.prescriptions.findIndex(
-        (item) => item.id === action.payload.id
+        (item) =>item.id === action.payload.id
       );
       if (itemIndex === -1) {
       } else {
+        axios.put(`http://localhost:5000/prescriptions/${action.payload.id}`,action.payload); 
         removeObjectWithId(state.prescriptions, action.payload.id);
         state.prescriptions.push(action.payload);
       }
-      localStorage.setItem("prescriptions", JSON.stringify(state));
+      localStorage.setItem("prescriptions",JSON.stringify(state));
     },
   },
 });
 
-export const { sendPrescriptions, sendBackPrescription } =
-  prescriptionSlice.actions;
+
+export const { sendPrescriptions, sendBackPrescription } = prescriptionSlice.actions;
 export default prescriptionSlice.reducer;

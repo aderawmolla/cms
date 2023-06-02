@@ -15,7 +15,6 @@ import Home from "./views/home/home";
 import PatientDetail from "./components/patient/patientDetail";
 import DoctorDashbord from "./views/dashbord/doctorDashbord";
 import DoctorContent from "./components/doctor/doctorContent";
-import DoctorAppointmentComponent from "./components/doctor/doctorAppointmentComponent";
 import DoctorPrescriptionComponent from "./components/doctor/prescription";
 import ResponseLabratoryComponent from "./components/doctor/responseLabratoryComponent";
 import SingUp from "./views/login/signup";
@@ -28,24 +27,22 @@ import DoctorDetail from "./components/doctor/doctorDetail";
 import DoctorPrescription from "./components/prescription/doctorPrescription";
 import LaboratoryPrescription from "./components/prescription/labPrescription";
 import PaymentSuccess from "./views/login/paymentSuccess";
-export default function App() {
-
-
+export default function App(){
   return (
     <>
       <Routes>
-        <Route path="/" index element={<Home />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/paymentSuccess" element={<PaymentSuccess />} />
-        <Route path="/doctor" element={<DoctorDashbord />}>
-          <Route path="" element={<DoctorContent />} />
-          <Route path="labratory" element={<ResponseLabratoryComponent />} />
-          <Route path="prescription" element={<DoctorPrescriptionComponent />} />
-          <Route path="appointment" element={<DoctorAppointmentComponent />} />
+        <Route path="/" index element={<Home/>} />
+        <Route path="/login" element={<Login/>} />
+        <Route path="/paymentSuccess" element={<PaymentSuccess/>} />
+        <Route path="/doctor" element={<DoctorDashbord/>}>
+           <Route path="" element={<DoctorContent />} />
+           <Route path="labratory" element={<ResponseLabratoryComponent />} />
+           <Route path="prescription" element={<DoctorPrescriptionComponent />} />
         </Route>
         <Route path="/lab" element={<LabDoctorDashbord />}>
-          <Route path="prescriptions" element={<LabRequest/>} />
-          <Route path="prescriptions/:id" element={<LabResult />} />
+           <Route path="" element={<LabRequest/>} />
+          {/* <Route path="prescriptions/:id" element={<LabRequest/>}/> */}
+          <Route path="prescriptions/:id" element={<LabResult />}/>
         </Route>
         <Route path="/signIn" element={<Login />}>
           <Route path="" element={<SingIn/>} />

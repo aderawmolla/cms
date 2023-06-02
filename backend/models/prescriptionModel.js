@@ -1,39 +1,41 @@
+
 const { Sequelize } = require('sequelize');
+
 const sequelize = new Sequelize(
   'cms', 'root', '', {
   host: 'localhost',
   dialect: 'mysql',
 });
 
-const Appointment= sequelize.define('Appointment', {
+const Prescription = sequelize.define('Prescription', {
   id: {
     type: Sequelize.STRING(255),
     autoIncrement:false,
     primaryKey: true,
-  }, 
-  doctorId: {
-    type: Sequelize.STRING(255),
-    allowNull: false,
   },
   patientId: {
     type: Sequelize.STRING(255),
     allowNull: false,
   },
-  appointmentFee: {
+  doctorId: {
     type: Sequelize.STRING(255),
+    allowNull: false,
+  },
+  description: {
+    type: Sequelize.TEXT,
     allowNull: true,
   },
-  location: {
-    type: Sequelize.STRING(255),
+  issueDate: {
+    type: Sequelize.DATE,
     allowNull: true,
   },
-  date: {
-    type: Sequelize.STRING(255),
+  confirmDate: {
+    type: Sequelize.DATE,
     allowNull: true,
   },
-  time: {
+  status: {
     type: Sequelize.STRING(255),
-    allowNull: true,
-  },
+    allowNull: false,
+  }
 });
-module.exports = {Appointment,sequelize};
+module.exports = {Prescription,sequelize};

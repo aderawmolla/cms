@@ -1,27 +1,57 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import PrescriptionModal from "./prescriptionModal";
 import { useSelector } from "react-redux";
 
-export default function DoctorContent(props) {
-  const doctorId = "doc3";
-  const patients = useSelector((state) => state.patients.patients);
-  const prsc = useSelector((state) => state.prescriptions.prescriptions);
+export default function DoctorContent(props) {  
+const patients = useSelector((state) => state.patients.patients);
+const prescriptions=useSelector((state) => state.prescriptions.prescriptions);
+const appointments=useSelector((state)=>state.appointments.appointments);
+const [showModal,setShowModal] = useState(false);
+const handleClose=()=>setShowModal(false);
+const handleShow=()=>setShowModal(true);
+const currentUser=useSelector((state)=>state.currentUser.currentUser);
+const [filteredAppointmentsWithName, setFilteredAppointmentsWithName] = useState([]);
+const getPatientName = (patientId) =>{
+const patient = patients.find((p) => p.id === patientId);
+return patient ? `${patient.firstName} ${patient.lastName}`:'';
 
-  const [showModal, setShowModal] = useState(false);
-  const handleClose = () => setShowModal(false);
-  const handleShow = () => setShowModal(true);
+    };
+const getGender = (patientId) =>{
+const patient = patients.find((p) => p.id === patientId);
+return patient ? patient.gender :'';
 
+    };
+const getContact = (patientId) =>{
+    const patient = patients.find((p) => p.id === patientId);
+    return patient ? patient.contact :'';
+        };
+     useEffect(() => {
+      const filtered = appointments.filter((appointment) => appointment.doctorId === currentUser.id);
+      const appointmentPatientNames = filtered.map((appointment) => ({
+        ...appointment,
+        patientName:getPatientName(appointment.patientId),
+        gender:getGender(appointment.patientId),
+        contact:getContact(appointment.patientId)
+      }));
+    
+      localStorage.setItem('filteredAppointmentsWithName', JSON.stringify(appointmentPatientNames));
+      const savedAppointments = JSON.parse(localStorage.getItem('filteredAppointmentsWithName') || '[]');
+      setFilteredAppointmentsWithName(savedAppointments);
+    
+      console.log("appointment with name is ", savedAppointments);
+    },[]);
+    
   return (
     <>
-      <div className="mt-4 mx-4">
+      <div className="mx-4 mt-4">
         <div className="flex flex-col items-end mb-10">
-          <form className="flex w-full items-center">
+          <form className="flex items-center w-full">
             <label for="voice-search" className="sr-only">
               Search
             </label>
             <div className="relative w-full">
-              <div className="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
+              <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                 <svg
                   className="w-5 h-5 text-gray-500 dark:text-gray-400"
                   fill="currentColor"
@@ -48,7 +78,7 @@ export default function DoctorContent(props) {
               className="inline-flex items-center py-2.5 px-3 ml-2 text-sm font-medium text-white bg-primary rounded-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
             >
               <svg
-                className="mr-2 -ml-1 w-5 h-5"
+                className="w-5 h-5 mr-2 -ml-1"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -65,22 +95,24 @@ export default function DoctorContent(props) {
             </button>
           </form>
 
-          <div className="w-full  rounded-lg shadow-xs">
-            <div className="w-full   overflow-visible">
+          <div className="w-full rounded-lg shadow-xs">
+            <div className="w-full overflow-visible">
               <table className="w-full sm:w-full">
                 <thead>
                   <tr className="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
                     <th className="px-4 py-3">Patient Full Name</th>
                     <th className="px-4 py-3">Gender</th>
-                    <th className="px-4 py-3">Card Number</th>
                     <th className="px-4 py-3">Contact</th>
                     <th className="px-4 py-3">Date</th>
+                    <th className="px-4 py-3">Time</th>
+                    <th className="px-4 py-3">Location</th>
                     <th className="px-4 py-4">Actions</th>
                     <th></th>
                   </tr>
                 </thead>
                 <tbody className="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
-                  {patients.map((item, index) => (
+                  { 
+               filteredAppointmentsWithName && filteredAppointmentsWithName.map((item, index) => (
                     <tr
                       key={index}
                       className="text-gray-700 bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-900 dark:text-gray-400"
@@ -101,18 +133,19 @@ export default function DoctorContent(props) {
                           </div>
                           <div>
                             <p className="font-semibold">
-                              {item.firstName} {item.lastName} {item.doctorId}
+                              {item.patientName}
                             </p>
                           </div>
                         </div>
                       </td>
 
                       <td className="px-4 py-3 text-sm">{item.gender}</td>
-                      <td className="px-4 py-3 text-sm">{item.cardNumber}</td>
 
                       <td className="px-4 py-3 text-sm">{item.contact}</td>
 
                       <td className="px-4 py-3 text-sm">{item.date}</td>
+                      <td className="px-4 py-3 text-sm">{item.time}</td>
+                      <td className="px-4 py-3 text-sm">{item.location}</td>
 
                       <td className="px-2 py-3">
                         <div className="inline-flex items-center space-x-3">
@@ -126,21 +159,22 @@ export default function DoctorContent(props) {
                             <PrescriptionModal
                               showModal={showModal}
                               handleClose={handleClose}
+                              // item here is appointment
                               item={item}
                             />
                           </div>
 
-                          <div className="flex-shrink-0">
+                          {/* <div className="flex-shrink-0">
                             <a
                               href="/"
                               className="p-2 text-sm font-medium text-white rounded-lg bg-primary hover:bg-blue-700"
                             >
                               Send Lab Test
                             </a>
-                          </div>
+                          </div> */}
                           <div className="flex-shrink-0">
                             <a
-                              href="/"
+                              href="#"
                               className="p-2 text-sm font-medium rounded-lg text-cyan-600 hover:bg-gray-100"
                             >
                               Detail
@@ -192,14 +226,14 @@ export default function DoctorContent(props) {
                       </button>
                     </li>
                     <li>
-                      <button className="px-3 py-1 text-white dark:text-gray-800 transition-colors duration-150 bg-blue-600 dark:bg-gray-100 border border-r-0 border-blue-600 dark:border-gray-100 rounded-md focus:outline-none focus:shadow-outline-purple">
+                      <button className="px-3 py-1 text-white transition-colors duration-150 bg-blue-600 border border-r-0 border-blue-600 rounded-md dark:text-gray-800 dark:bg-gray-100 dark:border-gray-100 focus:outline-none focus:shadow-outline-purple">
                         3
                       </button>
                     </li>
                     <li>
                       <button className="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-purple">
                         4
-                      </button>
+                      </button>prescriptions
                     </li>
                     <li>
                       <span className="px-3 py-1">...</span>
@@ -235,13 +269,13 @@ export default function DoctorContent(props) {
                   </ul>
                 </nav>
               </span>
-            </div>
+            </div>  
           </div>
-          <div className="pt-32 w-full  rounded-lg shadow-xs">
-            <h1 className="text-xl py-4  font-bold text-gray-700 px-2 font-mono tracking-widest ">
+          <div className="w-full pt-32 rounded-lg shadow-xs">
+            <h1 className="px-2 py-4 font-mono text-xl font-bold tracking-widest text-gray-700 ">
               Issued Prescriptions
             </h1>
-            <div className="w-full   overflow-visible">
+            <div className="w-full overflow-visible">
               <table className="w-full sm:w-full">
                 <thead>
                   <tr className="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
@@ -255,7 +289,7 @@ export default function DoctorContent(props) {
                   </tr>
                 </thead>
                 <tbody className="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
-                  {prsc.map((item, index) => item.status === "issued" && (
+                  {prescriptions.map((item, index) => item.status==="issued" && (
                     <tr
                       key={index}
                       className="text-gray-700 bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-900 dark:text-gray-400"
@@ -301,11 +335,11 @@ export default function DoctorContent(props) {
               </table>
             </div>
           </div>
-          <div className="pt-8 w-full  rounded-lg shadow-xs">
-            <h1 className="text-xl py-4  font-bold text-gray-700 px-2 font-mono tracking-widest ">
+          <div className="w-full pt-8 rounded-lg shadow-xs">
+            <h1 className="px-2 py-4 font-mono text-xl font-bold tracking-widest text-gray-700 ">
               Confimed Prescriptions
             </h1>
-            <div className="w-full   overflow-visible">
+            <div className="w-full overflow-visible">
               <table className="w-full sm:w-full">
                 <thead>
                   <tr className="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
@@ -319,7 +353,8 @@ export default function DoctorContent(props) {
                   </tr>
                 </thead>
                 <tbody className="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
-                  {prsc.map((item, index) => item.status === "confirmed" && (
+                  
+                  {prescriptions.map((item, index) => item.status === "confirmed" && (
                     <tr
                       key={index}
                       className="text-gray-700 bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-900 dark:text-gray-400"
@@ -351,7 +386,7 @@ export default function DoctorContent(props) {
                         <div className="inline-flex items-center space-x-3">
                           <div className="flex-shrink-0">
                             <a
-                              href="/"
+                              href="#"
                               className="p-2 text-sm font-medium rounded-lg text-cyan-600 hover:bg-gray-100"
                             >
                               Detail

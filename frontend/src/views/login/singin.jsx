@@ -1,14 +1,24 @@
 import { Link ,useNavigate} from "react-router-dom";
 import { useState, useEffect } from "react";
 import axios from 'axios'
+import { useDispatch,useSelector } from "react-redux";
+import { setCurrentUser } from "../../redux/currentUser";
 export default function SingIn() {
   const [responseData, setResponseData] = useState(null)
   const navigate= useNavigate(); // Create a history object
   const [errorMessage,setErrorMessage] = useState('');
-  
+  const dispatch=useDispatch()
+  const  currentuser=useSelector((state)=>state.currentUser.currentUser)
   useEffect(()=>{
+    if(responseData)
+    {
+    dispatch(setCurrentUser(responseData.user))
+    console.log("the logged user id is",responseData.id)
+    console.log("the dispatched current user is ",currentuser)
+    };
     if (responseData && responseData.userType ==="Admin") {
       navigate("/adminDashbord");
+      
     } else if (responseData && responseData.userType === "Doctor") {
       navigate("/doctor");  
     } else if (responseData && responseData.userType === "Labratoriest") {
@@ -38,14 +48,15 @@ export default function SingIn() {
     e.preventDefault();
     try {
        await axios.post('http://localhost:5000/authenticate/login',formData).then(response => {
-        setResponseData(response.data);
+        console.log(`_________${response.data}`)
+        console.log(response.data.user)
+        setResponseData(response.data)
     });   
     } catch (error) {
       console.log("invalid username or password")
-      setErrorMessage('Invalid username or password');
+      setErrorMessage("Invalid username or password");
     }
   };
-  
   return (
      <>
     <div
@@ -106,7 +117,7 @@ export default function SingIn() {
               </label>
             </div>
             <div className="text-sm">
-              <a href="/" className="text-indigo-400 hover:text-blue-500">
+              <a href="#" className="text-indigo-400 hover:text-blue-500">
                 Forgot your password?
               </a>
             </div>
@@ -132,7 +143,6 @@ export default function SingIn() {
         </form>
       </div>
     </div>
-    
     </>
   );
 }

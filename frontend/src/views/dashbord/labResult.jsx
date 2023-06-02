@@ -3,81 +3,51 @@ import { useDispatch, useSelector } from "react-redux";
 import Swal from "sweetalert2";
 import { useParams } from "react-router-dom";
 import { sendBackPrescription } from "../../redux/prescriptionSlice";
-export default function LabResult() {
+import { updateTestNames } from "../../redux/testNameSlice";
+export default function LabResult(){
   let { id } = useParams();
-
-  const prescriptions = useSelector(
-    (state) => state.prescriptions.prescriptions
-  );
-  const dispatch = useDispatch();
+  const prescriptions = useSelector((state) => state.prescriptions.prescriptions);
+  const testNames=useSelector((state)=>state.testNames.testNames)
+  
+  console.log("prescriptions are...",prescriptions)
+  const dispatch=useDispatch();
   const [confirmDate, setConfirmDate] = useState();
+   //this returns single preescription based on passed id
+   const data = prescriptions.find(item => item.id === id);
+  const [prscData, setPrscData] = useState(data);
+  const [filteredTestNames,setFilteredTestNames]=useState([])
+  
+  function updateConfirmDate(time) {
+    setPrscData(prevState => ({
+      ...prevState, // Keep the previous state values
+      confirmDate:time, 
+      status:"confirmed"
+    }));
+  }
+  // useEffect(()=>{
+  //   const  filtered=testNames.filter((testName)=>{
+  //     if(testName.prescId===id){
+  //       return testName
+  //     }  
+  //  },
+  //  ) 
+  //  setFilteredTestNames(filtered)
 
-  const data = prescriptions.filter((item) => {
-    if (id === item.id)
-      return {
-        item,
-      };
-  });
-
-  const [prscData, setPrscData] = useState(data[0]);
-
-  const testResults = prescriptions
-    .filter((patient) => id === patient.id)
-    .map((patient) =>
-      patient.results.map((result) => ({
-        testName: result.test_name,
-        values: result.values,
-      }))
-    );
-
-  const [results, setResults] = useState(testResults);
-
-  const handleChange = (index, field, value) => {
-    const updatedResults = [...prscData.results];
-    updatedResults[index] = {
-      ...updatedResults[index],
-      [field]: value,
-    };
-    const updatedPrscData = {
-      ...prscData,
-      results: updatedResults,
-    };
-    setPrscData(updatedPrscData);
+  // },[testNames]);
+  useEffect(() => {
+    const filtered = testNames.filter((testName) => testName.prescId === id);
+    setFilteredTestNames(filtered);
+  }, [testNames, id]);
+  
+  const handleChangeTestName = (value, index) => {
+    setFilteredTestNames((prevState) => {
+      const newState = [...prevState];
+      const updatedItem = { ...newState[index],value:value };
+      newState[index] = updatedItem;
+      return newState;
+    });
   };
-
-  const handleOtherChanges = (index, field, value) => {
-    var updatedDate = [...prscData.confirmDate];
-    const updatedStatus = "confirmed";
-    updatedDate = {
-      ...updatedDate,
-      [field]: value,
-    };
-    const updatedPrscData = {
-      ...prscData,
-      confirmDate: updatedDate,
-      status: updatedStatus,
-    };
-    setPrscData(updatedPrscData);
-  };
-
-  // const toBeSent = prescriptions
-  //   .filter((patient) => id === patient.id)
-  //   .map((item, index) => ({
-  //     id: id,
-  //     patient_id: item.patient_id,
-  //     issueDate: item.issueDate,
-  //     confirmDate: confirmDate,
-  //     docId: item.docId,
-  //     description: item.description,
-  //     status: "confirmed",
-  //     results: results.filter((result) => {
-  //       return {
-  //         test_name: result.test_name,
-  //         values: result.values,
-  //       };
-  //     }),
-  //   }));
-
+  
   const handleSubmit = (event) => {
     event.preventDefault();
     Swal.fire({
@@ -89,43 +59,44 @@ export default function LabResult() {
       confirmButtonText: "Yes, send back test results!",
     }).then((result) => {
       if (result.isConfirmed) {
-        dispatch(sendBackPrescription(prscData));
+      dispatch(sendBackPrescription(prscData));
+      filteredTestNames.forEach((test) => {
+      dispatch(updateTestNames(test));
+        });
       }
     });
-    // dispatch(updatePatient(patient));
   };
-
-  useEffect(() => {
-    console.log(prscData);
-    localStorage.clear();
-    // console.log(testResults);
-  }, [prscData]);
+   useEffect(() => {
+      console.log(prscData);
+      localStorage.clear();
+      // console.log(testResults);
+    }, [prscData]);
 
   return (
     <>
       <div
         key={1}
-        className=" bg-white overflow-x-hidden text-secondary-dark4  w-full h-full flex items-start justify-end gap-x-4 "
+        className="flex items-start justify-end w-full h-full overflow-x-hidden bg-white text-secondary-dark4 gap-x-4"
       >
         <div className="flex flex-col justify-between overflow-y-auto top-0 max-w-[1200px] overflow-x-hidden rounded-lg mx-auto my-8 ssm:w-[400px] bg-white border-2 border-gray-400 h-full  space-y-4">
-          <div className="flex gap-16 bg-blue-500 text-white py-8 px-4">
+          <div className="flex gap-16 px-4 py-8 text-white bg-blue-500">
             <div className="flex flex-col gap-4">
               <h1 className="text-4xl font-bold">KIDANE MIHRET CLINIC</h1>
-              <h1 className="font-mono flex justify-center items-center font-bold text-xl text-center mb-10">
+              <h1 className="flex items-center justify-center mb-10 font-mono text-xl font-bold text-center">
                 Fill Laboratory test results and send back to a doctor
               </h1>
             </div>
             <img className="w-24 h-24" src="/icons/logo1.png" alt="" />
           </div>
-          <div className="w-full  px-6 pb-6  ">
+          <div className="w-full px-6 pb-6 ">
             <label
-              className=" block uppercase tracking-wide text-blue-500 text-xs font-bold mb-2"
+              className="block mb-2 text-xs font-bold tracking-wide text-blue-500 uppercase "
               for="grid-zip"
             >
               Test Description
             </label>
             <p
-              className="appearance-none flex items-start w-full h-full  text-gray-500 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+              className="flex items-start w-full h-full px-4 py-3 leading-tight text-gray-500 border border-gray-200 rounded appearance-none focus:outline-none focus:bg-white focus:border-gray-500"
               id="grid-zip"
               type="text"
               placeholder="Write a short description and background about the patient."
@@ -133,62 +104,58 @@ export default function LabResult() {
               {prscData.description}
             </p>
           </div>
-          <div className="grid grid-cols-2 mx-3 mb-6 gap-8">
-            <div className="w-full  px-3">
+          <div className="grid grid-cols-2 gap-8 mx-3 mb-6">
+            {/* <div className="w-full px-3">
               <label
-                className="block uppercase tracking-wide text-blue-500 text-xs font-bold mb-2"
+                className="block mb-2 text-xs font-bold tracking-wide text-blue-500 uppercase"
                 for="grid-last-name"
               >
-                Patient ID
               </label>
               <p
-                className="appearance-none block w-full  text-blue-500 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                className="block w-full px-4 py-3 leading-tight text-blue-500 border border-gray-200 rounded appearance-none focus:outline-none focus:bg-white focus:border-gray-500"
                 type="text"
               >
                 {prscData.patient_id}
               </p>
-            </div>
-            <div className="w-full  px-3">
+            </div> */}
+            <div className="w-full px-3">
               <label
-                className="block uppercase tracking-wide text-blue-500 text-xs font-bold mb-2"
+                className="block mb-2 text-xs font-bold tracking-wide text-blue-500 uppercase"
                 for="grid-last-name"
               >
                 Issued Date
               </label>
-              <p className="appearance-none block w-full  text-gray-500 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+              <p className="block w-full px-4 py-3 leading-tight text-gray-500 border border-gray-200 rounded appearance-none focus:outline-none focus:bg-white focus:border-gray-500">
                 {prscData.issueDate}
               </p>
             </div>
           </div>
-          <form className="mt-10   py-10  w-full mx-2 ">
+          <form className="w-full py-10 mx-2 mt-10 ">
             <div className="w-full px-6">
               <h3 className="mb-4 text-sm font-bold text-blue-500 dark:text-white">
                 Test Results
               </h3>
-              <ul className="w-full grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm font-medium text-gray-900 bg-white  dark:bg-gray-700 dark:border-gray-600 dark:text-white">
-                {prscData.results.map((test, index) => (
+              <ul className="grid w-full grid-cols-1 gap-4 text-sm font-medium text-gray-900 bg-white sm:grid-cols-2 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                {filteredTestNames && filteredTestNames.map((test,index) => (
                   <li
                     key={index}
-                    className="w-full grid grid-cols-2 gap-4 rounded-t-lg dark:border-gray-600"
+                    className="grid w-full grid-cols-2 gap-4 rounded-t-lg dark:border-gray-600"
                   >
                     {/* {test.map((tst, index) => ( */}
                     <div
                       key={index}
-                      className="flex items-center pl-3 border border-gray-300 px-2"
+                      className="flex items-center px-2 pl-3 border border-gray-300"
                     >
                       <label
                         htmlFor={`test-${index}`}
                         className="w-full py-3 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
                       >
-                        {test.test_name}
+                        {test.testName}
                       </label>
                       <input
                         type="text"
-                        // value={test.values}
-                        onChange={(event) =>
-                          handleChange(index, "values", event.target.value)
-                        }
-                        className="w-16 h-8 text-blue-600 bg-gray-100 border border-gray-200  rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
+                        onChange={(e)=>handleChangeTestName(e.target.value,index)}
+                        className="w-16 h-8 text-blue-600 bg-gray-100 border border-gray-200 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
                       />
                     </div>
                     {/* ))} */}
@@ -196,43 +163,45 @@ export default function LabResult() {
                 ))}
               </ul>
             </div>
-            <div className="w-64  px-6 pt-8">
+            
+            <div className="w-64 px-6 pt-8">
               <label
-                className="block uppercase tracking-wide text-blue-500 text-xs font-bold mb-2"
+                className="block mb-2 text-xs font-bold tracking-wide text-blue-500 uppercase"
                 for="grid-last-name"
               >
                 Confirmation Date
               </label>
               <input
-                className="appearance-none block w-full  text-blue-500 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                className="block w-full px-4 py-3 leading-tight text-blue-500 border border-gray-200 rounded appearance-none focus:outline-none focus:bg-white focus:border-gray-500"
                 id="grid-last-name"
                 type="date"
                 placeholder="fill date in E.C"
                 value={confirmDate}
-                onChange={(e) => handleOtherChanges("values", e.target.value)}
+                onChange={(e) => updateConfirmDate(e.target.value)}
               />
             </div>
-
+            
             <div className="flex w-full justify-between px-[4%] gap-16">
+              
               <button
                 // onClick={handleClose}
                 type=""
-                className="bg-red-500  text-white font-bold px-10 py-2 mt-5 rounded focus:outline-none shadow hover:bg-red-700 transition-colors"
+                className="px-10 py-2 mt-5 font-bold text-white transition-colors bg-red-500 rounded shadow focus:outline-none hover:bg-red-700"
               >
                 Cancel
               </button>
+              
               <button
                 onClick={handleSubmit}
                 type=""
-                className="bg-primary  text-white font-bold px-10 py-2 mt-5 rounded focus:outline-none shadow hover:bg-blue-700 transition-colors"
+                className="px-10 py-2 mt-5 font-bold text-white transition-colors rounded shadow bg-primary focus:outline-none hover:bg-blue-700"
               >
                 Send Lab Test
               </button>
-            </div>
+            </div> 
           </form>
         </div>
-      </div>
-      )
+      </div>  
     </>
   );
 }
