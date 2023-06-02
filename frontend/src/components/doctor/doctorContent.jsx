@@ -15,7 +15,6 @@ const [filteredAppointmentsWithName, setFilteredAppointmentsWithName] = useState
 const getPatientName = (patientId) =>{
 const patient = patients.find((p) => p.id === patientId);
 return patient ? `${patient.firstName} ${patient.lastName}`:'';
-
     };
 const getGender = (patientId) =>{
 const patient = patients.find((p) => p.id === patientId);

@@ -27,22 +27,29 @@ import DoctorDetail from "./components/doctor/doctorDetail";
 import DoctorPrescription from "./components/prescription/doctorPrescription";
 import LaboratoryPrescription from "./components/prescription/labPrescription";
 import PaymentSuccess from "./views/login/paymentSuccess";
+import PaginationDisplay from "./components/prescription/pagination/displayTemp";
+import DoctorAppointmentComponent from "./components/doctor/doctorAppointmentComponent";
 export default function App(){
   return (
     <>
       <Routes>
-        <Route path="/" index element={<Home/>} />
-        <Route path="/login" element={<Login/>} />
+        <Route path="/" index element={<Home />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/pagination" element={<PaginationDisplay />} />
         <Route path="/paymentSuccess" element={<PaymentSuccess/>} />
-        <Route path="/doctor" element={<DoctorDashbord/>}>
-           <Route path="" element={<DoctorContent />} />
-           <Route path="labratory" element={<ResponseLabratoryComponent />} />
-           <Route path="prescription" element={<DoctorPrescriptionComponent />} />
+
+        <Route path="/doctor" element={<DoctorDashbord />}>
+          <Route path="" element={<DoctorContent />} />
+          <Route path="labratory" element={<ResponseLabratoryComponent />} />
+          <Route path="prescription" element={<DoctorPrescriptionComponent />} />
+          <Route path="prescription/:prescriptionId" index element={<DoctorPrescription />} ></Route>
+          <Route path="appointment" element={<DoctorAppointmentComponent />} />
         </Route>
         <Route path="/lab" element={<LabDoctorDashbord />}>
-           <Route path="" element={<LabRequest/>} />
-          {/* <Route path="prescriptions/:id" element={<LabRequest/>}/> */}
-          <Route path="prescriptions/:id" element={<LabResult />}/>
+          <Route path="" element={<LabRequest/>} />
+          <Route path="prescription" element={<DoctorPrescriptionComponent />} />
+          <Route path="prescription/:laboratoryId/:prescriptionId" index element={<LaboratoryPrescription />} ></Route>
+          <Route path="result" element={<LabResult />} />
         </Route>
         <Route path="/signIn" element={<Login />}>
           <Route path="" element={<SingIn/>} />
