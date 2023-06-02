@@ -59,7 +59,7 @@ export default function App() {
           <Route path="payment" element={<Payment />} />
        </Route>
         {/* <Route path="/doctor" element={<DoctorComponent />} /> */}
-        <Route path="/patient" element={<PatientHome />} />
+        <Route path="/patient" element={<PatientProfile />} />
         <Route path="/verify" element={<Verify />} />
         <Route path="/adminDashbord/" element={<AdminDashbord />}>
           <Route path="" element={<DashbordContent />} />
