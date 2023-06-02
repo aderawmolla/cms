@@ -7,6 +7,9 @@ export default function AdminDashbord(props){
   const patients = useSelector((state) => state.patients.quantity);
   const doctors = useSelector((state) => state.doctors.quantity);
   const appointments = useSelector((state) => state.appointments.quantity);
+  const currentUser=useSelector((state)=>state.currentUser.currentUser);
+  const prescriptions=useSelector((state)=>state.prescriptions.quantity);
+ 
   const setup = () => {
     const getTheme = () => {
       if (window.localStorage.getItem('dark')) {
@@ -27,6 +30,8 @@ export default function AdminDashbord(props){
     }
   }
   return ( 
+       
+       
        <>
         <div x-data="setup()" class="bg-black">
             <div class="min-h-screen flex flex-col flex-auto flex-shrink-0 antialiased bg-white dark:bg-gray-700 text-black dark:text-white">
@@ -36,8 +41,8 @@ export default function AdminDashbord(props){
                 <img class="rounded-full mr-2 w-10 h-10 relative object-cover" src="https://img.freepik.com/free-photo/no-problem-concept-bearded-man-makes-okay-gesture-has-everything-control-all-fine-gesture-wears-spectacles-jumper-poses-against-pink-wall-says-i-got-this-guarantees-something_273609-42817.jpg?w=1800&t=st=1669749937~exp=1669750537~hmac=4c5ab249387d44d91df18065e1e33956daab805bee4638c7fdbf83c73d62f125" alt=""/>
 
                  <div>
-                    <p class="font-medium group-hover:text-indigo-400 leading-4">Doctor Aschalewu</p>
-                    <span class="text-xs text-slate-400">Administrator</span>
+                    <p class="font-medium group-hover:text-indigo-400 leading-4">Administrator</p>
+                    <span class="text-xs text-slate-400">{currentUser.username}</span>
                 </div>
                 </div>
 
@@ -64,7 +69,6 @@ export default function AdminDashbord(props){
                         onCick={setup}
                         class="group p-2 transition-colors duration-200 rounded-full shadow-md bg-blue-200 hover:bg-blue-200 dark:bg-gray-50 dark:hover:bg-gray-200 text-gray-900 focus:outline-none"
                       >
-
                         <svg
                           x-show="isDark"
                           width="24"
@@ -150,7 +154,7 @@ export default function AdminDashbord(props){
                     <img src="/icons/prescription.png" alt="" class="w-8 h-8 rounded-full h-30 stroke-current bg-blue-500 text-blue-800 dark:text-gray-800 transform transition-transform duration-500 ease-in-out"/>
                     </div>
                     <div class="text-right">
-                      <p class="text-2xl">5000</p>
+                      <p class="text-2xl">{prescriptions}</p>
                       <p>Prescriptions</p>
                     </div>
                   </div>

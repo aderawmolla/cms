@@ -4,6 +4,7 @@ import DiseaseComponent from "./diseaseComponent";
 import {Link } from 'react-router-dom'
 import EventComponent from "./eventComponent";
 export default function DashbordContent(props) {
+ 
   const patients = useSelector((state) =>
   state.patients.patients.filter((patient) =>patient.isNew=="yes")
 );
@@ -18,12 +19,12 @@ export default function DashbordContent(props) {
                 <h3 className="text-xl font-bold leading-none text-gray-900">
                   New Registered Patients{" "}
                 </h3>
-                <a
+                {/* <a
                   href="/"
                   className="inline-flex items-center p-2 text-sm font-medium rounded-lg text-cyan-600 hover:bg-gray-100"
                 >
                   View all
-                </a>
+                </a> */}
               </div>
 
               {/* new patient component */}
@@ -171,7 +172,7 @@ export default function DashbordContent(props) {
               {/* new patient component */}
             </div>    
           </div>
-          <div className="grid w-full grid-cols-1 gap-4 xl:grid-cols-2 2xl:grid-cols-3">
+          {/* <div className="grid w-full grid-cols-1 gap-4 xl:grid-cols-2 2xl:grid-cols-3">
             <div className="p-4 bg-white rounded-lg shadow sm:p-6 xl:p-8 2xl:col-span-2">
               <div className="flex flex-wrap items-center justify-between mb-4">
                 <div className="flex-shrink-0 mt-3">
@@ -296,7 +297,7 @@ export default function DashbordContent(props) {
               </div>
             </div>
           </div>
-          
+           */}
         </div>
        </main>
       <script async defer src="https://buttons.github.io/buttons.js"></script>
