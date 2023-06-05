@@ -196,7 +196,7 @@ export default function LabResult(){
                 type=""
                 className="px-10 py-2 mt-5 font-bold text-white transition-colors rounded shadow bg-primary focus:outline-none hover:bg-blue-700"
               >
-                Send Lab Test
+                Send Lab Result
               </button>
             </div> 
           </form>

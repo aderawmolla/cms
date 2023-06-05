@@ -1,6 +1,30 @@
 import React from "react";
 import { Outele, Link, Outlet } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { useEffect,useState } from "react";
 export default function LabDoctorDashbord(props) {
+
+  const currentUser=useSelector((state)=>state.currentUser.currentUser)
+  const [numberIssued,setNumberIssued]=useState(0)
+  const [numberConfirmed,setNumberConfirmed]=useState(0)
+  const prescriptions=useSelector((state)=>state.prescriptions.prescriptions)
+  useEffect(() => {
+   const issuedPrescriptions = prescriptions.filter(
+     (prescription) => prescription.status === "issued"
+   );
+   const issuedNumber = issuedPrescriptions.length;
+   setNumberIssued(issuedNumber);
+ 
+   const confirmedPrescriptions = prescriptions.filter(
+     (prescription) => prescription.status ==="confirmed"
+   );
+   const confirmedNumber = confirmedPrescriptions.length;
+   setNumberConfirmed(confirmedNumber);
+ 
+ }, [prescriptions,currentUser]);
+
+
+
   return ( 
       <>
         <div x-data="setup()" className="bg-black">
@@ -16,9 +40,9 @@ export default function LabDoctorDashbord(props) {
 
                 <div>
                   <p className="font-medium leading-4 group-hover:text-indigo-400">
-                    Doctor Aschalew
+                   Labratoriest
                   </p>
-                  <span className="text-xs text-slate-400">Lab Doctor</span>
+                  <span className="text-xs text-slate-400">{currentUser.username}</span>
                 </div>
               </div>
 
@@ -31,8 +55,8 @@ export default function LabDoctorDashbord(props) {
                     <span className="text-xs text-slate-400">Pantazi LLC</span>
                 </div>
             </a> */}
-              <div className="flex items-center justify-between bg-blue-800 h-14 dark:bg-gray-800 header-right">
-                <div className="flex items-center w-full max-w-xl p-2 mr-4 bg-white border border-gray-200 rounded shadow-sm">
+              <div className="flex items-center justify-end bg-blue-800 h-14 dark:bg-gray-800 header-right">
+                {/* <div className="flex items-center w-full max-w-xl p-2 mr-4 bg-white border border-gray-200 rounded shadow-sm">
                   <button className="outline-none focus:outline-none">
                     <svg
                       className="w-5 h-5 text-gray-600 cursor-pointer"
@@ -53,9 +77,10 @@ export default function LabDoctorDashbord(props) {
                     placeholder="Search"
                     className="w-full pl-3 text-sm text-black bg-transparent outline-none focus:outline-none"
                   />
-                </div>
+                </div> */}
                 <ul className="flex items-center">
-                  <li>
+                  
+                  {/* <li>
                     <button
                       aria-hidden="true"
                       // onCick={setup}
@@ -79,7 +104,10 @@ export default function LabDoctorDashbord(props) {
                         />
                       </svg>
                     </button>
-                  </li>
+                  </li> */}
+
+
+
                   <li>
                     <div className="block w-px h-6 mx-3 bg-gray-400 dark:bg-gray-700"></div>
                   </li>
@@ -177,7 +205,7 @@ export default function LabDoctorDashbord(props) {
                     </Link>
                   </li> */}
 
-                  <li>
+                  {/* <li>
                     <a
                       href="/"
                       className="relative flex flex-row items-center pr-6 border-l-4 border-transparent h-11 focus:outline-none hover:bg-blue-800 dark:hover:bg-gray-600 text-white-600 hover:text-white-800 hover:border-blue-500 dark:hover:border-gray-800"
@@ -212,8 +240,8 @@ export default function LabDoctorDashbord(props) {
                         Settings
                       </div>
                     </div>
-                  </li>
-                  <li>
+                  </li> */}
+                  {/* <li>
                     <a
                       href="/"
                       className="relative flex flex-row items-center pr-6 border-l-4 border-transparent h-11 focus:outline-none hover:bg-blue-800 dark:hover:bg-gray-600 text-white-600 hover:text-white-800 hover:border-blue-500 dark:hover:border-gray-800"
@@ -244,7 +272,7 @@ export default function LabDoctorDashbord(props) {
                         Settings
                       </span>
                     </a>
-                  </li>
+                  </li> */}
                 </ul>
                 <p className="hidden px-5 py-3 text-xs text-center mb-14 md:block">
                   Copyright @2023
@@ -257,7 +285,7 @@ export default function LabDoctorDashbord(props) {
             <div className="h-full mb-10 ml-14 mt-14 md:ml-64">
               {/* <!-- Statistics Cards --> */}
               <div className="flex flex-wrap justify-center my-5 ml-4 mr-4 -mx-2">
-                <div className="w-full p-2 lg:w-1/3">
+                {/* <div className="w-full p-2 lg:w-1/3">
                   <div className="flex flex-row items-center justify-between w-full p-3 bg-blue-500 rounded-md dark:from-cyan-500 dark:to-blue-500 from-indigo-500 via-purple-500 to-pink-500">
                     <div className="flex text-indigo-500 dark:text-white items-center bg-white dark:bg-[#0F172A] p-2 rounded-md flex-none w-8 h-8 md:w-12 md:h-12 ">
                       <svg
@@ -282,8 +310,10 @@ export default function LabDoctorDashbord(props) {
                       <div className="">100</div>
                     </div>
                   </div>
-                </div>
-                <div className="w-full p-2 md:w-1/2 lg:w-1/3 ">
+                </div> */}
+
+
+                <div className="w-full p-2 md:w-1/2 lg:w-1/2 ">
                   <div className="flex flex-row items-center w-full p-3 bg-blue-500 rounded-md dark:from-cyan-500 dark:to-blue-500 from-indigo-500 via-purple-500 to-pink-500">
                     <div className="flex items-center flex-none w-8 h-8 p-2 text-indigo-500 bg-white rounded-md dark:text-white md:w-12 md:h-12 ">
                       <svg
@@ -303,13 +333,13 @@ export default function LabDoctorDashbord(props) {
                     </div>
                     <div className="flex flex-col justify-around flex-grow ml-5 text-white">
                       <div className="text-2xl whitespace-nowrap">
-                        Prescriptions
+                       Issued Prescriptions
                       </div>
-                      <div className="">500</div>
+                      <div className="">{numberIssued}</div>
                     </div>
                   </div>
                 </div>
-                <div className="w-full p-2 md:w-1/2 lg:w-1/3">
+                <div className="w-full p-2 md:w-1/2 lg:w-1/2">
                   <div className="flex flex-row items-center justify-between w-full p-3 bg-blue-500 rounded-md dark:from-cyan-500 dark:to-blue-500 from-indigo-500 via-purple-500 to-pink-500">
                     <div className="flex text-indigo-500 dark:text-white items-center bg-white dark:bg-[#0F172A] p-2 rounded-md flex-none w-8 h-8 md:w-12 md:h-12 ">
                       <svg
@@ -329,9 +359,9 @@ export default function LabDoctorDashbord(props) {
                     </div>
                     <div className="flex flex-col justify-around flex-grow ml-5 text-white">
                       <div className="text-2xl whitespace-nowrap">
-                        Labratories
+                        Confirmed Prescriptions
                       </div>
-                      <div className="">500</div>
+                      <div className="">{numberConfirmed}</div>
                     </div>
                   </div>
                 </div>

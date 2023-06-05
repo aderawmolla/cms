@@ -1,35 +1,45 @@
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import { Outlet, Link } from "react-router-dom";
 import "./styles.css";
 import SidebarComponent from "../../components/doctor/sidebarComponent";
 import Notifications from "../update/notification";
 import {useSelector,useDispatch } from 'react-redux'
-import currentUser from "../../redux/currentUser";
 export default function DoctorDashbord(props) {
  const  currentDoctor=useSelector((state)=>state.currentUser.currentUser)
-  const setup = () => {
-    const getTheme = () => {
-      if (window.localStorage.getItem("dark")) {
-        return JSON.parse(window.localStorage.getItem("dark"));
-      }
-      return (
-        !!window.matchMedia &&
-        window.matchMedia("(prefers-color-scheme: dark)").matches
-      );
-    };
-    const setTheme = (value) => {
-      window.localStorage.setItem("dark", value);
-    };
-    return {
-      loading: true,
-      isDark: getTheme(),
-      toggleTheme() {
-        this.isDark = !this.isDark;
-        setTheme(this.isDark);
-      },
-    };
-  };
-  
+ const numberOfPrescriptions=useSelector((state)=>state.prescriptions.quantity)
+ const appointments=useSelector((state)=>state.appointments.appointments)
+ const [numberIssued,setNumberIssued]=useState(0)
+ const [numberConfirmed,setNumberConfirmed]=useState(0)
+ const [numberOfAppointment,setNumberOfAppointment]=useState(0)
+ const prescriptions=useSelector((state)=>state.prescriptions.prescriptions)
+ useEffect(() => {
+  const issuedPrescriptions = prescriptions.filter(
+    (prescription) => prescription.status ==="issued"
+  );
+  const issuedPrescriptionsForDoctor = issuedPrescriptions.filter(
+    (prescription) => prescription.doctorId===currentDoctor.id
+  );
+  const issuedNumber = issuedPrescriptionsForDoctor.length;
+  setNumberIssued(issuedNumber);
+
+  const confirmedPrescriptions = prescriptions.filter(
+    (prescription) => prescription.status === "confirmed"
+  );
+  const confirmedPrescriptionsForDoctor = confirmedPrescriptions.filter(
+    (prescription) => prescription.doctorId===currentDoctor.id
+  );
+  const confirmedNumber = confirmedPrescriptionsForDoctor.length;
+  setNumberConfirmed(confirmedNumber);
+
+  const filteredAppointments = appointments.filter(
+    (appointment) => appointment.doctorId==currentDoctor.id
+  );
+  const numberOfAppointments = filteredAppointments.length;
+  setNumberOfAppointment(numberOfAppointments);
+  console.log("number of appointments for the doctor is",numberOfAppointments)
+}, [prescriptions, appointments, currentDoctor]);
+
+
   return (
     <>
       <div x-data="setup()" className="bg-black">
@@ -50,8 +60,8 @@ export default function DoctorDashbord(props) {
                 <span className="text-xs text-slate-400">{currentDoctor.specialization}</span>
               </div>
             </div>
-            <div className="flex items-center justify-between bg-blue-800 h-14 dark:bg-gray-800 header-right">
-              <div className="flex items-center w-full max-w-xl p-2 mr-4 bg-white border border-gray-200 rounded shadow-sm">
+            <div className="flex items-center justify-end bg-blue-800 h-14 dark:bg-gray-800 header-right">
+              {/* <div className="flex items-center w-full max-w-xl p-2 mr-4 bg-white border border-gray-200 rounded shadow-sm">
                 <button className="outline-none focus:outline-none">
                   <svg
                     className="w-5 h-5 text-gray-600 cursor-pointer"
@@ -72,12 +82,12 @@ export default function DoctorDashbord(props) {
                   placeholder="Search"
                   className="w-full pl-3 text-sm text-black bg-transparent outline-none focus:outline-none"
                 />
-              </div>
+              </div> */}
               <ul className="flex items-center gap-x-8">
-                <li>
+                {/* <li>
                   <Notifications />
-                </li>
-                <li>
+                </li> */}
+                {/* <li>
                   <button
                     aria-hidden="true"
                     onCick={setup}
@@ -101,7 +111,7 @@ export default function DoctorDashbord(props) {
                       />
                     </svg>
                   </button>
-                </li>
+                </li> */}
                 <li>
                   <div className="block w-px h-6 mx-3 bg-gray-400 dark:bg-gray-700"></div>
                 </li>
@@ -134,7 +144,7 @@ export default function DoctorDashbord(props) {
           </div>
           <SidebarComponent />
           <div className="h-full mb-10 ml-14 mt-14 md:ml-64">
-            <div className="flex flex-wrap justify-center my-5 ml-4 mr-4 -mx-2">
+            <div className="flex flex-wrap justify-center my-5 ml-2 mr-1 -mx-2">
               <div className="w-full p-2 lg:w-1/3">
                 <div className="flex flex-row items-center w-full p-3 bg-blue-500 rounded-md dark:from-cyan-500 dark:to-blue-500 from-indigo-500 via-purple-500 to-pink-500">
                   <div className="flex text-indigo-500 dark:text-white items-center bg-white dark:bg-[#0F172A] p-2 rounded-md flex-none w-8 h-8 md:w-12 md:h-12 ">
@@ -148,7 +158,7 @@ export default function DoctorDashbord(props) {
                     <div className="text-2xl whitespace-nowrap">
                       Appointments
                     </div>
-                    <div className="">100</div>
+                    <div className="">{numberOfAppointment}</div>
                   </div>
                 </div>
               </div>
@@ -163,9 +173,9 @@ export default function DoctorDashbord(props) {
                   </div>
                   <div className="flex flex-col justify-around flex-grow ml-5 text-white">
                     <div className="text-2xl whitespace-nowrap">
-                      Prescriptions
+                     Issued  Prescriptions
                     </div>
-                    <div className="">500</div>
+                    <div className="">{numberIssued}</div>
                   </div>
                 </div>
               </div>
@@ -179,10 +189,10 @@ export default function DoctorDashbord(props) {
                     />
                   </div>
                   <div className="flex flex-col justify-around flex-grow ml-5 text-white">
-                    <div className="text-2xl whitespace-nowrap">
-                      Labratories
+                    <div className="text-2xl whitespace-nowrap overflow-ellipsis">
+                   Confirmed Prescriptions
                     </div>
-                    <div className="">500</div>
+                    <div className="">{numberConfirmed}</div>
                   </div>
                 </div>
               </div>

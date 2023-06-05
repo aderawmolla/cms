@@ -50,7 +50,7 @@ export default function DashbordContent(props) {
                        <tr className="text-gray-700 bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-900 dark:text-gray-400">
                        <td className="px-4 py-3">
                          <div className="flex items-center text-sm">
-                           <div className="relative hidden w-8 h-8 mr-3 rounded-full md:block">
+                           {/* <div className="relative hidden w-8 h-8 mr-3 rounded-full md:block">
                              <img
                                className="object-cover w-full h-full rounded-full"
                                src="https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&amp;q=80&amp;fm=jpg&amp;crop=entropy&amp;cs=tinysrgb&amp;w=200&amp;fit=max&amp;ixid=eyJhcHBfaWQiOjE3Nzg0fQ"
@@ -61,7 +61,7 @@ export default function DashbordContent(props) {
                                className="absolute inset-0 rounded-full shadow-inner"
                                aria-hidden="true"
                              ></div>
-                           </div>
+                           </div> */}
                            <div>
                              <p className="font-semibold">{patient.firstName} {patient.lastName}</p>
                            </div>
@@ -105,13 +105,15 @@ export default function DashbordContent(props) {
                       </tbody>
                     </table>
                   </div>
-                  <div className="grid px-4 py-3 text-xs font-semibold tracking-wide text-gray-500 uppercase border-t dark:border-gray-700 bg-gray-50 sm:grid-cols-9 dark:text-gray-400 dark:bg-gray-800">
+                 
+                 
+                 
+                  {/* <div className="grid px-4 py-3 text-xs font-semibold tracking-wide text-gray-500 uppercase border-t dark:border-gray-700 bg-gray-50 sm:grid-cols-9 dark:text-gray-400 dark:bg-gray-800">
                     <span className="flex items-center col-span-3">
                       {" "}
                       Showing 21-30 of 100{" "}
                     </span>
                     <span className="col-span-2"></span>
-                    {/* <!-- Pagination --> */}
                     <span className="flex col-span-4 mt-2 sm:mt-auto sm:justify-end">
                       <nav aria-label="Table navigation">
                         <ul className="inline-flex items-center">
@@ -165,7 +167,10 @@ export default function DashbordContent(props) {
                         </ul>
                       </nav>
                     </span>
-                  </div>
+                  </div> */}
+
+
+                  
                 </div>
               </div>
 

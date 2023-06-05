@@ -13,7 +13,7 @@ export default function Home() {
       <nav className="fixed z-30 w-screen px-4 py-4 bg-white border-gray-200 shadow-lg lg:px-6 dark:bg-gray-800 bg-white/95 ">
         <div className="flex flex-wrap items-center justify-between max-w-screen-xl mx-auto ">
           <a href="#" className="flex items-center">
-            <img src="/icons/logo.png" className="mr-3 rounded-full-6 sm:h-9" alt="Logo" />
+            <img src="/icons/logo.png" className="mr-3 rounded-full-6 h-9" alt="Logo" />
             <span
               className="self-center text-xl font-bold tracking-widest text-gray-500 whitespace-nowrap dark:text-white"
               style={{ fontFamily: "Righteous" }}

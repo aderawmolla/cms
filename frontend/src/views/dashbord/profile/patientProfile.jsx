@@ -1,92 +1,103 @@
-import React ,{useEffect,useState} from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from 'react-redux';
-
-import axios from 'axios'
 import { useParams } from "react-router-dom";
+import Swal from "sweetalert2"
+import { useDispatch } from "react-redux";
 import Modal from "../../update/profileUpdateModal";
 import EditPatientInfo from "../../update/editPersonalInformation";
-
-// export default function PatientProfile({ patient }) {
-//   patient = {
-//     firstName: "Kidist",
-//     lastName: "Ketema",
-//     description:
-//       "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt voluptates obcaecati numquam error et ut fugiat asperiores. Sunt nulla ad incidunt laboriosam, laudantium est unde natus cum numquam, neque facere. Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut, magni odio magnam commodi sunt ipsum eum! Voluptas eveniet aperiam at maxime, iste id dicta autem odio laudantium eligendi commodi distinctio!",
-//     photo:
-//       "https://img.freepik.com/free-photo/beautiful-young-female-doctor-looking-camera-office_1301-7807.jpg?w=2000",
-//     doctorId: "doc1",
-//     gender: "Female",
-//     id: "takami1",
-//     password: "titi",
-//     contact: "0920000000",
-//     username: "titi",
-//     email: "tita@gmail.com",
-//     date: "24 jul, 1992",
-//     state: "Amhara",
-//     wereda: "Bahir Dar",
-//     kebele: "Poly",
-//     cardNumber: "patientCard1",
-//   };
+import { updatePatient } from "../../../redux/patientSlice";
 export default function PatientProfile() {
-
+  const appointments=useSelector((state)=>state.appointments.appointments)
+  const prescriptions=useSelector((state)=>state.prescriptions.prescriptions)
+  const doctors=useSelector((state)=>state.doctors.doctors)
   const [isModalOpen, setIsModalOpen] = useState(false);
   // const [patientData, setPatientData] = useState(null);
-
   const handleEdit = () => {
     setIsModalOpen(true);
   };
-
   const handleCloseModal = () => {
     setIsModalOpen(false);
   };
-
+ const dispatch=useDispatch()
   const handleSubmit = (updatedInfo) => {
-    console.log(updatedInfo);
+    console.log("what is wrong",updatedInfo)
+    dispatch(updatePatient(updatedInfo))
+     Swal.fire("Updated!", `the profile updated successfully.`, "success")
     // Save the updated information to the database
     setIsModalOpen(false); // close the modal
   };
 
-
-const patients = useSelector((state) => state.patients.patients);
-const {id } = useParams();
-const [isLoading, setIsLoading] = useState(true);
-
-  const [data, setData] = useState(null);
+  const [appointmentWithName, setAppointmentWithNames] = useState([]);
+  const getDoctorName=(doctorId) =>{
+  const doctor = doctors.find((d) => d.id === doctorId);
+  return doctor? `${doctor.firstName} ${doctor.lastName}`:'';};
   
+  const getDoctorContact= (doctorId) =>{
+      const doctor = doctors.find((d) => d.id === doctorId);
+       return doctor ? `${doctor.contact}`:'';
+          };
+  
+  const patients = useSelector((state) => state.patients.patients);
+  const { id } = useParams();
+  
+  
+  const [isLoading, setIsLoading] = useState(true);
+  const [data, setData] = useState(null);
   useEffect(() => {
     console.log(id)
     try {
       const fetchData = async () => {
         if (id) {
           try {
-            const selectedPatient = patients.find(patient => patient.id ==id);
+            const selectedPatient = patients.find(patient => patient.id == id);
             console.log("___________________")
             console.log(selectedPatient)
             setData(selectedPatient)
             setIsLoading(false)
+            const appointmentsWithNames =appointments.map((appointment) => ({
+              ...appointment,
+              doctorName:getDoctorName(appointment.doctorId),
+              doctorContact:getDoctorContact(appointment.doctorId),
+            }));
+            setAppointmentWithNames(appointmentsWithNames)
+            
 
           } catch (error) {
             console.error(error);
           }
         }
       };
-  
+
       fetchData();
     } catch (error) {
       console.error(error);
     }
   }, []);
+  const authPatientId = id;
+  const patientApt = appointmentWithName.filter(apt =>{
+    if (authPatientId === apt.patientId)
+      return {
+        apt
+      }
+  })
+  const patientPrsc = prescriptions.filter(prsc => {
+    if (authPatientId === prsc.patientId)
+      return {
+        prsc
+      }
+  })
+  
   if (isLoading) {
-   return<> 
-   <div className="flex items-center justify-center h-screen">
-     <div className="text-center">
-      <h1 className="mb-4 text-3xl font-bold">Loading...</h1>
-      <div className="w-8 h-8 border-t-2 border-b-2 border-gray-900 rounded-full animate-spin"></div>
-     </div>
-    </div>
-    </>
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <div className="text-center">
+          <h1 className="mb-4 text-3xl font-bold">Loading...</h1>
+          <div className="w-8 h-8 border-t-2 border-b-2 border-gray-900 rounded-full animate-spin"></div>
+        </div>
+      </div>
+    );
   }
-
+  
   return (
     <div className="h-full p-8 bg-gray-200">
       <div className="pb-8 bg-white rounded-lg shadow-xl">
@@ -94,26 +105,6 @@ const [isLoading, setIsLoading] = useState(true);
           x-data="{ openSettings: false }"
           className="mt-4 rounded "
         >
-          {/* <button
-            onClick="openSettings = !openSettings"
-            className="p-2 text-gray-300 bg-gray-100 border border-gray-400 rounded hover:text-gray-300 bg-opacity-10 hover:bg-opacity-20"
-            title="Settings"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="w-4 h-4"
-              fill="currentColor"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="3"
-                d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z"
-              ></path>
-            </svg>
-          </button> */}
           <div
             x-show="openSettings"
             onClick="openSettings = false"
@@ -234,18 +225,19 @@ const [isLoading, setIsLoading] = useState(true);
           <div className="flex flex-col items-center justify-end flex-1 px-8 mt-2 lg:items-end">
             <div className="flex items-center mt-2 space-x-4">
               <button className="flex items-center px-4 py-2 space-x-2 text-sm text-gray-100 transition duration-100 bg-blue-600 rounded hover:bg-blue-700">
-                <svg
+               {/* <svg
                   xmlns="http://www.w3.org/2000/svg"
                   className="w-4 h-4"
                   viewBox="0 0 20 20"
                   fill="currentColor"
                 >
                   <path
-                    fill-rule="evenodd"
+                    fillRule="evenodd"
                     d="M18 5v8a2 2 0 01-2 2h-5l-5 4v-4H4a2 2 0 01-2-2V5a2 2 0 012-2h12a2 2 0 012 2zM7 8H5v2h2V8zm2 0h2v2H9V8zm6 0h-2v2h2V8z"
-                    clip-rule="evenodd"
+                    clipRule="evenodd"
                   ></path>
-                </svg>
+                </svg> */}
+
                 <button onClick={handleEdit}>Update Profile</button>
               </button>
             </div>
@@ -267,7 +259,7 @@ const [isLoading, setIsLoading] = useState(true);
                 <li className="flex py-2 border-b">
                   <span className="w-24 font-bold">Registered:</span>
                   <span className="text-gray-700">
-                   {data.createdAt}
+                    {data.createdAt}
                   </span>
                 </li>
                 <li className="flex py-2 border-b">
@@ -284,478 +276,88 @@ const [isLoading, setIsLoading] = useState(true);
                 </li>
               </ul>
             </div>
-            <div className="flex-1 p-8 mt-4 bg-white rounded-lg shadow-xl">
-              <h4 className="text-xl font-bold text-gray-900">Patient History </h4>
-              <div className="relative px-4">
-                <div className="absolute h-full border border-dashed border-opacity-20 border-secondary"></div>
-
-                <div className="flex items-center w-full my-6 -ml-1.5">
-                  <div className="z-10 w-1/12">
-                    <div className="w-3.5 h-3.5 bg-blue-600 rounded-full"></div>
-                  </div>
-                  <div className="w-11/12">
-                    <p className="text-sm">Eye diagnostic with Dr.Kidist</p>
-                    <p className="text-xs text-gray-500">3 min ago</p>
-                  </div>
-                </div>
-                <div className="flex items-center w-full my-6 -ml-1.5">
-                  <div className="z-10 w-1/12">
-                    <div className="w-3.5 h-3.5 bg-blue-600 rounded-full"></div>
-                  </div>
-                  <div className="w-11/12">
-                    <p className="text-sm">Eye diagnostic with Dr.Kidist</p>
-                    <p className="text-xs text-gray-500">3 min ago</p>
-                  </div>
-                </div>
-                <div className="flex items-center w-full my-6 -ml-1.5">
-                  <div className="z-10 w-1/12">
-                    <div className="w-3.5 h-3.5 bg-blue-600 rounded-full"></div>
-                  </div>
-                  <div className="w-11/12">
-                    <p className="text-sm">Eye diagnostic with Dr.Kidist</p>
-                    <p className="text-xs text-gray-500">3 min ago</p>
-                  </div>
-                </div>
-                <div className="flex items-center w-full my-6 -ml-1.5">
-                  <div className="z-10 w-1/12">
-                    <div className="w-3.5 h-3.5 bg-blue-600 rounded-full"></div>
-                  </div>
-                  <div className="w-11/12">
-                    <p className="text-sm">Eye diagnostic with Dr.Kidist</p>
-                    <p className="text-xs text-gray-500">3 min ago</p>
-                  </div>
-                </div>
-                <div className="flex items-center w-full my-6 -ml-1.5">
-                  <div className="z-10 w-1/12">
-                    <div className="w-3.5 h-3.5 bg-blue-600 rounded-full"></div>
-                  </div>
-                  <div className="w-11/12">
-                    <p className="text-sm">Eye diagnostic with Dr.Kidist</p>
-                    <p className="text-xs text-gray-500">3 min ago</p>
-                  </div>
-                </div>
-                <div className="flex items-center w-full my-6 -ml-1.5">
-                  <div className="z-10 w-1/12">
-                    <div className="w-3.5 h-3.5 bg-blue-600 rounded-full"></div>
-                  </div>
-                  <div className="w-11/12">
-                    <p className="text-sm">Eye diagnostic with Dr.Kidist</p>
-                    <p className="text-xs text-gray-500">3 min ago</p>
-                  </div>
+            <div className="grid justify-between grid-cols-1 lg:grid-cols-3">
+              <div className="flex-1 p-8 mt-4 bg-white rounded-lg shadow-xl lg:col-span-1">
+                <h4 className="text-xl font-bold text-gray-900">Patient History </h4>
+                <div className="relative px-4">
+                  <div className="absolute h-full border border-dashed border-opacity-20 border-secondary"></div>
+                  {patientPrsc.map((prsc, index) => {
+                    <div key={index} className="flex items-center w-full my-6 -ml-1.5">
+                      <div className="z-10 w-1/12">
+                        <div className="w-3.5 h-3.5 bg-blue-600 rounded-full"></div>
+                      </div>
+                      <div className="w-11/12">
+                        <p className="text-sm text-black">{prsc.disease} diagnostic with {prsc.docId}</p>
+                        <p className="text-xs text-gray-500">3 min ago</p>
+                      </div>
+                    </div>
+                  })}
                 </div>
               </div>
-            </div>
-          </div>
-          <div className="flex flex-col w-full 2xl:w-2/3">
-            <div className="flex-1 p-8 bg-white rounded-lg shadow-xl">
-              <h4 className="text-xl font-bold text-gray-900">About</h4>
-              <p className="mt-2 text-gray-700">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Nesciunt voluptates obcaecati numquam error et ut fugiat
-                asperiores. Sunt nulla ad incidunt laboriosam, laudantium est
-                unde natus cum numquam, neque facere. Lorem ipsum dolor sit amet
-                consectetur adipisicing elit. Ut, magni odio magnam commodi sunt
-                ipsum eum! Voluptas eveniet aperiam at maxime, iste id dicta
-                autem odio laudantium eligendi commodi distinctio!
-              </p>
-            </div>
-            <div className="flex-1 p-8 mt-4 bg-white rounded-lg shadow-xl">
-              <h4 className="text-xl font-bold text-gray-900">Statistics</h4>
+              <div className="flex-1 p-8 mt-4 bg-white rounded-lg shadow-xl lg:col-span-2">
+                <h4 className="px-4 py-2 text-xl font-bold text-gray-900 font">Appointements </h4>
+                <div className="relative px-4">
+                  <div className="absolute h-full border border-dashed border-opacity-20 border-secondary"></div>
+                  <table className="min-w-full bg-white">
+                    <thead>
+                      <tr className="text-white bg-blue-800">
+                        <th className="px-4 py-2">Doctor Name</th>
+                        <th className="px-4 py-2">Doctor Contact</th>
+                        <th className="px-4 py-2">Appointment Location</th>
+                        <th className="px-4 py-2">Date</th>
+                        <th className="px-4 py-2">Time</th> {/* New column for status */}
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {patientApt!=""?patientApt.map((apt, index) => {
+                        const currentDate = new Date(); // Current date and time
+                        const [mm, dd, yy] = apt.date.split('-'); // Splitting date into month, day, and year
+                        const [hh, min, period] = apt.time.split(/:|\s/); // Splitting time into hours, minutes, and AM/PM
 
-              <div className="grid grid-cols-1 gap-8 mt-4 lg:grid-cols-3">
-                <div className="px-6 py-6 bg-gray-100 border border-gray-300 rounded-lg shadow-xl">
-                  <div className="flex items-center justify-between">
-                    <span className="text-sm font-bold text-indigo-600">
-                      Hear Beat per Minute
-                    </span>
-                  </div>
-                  <div className="flex items-center justify-between mt-6">
-                    <div>
-                      <svg
-                        className="w-12 h-12 p-2.5 bg-indigo-400 bg-opacity-20 rounded-full text-indigo-600 border border-indigo-600"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          stroke-width="1"
-                          d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                        ></path>
-                      </svg>
-                    </div>
+                        // Create a new date object with the correct format
+                        const aptDate = new Date(yy, mm - 1, dd, hh, min, 0);
+                        const status = aptDate > currentDate ? 'Active' : 'Closed'; // Compare dates
+
+                        return (
+                          <tr
+                            key={index}
+                            className={`text-center ${index % 2 === 0 ? 'bg-gray-100' : 'bg-white'}`}
+                          >
+                            <td className="px-4 py-2 border">{apt.doctorName}</td>
+                            <td className="px-4 py-2 border">{apt.doctorContact}</td>
+                            <td className="px-4 py-2 border">{apt.location}</td>
+                            <td className="px-4 py-2 border">{apt.date}</td>
+                            <td className="px-4 py-2 border">{apt.time}</td>
+                             {/* Display the status */}
+                          </tr>
+                        );
+                      })
+                      :<div class="text-center flex flex-col items-center justify-center mt-10">
+                       <p class="text-gray-600 text-2xl font-bold mb-4">Please wait or contact Admin.</p>
+                       <p class="text-gray-600">You have no appointments yet.</p>
+                      </div>
                     
-                    <div className="flex flex-col">
-                      <div className="flex items-end">
-                        <span className="text-xl font-bold">
-                          72 per minute
-                        </span>
-                        <div className="flex items-center mb-1 ml-2">
+                      }
+                    </tbody>
+                  </table>
 
-                        </div>
-                      </div>
-                    </div>
-                  </div>
                 </div>
-                <div className="px-6 py-6 bg-gray-100 border border-gray-300 rounded-lg shadow-xl">
-                  <div className="flex items-center justify-between">
-                    <span className="text-sm font-bold text-green-600">
-                      Blood Pressure
-                    </span>
-                    <span className="px-2 py-1 text-xs text-gray-500 transition duration-200 bg-gray-200 rounded-lg cursor-default hover:bg-gray-500 hover:text-gray-200">
-                      100 
-                    </span>
-                  </div>
-                  <div className="flex items-center justify-between mt-6">
-                    <div>
-                      <svg
-                        className="w-12 h-12 p-2.5 bg-green-400 bg-opacity-20 rounded-full text-green-600 border border-green-600"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          stroke-width="1"
-                          d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"
-                        ></path>
-                      </svg>
-                    </div>
-                    <div className="flex flex-col">
-                      <div className="flex items-end">
-                        <span className="text-2xl font-bold 2xl:text-3xl">
-                          217
-                        </span>
-                        <div className="flex items-center mb-1 ml-2">
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className="px-6 py-6 bg-gray-100 border border-gray-300 rounded-lg shadow-xl">
-                  <div className="flex items-center justify-between">
-                    <span className="text-sm font-bold text-blue-600">
-                      Blood Type
-                    </span>
-                  </div>
-                  <div className="flex items-center justify-between mt-6">
-                    <div></div>
-                    <div className="flex flex-col">
-                      <div className="flex items-end">
-                        <span className="text-2xl font-bold 2xl:text-3xl">
-                          O+
-                        </span>
-                        <div className="flex items-center mb-1 ml-2">
-
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="mt-4">
-                <canvas
-                  id="verticalBarChart"
-                  style={{
-                    display: "block",
-                    boxSizing: "border-box",
-                    height: "414px",
-                    width: "828px",
-                  }}
-                  width="1656"
-                  height="828"
-                ></canvas>
               </div>
             </div>
           </div>
         </div>
-        {/* <div className="p-8 bg-white rounded-lg shadow-xl">
-          <div className="flex items-center justify-between">
-            <h4 className="text-xl font-bold text-gray-900">
-              Connections (532)
-            </h4>
-            <a href="/" title="View All">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="w-6 h-6 text-gray-500 hover:text-gray-700"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z"
-                ></path>
-              </svg>
-            </a>
-          </div>
-          <div className="grid grid-cols-2 gap-8 mt-8 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-8">
-            <a
-              href="/"
-              className="flex flex-col items-center justify-center text-gray-800 hover:text-blue-600"
-              title="View Profile"
-            >
-              <img
-                src="https://vojislavd.com/ta-template-demo/assets/img/connections/connection1.jpg"
-                className="w-16 rounded-full"
-              />
-              <p className="mt-1 text-sm font-bold text-center">
-                Diane Aguilar
-              </p>
-              <p className="text-xs text-center text-gray-500">
-                UI/UX Design at Upwork
-              </p>
-            </a>
-            <a
-              href="/"
-              className="flex flex-col items-center justify-center text-gray-800 hover:text-blue-600"
-              title="View Profile"
-            >
-              <img
-                src="https://vojislavd.com/ta-template-demo/assets/img/connections/connection2.jpg"
-                className="w-16 rounded-full"
-              />
-              <p className="mt-1 text-sm font-bold text-center">
-                Frances Mather
-              </p>
-              <p className="text-xs text-center text-gray-500">
-                Software Engineer at Facebook
-              </p>
-            </a>
-            <a
-              href="/"
-              className="flex flex-col items-center justify-center text-gray-800 hover:text-blue-600"
-              title="View Profile"
-            >
-              <img
-                src="https://vojislavd.com/ta-template-demo/assets/img/connections/connection3.jpg"
-                className="w-16 rounded-full"
-              />
-              <p className="mt-1 text-sm font-bold text-center">
-                Carlos Friedrich
-              </p>
-              <p className="text-xs text-center text-gray-500">
-                Front-End Developer at Tailwind CSS
-              </p>
-            </a>
-            <a
-              href="/"
-              className="flex flex-col items-center justify-center text-gray-800 hover:text-blue-600"
-              title="View Profile"
-            >
-              <img
-                src="https://vojislavd.com/ta-template-demo/assets/img/connections/connection4.jpg"
-                className="w-16 rounded-full"
-              />
-              <p className="mt-1 text-sm font-bold text-center">
-                Donna Serrano
-              </p>
-              <p className="text-xs text-center text-gray-500">
-                System Engineer at Tesla
-              </p>
-            </a>
-            <a
-              href="/"
-              className="flex flex-col items-center justify-center text-gray-800 hover:text-blue-600"
-              title="View Profile"
-            >
-              <img
-                src="https://vojislavd.com/ta-template-demo/assets/img/connections/connection5.jpg"
-                className="w-16 rounded-full"
-              />
-              <p className="mt-1 text-sm font-bold text-center">
-                Randall Tabron
-              </p>
-              <p className="text-xs text-center text-gray-500">
-                Software Developer at Upwork
-              </p>
-            </a>
-            <a
-              href="/"
-              className="flex flex-col items-center justify-center text-gray-800 hover:text-blue-600"
-              title="View Profile"
-            >
-              <img
-                src="https://vojislavd.com/ta-template-demo/assets/img/connections/connection6.jpg"
-                className="w-16 rounded-full"
-              />
-              <p className="mt-1 text-sm font-bold text-center">
-                John McCleary
-              </p>
-              <p className="text-xs text-center text-gray-500">
-                Software Engineer at Laravel
-              </p>
-            </a>
-            <a
-              href="/"
-              className="flex flex-col items-center justify-center text-gray-800 hover:text-blue-600"
-              title="View Profile"
-            >
-              <img
-                src="https://vojislavd.com/ta-template-demo/assets/img/connections/connection7.jpg"
-                className="w-16 rounded-full"
-              />
-              <p className="mt-1 text-sm font-bold text-center">Amanda Noble</p>
-              <p className="text-xs text-center text-gray-500">
-                Graphic Designer at Tailwind CSS
-              </p>
-            </a>
-            <a
-              href="/"
-              className="flex flex-col items-center justify-center text-gray-800 hover:text-blue-600"
-              title="View Profile"
-            >
-              <img
-                src="https://vojislavd.com/ta-template-demo/assets/img/connections/connection8.jpg"
-                className="w-16 rounded-full"
-              />
-              <p className="mt-1 text-sm font-bold text-center">
-                Christine Drew
-              </p>
-              <p className="text-xs text-center text-gray-500">
-                Senior Android Developer at Google
-              </p>
-            </a>
-            <a
-              href="/"
-              className="flex flex-col items-center justify-center text-gray-800 hover:text-blue-600"
-              title="View Profile"
-            >
-              <img
-                src="https://vojislavd.com/ta-template-demo/assets/img/connections/connection9.jpg"
-                className="w-16 rounded-full"
-              />
-              <p className="mt-1 text-sm font-bold text-center">Lucas Bell</p>
-              <p className="text-xs text-center text-gray-500">
-                Creative Writer at Upwork
-              </p>
-            </a>
-            <a
-              href="/"
-              className="flex flex-col items-center justify-center text-gray-800 hover:text-blue-600"
-              title="View Profile"
-            >
-              <img
-                src="https://vojislavd.com/ta-template-demo/assets/img/connections/connection10.jpg"
-                className="w-16 rounded-full"
-              />
-              <p className="mt-1 text-sm font-bold text-center">
-                Debra Herring
-              </p>
-              <p className="text-xs text-center text-gray-500">
-                Co-Founder at Alpine.js
-              </p>
-            </a>
-            <a
-              href="/"
-              className="flex flex-col items-center justify-center text-gray-800 hover:text-blue-600"
-              title="View Profile"
-            >
-              <img
-                src="https://vojislavd.com/ta-template-demo/assets/img/connections/connection11.jpg"
-                className="w-16 rounded-full"
-              />
-              <p className="mt-1 text-sm font-bold text-center">
-                Benjamin Farrior
-              </p>
-              <p className="text-xs text-center text-gray-500">
-                Software Engineer Lead at Microsoft
-              </p>
-            </a>
-            <a
-              href="/"
-              className="flex flex-col items-center justify-center text-gray-800 hover:text-blue-600"
-              title="View Profile"
-            >
-              <img
-                src="https://vojislavd.com/ta-template-demo/assets/img/connections/connection12.jpg"
-                className="w-16 rounded-full"
-              />
-              <p className="mt-1 text-sm font-bold text-center">Maria Heal</p>
-              <p className="text-xs text-center text-gray-500">
-                Linux System Administrator at Twitter
-              </p>
-            </a>
-            <a
-              href="/"
-              className="flex flex-col items-center justify-center text-gray-800 hover:text-blue-600"
-              title="View Profile"
-            >
-              <img
-                src="https://vojislavd.com/ta-template-demo/assets/img/connections/connection13.jpg"
-                className="w-16 rounded-full"
-              />
-              <p className="mt-1 text-sm font-bold text-center">Edward Ice</p>
-              <p className="text-xs text-center text-gray-500">
-                Customer Support at Instagram
-              </p>
-            </a>
-            <a
-              href="/"
-              className="flex flex-col items-center justify-center text-gray-800 hover:text-blue-600"
-              title="View Profile"
-            >
-              <img
-                src="https://vojislavd.com/ta-template-demo/assets/img/connections/connection14.jpg"
-                className="w-16 rounded-full"
-              />
-              <p className="mt-1 text-sm font-bold text-center">
-                Jeffery Silver
-              </p>
-              <p className="text-xs text-center text-gray-500">
-                Software Engineer at Twitter
-              </p>
-            </a>
-            <a
-              href="/"
-              className="flex flex-col items-center justify-center text-gray-800 hover:text-blue-600"
-              title="View Profile"
-            >
-              <img
-                src="https://vojislavd.com/ta-template-demo/assets/img/connections/connection15.jpg"
-                className="w-16 rounded-full"
-              />
-              <p className="mt-1 text-sm font-bold text-center">
-                Jennifer Schultz
-              </p>
-              <p className="text-xs text-center text-gray-500">
-                Project Manager at Google
-              </p>
-            </a>
-            <a
-              href="/"
-              className="flex flex-col items-center justify-center text-gray-800 hover:text-blue-600"
-              title="View Profile"
-            >
-              <img
-                src="https://vojislavd.com/ta-template-demo/assets/img/connections/connection16.jpg"
-                className="w-16 rounded-full"
-              />
-              <p className="mt-1 text-sm font-bold text-center">
-                Joseph Marlatt
-              </p>
-              <p className="text-xs text-center text-gray-500">
-                Team Lead at Facebook
-              </p>
-            </a>
-          </div>
-        </div> */}
       </div>
       {isModalOpen && (
         <Modal onClose={handleCloseModal}>
           <EditPatientInfo
+            onClose={handleCloseModal}
             patientInfo={data}
             onSubmit={handleSubmit}
-            onClose={handleCloseModal}
           />
         </Modal>
       )}
     </div>
+
   );
-}
+  
+ }

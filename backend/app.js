@@ -15,7 +15,7 @@ const loginRoutes=require('./routes/loginRoute')
 const testNameRoutes=require('./routes/testNameRoutes')
 const prescriptionRoutes=require('./routes/prescriptionRoutes')
 const labRoutes=require('./routes/labRoutes')
-
+const imageRoutes=require('./routes/uploadImage')
 
 app.use(express.json());
 const bodyParser = require('body-parser');
@@ -36,5 +36,5 @@ app.use('/payments',paymentRoutes)
 app.use('/testNames',testNameRoutes)
 app.use('/prescriptions',prescriptionRoutes)
 app.use('/labratories',labRoutes)
-
+app.use('/upload',imageRoutes)
 

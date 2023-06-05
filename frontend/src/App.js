@@ -12,6 +12,7 @@ import AddAppointment from "./views/add/addAppointment";
 import Login from "./views/login/login";
 import AdminDashbord from "./views/dashbord/adminDashbord";
 import Home from "./views/home/home";
+import PasswordError from "./views/login/passwordError";
 import PatientDetail from "./components/patient/patientDetail";
 import DoctorDashbord from "./views/dashbord/doctorDashbord";
 import DoctorContent from "./components/doctor/doctorContent";
@@ -29,17 +30,24 @@ import LaboratoryPrescription from "./components/prescription/labPrescription";
 import PaymentSuccess from "./views/login/paymentSuccess";
 import PaginationDisplay from "./components/prescription/pagination/displayTemp";
 import DoctorAppointmentComponent from "./components/doctor/doctorAppointmentComponent";
+import ForgetPassword from "./views/login/forgetPassword";
+import PrescriptionDetail from "./components/doctor/prescriptionDetail";
 export default function App(){
   return (
     <>
       <Routes>
+         {/* <Route path="/" index element={<ImageUpload />} /> */}
         <Route path="/" index element={<Home />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/login" element={<Login />} />
+
         <Route path="/pagination" element={<PaginationDisplay />} />
         <Route path="/paymentSuccess" element={<PaymentSuccess/>} />
+        <Route path="/incorrectPassword" element={<PasswordError/>} />
 
         <Route path="/doctor" element={<DoctorDashbord />}>
           <Route path="" element={<DoctorContent />} />
+          <Route path="prescriptionDetail/:id" element={<PrescriptionDetail />} />
           <Route path="labratory" element={<ResponseLabratoryComponent />} />
           <Route path="prescription" element={<DoctorPrescriptionComponent />} />
           <Route path="prescription/:prescriptionId" index element={<DoctorPrescription />} ></Route>
@@ -49,15 +57,18 @@ export default function App(){
           <Route path="" element={<LabRequest/>} />
           <Route path="prescription" element={<DoctorPrescriptionComponent />} />
           <Route path="prescription/:laboratoryId/:prescriptionId" index element={<LaboratoryPrescription />} ></Route>
-          <Route path="result" element={<LabResult />} />
+          <Route path="prescriptions/:id" element={<LabResult />} />
         </Route>
         <Route path="/signIn" element={<Login />}>
           <Route path="" element={<SingIn/>} />
           <Route path="signUp" element={<SingUp />} />
+          {/* <Route path="forgetPassword" element={<ForgetPassword />} /> */}
           <Route path="payment" element={<Payment />} />
        </Route>
         {/* <Route path="/doctor" element={<DoctorComponent />} /> */}
+        <Route path="/patient" element={<PatientHome />} />
         <Route path="/patient/:id" element={<PatientProfile/>} />
+
         <Route path="/adminDashbord/" element={<AdminDashbord />}>
           <Route path="" element={<DashbordContent />} />
           <Route path="patient" element={<PatientComponent/>} />
@@ -70,6 +81,7 @@ export default function App(){
           <Route path="prescription/:laboratoryId/:prescriptionId" index element={<LaboratoryPrescription />} ></Route>
           <Route path="addPatient" element={<AddPatient />} />
           <Route path="addDoctor" element={<AddDoctor />} />
+          <Route path="forgetPassword" element={<ForgetPassword/>} />
           {/* <Route path="addAppointment" element={<AddAppointment />} /> */}
           <Route path="addAppointment/:patientId" element={<AddAppointment />} />
         </Route>

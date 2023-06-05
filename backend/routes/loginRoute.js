@@ -21,15 +21,15 @@ const { Labratoriest}=require('../models/labModel');
     if (!user) {
       user = await Labratoriest.findOne({ where: { username } });
     }  
-    if (!user){
-      return res.json({ message: 'User not found' });
-    } 
+    // if (!user){
+    //   return res.json({ message: 'User not found' });
+    // } 
   
     const isPasswordMatch = password.trim() === user.password.trim();
     if (isPasswordMatch) {
       const userType = user.constructor.name;
       const token = jwt.sign({ userId: user.id, userType }, 'clinic-management', { expiresIn: '1h' });
-      const decodedToken = jwt.decode(token);
+      // const decodedToken = jwt.decode(token);
       console.log("..............");
       console.log(userType);
       const response = {
@@ -37,12 +37,13 @@ const { Labratoriest}=require('../models/labModel');
         token: token,
         userType: userType,
         id: user.id,
-        user:user
+        user:user,
+        isLogIn:true,
       };
 
       res.json(response);
     } else {
-      res.json({ message: 'Incorrect password', userType: user.constructor.name });
+      res.json({ message: 'Incorrect password', userType: user.constructor.name,isLogin:false });
     }
   } catch (error) {
     console.error(error);

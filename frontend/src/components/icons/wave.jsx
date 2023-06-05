@@ -11,8 +11,8 @@ export default function WaveIcon() {
       className="w-full transition duration-300 ease-in-out delay-150"
     >
       <style>
-        {`
-          .path-0{
+        
+        {`.path-0{
             animation:pathAnim-0 4s;
             animation-timing-function: linear;
             animation-iteration-count: infinite;
@@ -34,7 +34,8 @@ export default function WaveIcon() {
               d: path("M 0,700 C 0,700 0,233
                0,233 C 269.5,198 539,163 779,163 C 1019,163 1229.5,198 1440,233 C 1440,233 1440,700 1440,700 Z");
             }
-          }`}
+          }`
+          }
       </style>
       <path
         d="M 0,700 C 0,700 0,233 0,233 C 269.5,198 539,163 779,163 C 1019,163 1229.5,198 1440,233 C 1440,233 1440,700 1440,700 Z"

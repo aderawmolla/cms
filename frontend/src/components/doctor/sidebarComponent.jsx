@@ -70,7 +70,7 @@ export default function SidebarComponent(props) {
               </span>
             </Link>
           </li>
-          <li>
+          {/* <li>
             <Link
               to="/doctor/labratory"
               className="relative flex flex-row items-center pr-6 border-l-4 border-transparent h-11 focus:outline-none hover:bg-blue-800 dark:hover:bg-gray-600 text-white-600 hover:text-white-800 hover:border-blue-500 dark:hover:border-gray-800"
@@ -124,15 +124,15 @@ export default function SidebarComponent(props) {
                 5
               </span>
             </a>
-          </li>
-          <li className="hidden px-5 md:block">
+          </li> */}
+          {/* <li className="hidden px-5 md:block">
             <div className="flex flex-row items-center h-8 mt-5">
               <div className="text-sm font-light tracking-wide text-gray-400 uppercase">
                 Settings
               </div>
             </div>
-          </li>
-          <li>
+          </li> */}
+          {/* <li>
             <a
               href="/"
               className="relative flex flex-row items-center pr-6 border-l-4 border-transparent h-11 focus:outline-none hover:bg-blue-800 dark:hover:bg-gray-600 text-white-600 hover:text-white-800 hover:border-blue-500 dark:hover:border-gray-800"
@@ -158,8 +158,8 @@ export default function SidebarComponent(props) {
               </span>
             </a>
           </li>
-          <li>
-            <a
+          <li> */}
+            {/* <a
               href="/"
               className="relative flex flex-row items-center pr-6 border-l-4 border-transparent h-11 focus:outline-none hover:bg-blue-800 dark:hover:bg-gray-600 text-white-600 hover:text-white-800 hover:border-blue-500 dark:hover:border-gray-800"
             >
@@ -188,8 +188,8 @@ export default function SidebarComponent(props) {
               <span className="ml-2 text-sm tracking-wide truncate">
                 Settings
               </span>
-            </a>
-          </li>
+            </a> */}
+          {/* </li> */}
         </ul>
         <p className="hidden px-5 py-3 text-xs text-center mb-14 md:block">
           Copyright @2023

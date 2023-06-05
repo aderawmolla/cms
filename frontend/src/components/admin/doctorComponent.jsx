@@ -6,18 +6,16 @@ import Swal from "sweetalert2";
 import UpdateDoctor from "../../views/update/updateDoctor";
 import Pagination from "../prescription/pagination/pagination";
 export default function DoctorComponent(props) {
-  
   const [searchText, setSearchText] = useState('');
         const [searchResults, setSearchResults] = useState([]);
+        const doctors=useSelector((state)=>state.doctors.doctors);
         const [posts, setPosts] = useState(doctors);
         const [loading, setLoading] = useState(false);
         const [currentPage, setCurrentPage] = useState(1);
         const [postsPerPage] = useState(5);
-      
         const indexOfLastPost = currentPage * postsPerPage;
         const indexOfFirstPost = indexOfLastPost - postsPerPage;
         const currentPosts = posts.slice(indexOfFirstPost, indexOfLastPost);
-      
         // Change page
         const paginate = (pageNumber) => setCurrentPage(pageNumber);
       
@@ -51,9 +49,6 @@ export default function DoctorComponent(props) {
       
           return pageNumbers;
         };
-      
-        
-      
         //prev page
         const handlePrevPage = () => {
           if (currentPage > 1) {
@@ -67,8 +62,6 @@ export default function DoctorComponent(props) {
             setCurrentPage(currentPage + 1);
           }
         };
-      
-      
         const handleSearch = (e) => {
           e.preventDefault();
           const results = doctors.filter((doctor) => {
@@ -83,17 +76,11 @@ export default function DoctorComponent(props) {
           });
           setSearchResults(results);
         };
-      
-        
-      
-       
         useEffect(() => {
           console.log(searchResults)
           console.log(posts)
         },[searchResults])
   
-
-  const doctors = useSelector((state) => state.doctors.doctors);
   const dispatch = useDispatch();
   const [showModal, setShowModal] = useState(false);
   const [doctorToBeUpdated, setDoctorToBeUpdated] = useState(null);
@@ -101,6 +88,7 @@ export default function DoctorComponent(props) {
     setShowModal(false);
     setDoctorToBeUpdated(null);
   };
+
   const handleShow = (doctor) => {
     setShowModal(true);
     setDoctorToBeUpdated(doctor);
@@ -112,8 +100,16 @@ export default function DoctorComponent(props) {
   if (!doctors) {
     return <div>Loading...</div>; // Or any other appropriate loading state
   }
+
+  
   return (
     <> 
+     <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.5/flowbite.min.css" rel="stylesheet" />
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.5/flowbite.min.js"></script>
+
+    <h1 className="px-2 py-4 text-center font-mono text-3xl font-bold  tracking-widest text-gray-700 ">
+              Doctors
+            </h1>
       <div className="mx-4 mt-4">
         <div className="flex flex-col items-end mb-10">
           <Link to="/adminDashbord/addDoctor">
@@ -177,15 +173,14 @@ export default function DoctorComponent(props) {
                Search
             </button>
           </form>
-
-        {searchResults.length > 0 ? (
+          
+                    {searchResults.length > 0 ? (
                       <table class="w-full sm:w-full mt-8">
                       <thead>
                         <tr class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
                           <th class="px-4 py-3">Doctor Full Name</th>
                           <th class="pr-4 py-3">Specialization</th>
                           <th class="px-4 py-3">Gender</th>
-                          <th class="px-4 py-3">Id</th>
                           <th class="px-4 py-3">email</th>
                           <th class="px-4 py-3">password</th>
                           <th class="px-4 py-3">Contact</th>
@@ -199,7 +194,7 @@ export default function DoctorComponent(props) {
         <tr classNameName="text-gray-700 bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-900 dark:text-gray-400">
         <td className="px-4 py-3">
           <div className="flex items-center text-sm">
-            <div className="relative hidden w-8 h-8 mr-3 rounded-full md:block">
+            {/* <div className="relative hidden w-8 h-8 mr-3 rounded-full md:block">
               <img
                 className="w-full h-full rounded-full "
                 src={doctor.image}
@@ -210,7 +205,7 @@ export default function DoctorComponent(props) {
                 className="absolute inset-0 rounded-full shadow-inner"
                 aria-hidden="true"
               ></div>
-            </div>
+            </div> */}
             <div>
               <p className="font-semibold">{doctor.firstName} {doctor.lastName}</p>
             </div>
@@ -219,7 +214,6 @@ export default function DoctorComponent(props) {
         <td classNameName="px-4 py-3 text-sm">{doctor.specialization}</td>
         
         <td className="px-4 py-3 text-sm">{doctor.gender}</td>
-        <td className="px-4 py-3 text-sm">{doctor.id}</td>
         <td className="px-4 py-3 text-sm">{doctor.email}</td>
         <td className="px-4 py-3 text-sm">{doctor.password}</td>
         <td className="px-4 py-3 text-sm">{doctor.contact}</td>
@@ -314,7 +308,7 @@ export default function DoctorComponent(props) {
                   >
                     <td className="px-4 py-3">
                       <div className="flex items-center text-sm">
-                        <div className="relative hidden w-8 h-8 mr-3 rounded-full md:block">
+                        {/* <div className="relative hidden w-8 h-8 mr-3 rounded-full md:block">
                           <img
                             className="w-full h-full rounded-full "
                             src={doctor.image}
@@ -325,7 +319,7 @@ export default function DoctorComponent(props) {
                             className="absolute inset-0 rounded-full shadow-inner"
                             aria-hidden="true"
                           ></div>
-                        </div>
+                        </div> */}
                         <div>
                           <p className="font-semibold">
                             {doctor.firstName} {doctor.lastName}

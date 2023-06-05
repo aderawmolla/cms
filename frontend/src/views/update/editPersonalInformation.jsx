@@ -1,24 +1,35 @@
 import { useState } from "react";
 
-const EditPatientInfo = ({ onClose, patientInfo, onSubmit }) => {
+const EditPatientInfo = ({ onClose,patientInfo, onSubmit }) =>{
   const [firstName, setFirstName] = useState(patientInfo.firstName);
   const [lastName, setLastName] = useState(patientInfo.lastName);
+  const [username, setUserName] = useState(patientInfo.username);
+  const [password, setPassword] = useState(patientInfo.password);
   const [email, setEmail] = useState(patientInfo.email);
   const [contact, setContact] = useState(patientInfo.contact);
   const [state, setStateT] = useState(patientInfo.state);
   const [wereda, setWereda] = useState(patientInfo.wereda);
   const [kebele, setKebele] = useState(patientInfo.kebele);
+   
+  
+  const newpatientInfo={
+    
+    ...patientInfo,  
+    firstName,
+    lastName,
+    username,
+    password,
+    email,
+    contact,
+    state,
+    wereda,
+    kebele,
+
+  }
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    onSubmit({
-      firstName,
-      lastName,
-      email,
-      contact,
-      state,
-      wereda,
-      kebele,
-    });
+    onSubmit(newpatientInfo);
   };
   
   const addressAssignment = (e) => {
@@ -29,7 +40,7 @@ const EditPatientInfo = ({ onClose, patientInfo, onSubmit }) => {
   };
 
   return (
-    <div className="max-w-lg mx-auto">
+    <div className="mx-auto-xl max-w-l">
       <h2 className="mb-6 text-2xl font-bold">Edit Personal Information</h2>
       <form onSubmit={handleSubmit}>
         <div className="mb-4">
@@ -64,6 +75,41 @@ const EditPatientInfo = ({ onClose, patientInfo, onSubmit }) => {
             required
           />
         </div>
+         
+        <div className="mb-4">
+          <label
+            htmlFor="lastName"
+            className="block mb-2 font-bold text-gray-700"
+          >
+            username
+          </label>
+          <input
+            type="text"
+            id="username"
+            value={username}
+            onChange={(e) => setUserName(e.target.value)}
+            className="w-full px-3 py-2 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
+            required
+          />
+        </div>
+        
+        <div className="mb-4">
+          <label
+            htmlFor="password"
+            className="block mb-2 font-bold text-gray-700"
+          >
+            password
+          </label>
+          <input
+            type="text"
+            id="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            className="w-full px-3 py-2 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
+            required
+          />
+        </div>
+        
         <div className="mb-4">
           <label htmlFor="email" className="block mb-2 font-bold text-gray-700">
             Email

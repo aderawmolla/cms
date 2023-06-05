@@ -27,7 +27,7 @@ export default function PrescriptionModal({showModal,handleClose,item }) {
   
   const prescription = {
     id: uuidv4(),
-    patientId: item.id,
+    patientId:item.patientId,
     issueDate: date,
     confirmDate: Date.now(),
     doctorId: authenticatedDoctorId,

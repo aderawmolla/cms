@@ -6,7 +6,7 @@ const sequelize = new Sequelize(
   dialect: 'mysql',
 });
 const Patient = sequelize.define('Patient', {
-  id: {
+  id:{
     type: Sequelize.STRING(255),
     autoIncrement:false,
     primaryKey: true,

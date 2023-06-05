@@ -2,23 +2,24 @@ import React, { useState, useEffect } from "react";
 // import './add.js'
 import doctors from "../../models/doctors.json";
 import { v4} from "uuid";
-
+import axios from 'axios'
 import Swal from "sweetalert2";
 import { useDispatch } from "react-redux";
 import { addPatient } from "../../redux/patientSlice.jsx";
-
+import { useSelector } from "react-redux";
 export default function AddPatient({
   showModal,
   handleClose,
   patientToBeUpdated,
 }) {
+  const doctors=useSelector((state)=>state.doctors.doctors)
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [description, setDescription] = useState("");
   const [assignedDoctor, setAssignedDoctor] = useState("");
   const [gender, setGender] = useState("");
   // const [id, setId] = useState(v4());
-  const [age, setAge] = useState(0);
+  const [age, setAge] = useState(100);
   const [password, setPassword] = useState("");
   const [phone, setPhone] = useState("");
   const [fee, setFee] = useState("100");
@@ -33,6 +34,8 @@ export default function AddPatient({
   const [imagePreview, setImagePreview] = useState("");
   
   const dispatch = useDispatch();
+
+  
   const handleImageChange = (event) => {
     const file = event.target.files[0];
     setSelectedImage(file);
@@ -43,13 +46,33 @@ export default function AddPatient({
     reader.readAsDataURL(file);
   };
 
+   const handleImageUpload=()=>{
+    const formData = new FormData();
+    formData.append("image", selectedImage);
+
+    axios
+      .post("http://localhost:5000/upload", formData, 
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      }
+      )
+      .then((response) => {
+        console.log(response.data);
+        // Handle response from the server
+      })
+      .catch((error) => {
+        console.log(error);
+        // Handle error
+      });
+   }
   const patient = {
     id:v4(),
     firstName: firstName,
     lastName: lastName,
     description: description,
     photo: selectedImage.name,
-    doctorId: assignedDoctor,
     gender: gender,
     age:age,
     password: password,
@@ -61,11 +84,14 @@ export default function AddPatient({
     wereda: wereda,
     kebele: kebele,
     cardNumber: cardNumber,
-    isNew:"no",
+    isNew:"yes",
     fee:fee,
 
   };
-
+  const handleDoctor= (event) => {
+    const selectedDoctorId = event.target.value;
+    setAssignedDoctor(selectedDoctorId);
+  };
   const handleSubmit = async (event) => {
     console.log(patient);
 
@@ -85,6 +111,7 @@ export default function AddPatient({
   }, []);
 
   return (
+    <>
     <form className="box-content w-full max-w-lg p-10 m-auto mt-10 border-2 border-gray-200">
       <h1 className="mb-10 text-xl font-bold text-center">
         Add Information of the Patient
@@ -360,25 +387,26 @@ export default function AddPatient({
       </div>
 
       <div className="relative pt-8 m-4">
-        <label
-          className="block mb-2 text-xs font-bold tracking-wide text-gray-700 uppercase"
-          htmlFor=""
-        >
-          Choose a doctor and assign to the patient
-        </label>
-        <select
-          className="block w-full px-4 py-3 pr-8 leading-tight text-gray-700 border border-gray-200 rounded appearance-none focus:outline-none focus:bg-white focus:border-gray-500"
-          id="grid-state"
-          value={assignedDoctor}
-          onChange={(e) => setAssignedDoctor(e.target.value)}
-        >
-          {doctors.map((doctor, index) => (
-            <option>
-              {doctor.firstName} {doctor.lastName}
-            </option>
-          ))}
-        </select>
-        <div className="absolute inset-y-0 right-0 flex items-center px-2 text-gray-700 pointer-events-none">
+      {/* <div class="w-full md:full px-3 mb-6 md:mb-0">
+            <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-state">
+              Doctors's Name
+            </label>
+            <div class="relative">
+              <select name="doctorId" onChange={handleDoctor} value={assignedDoctor} class="block appearance-none w-full  border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-state">
+                {doctors.map((doctor,index) => (
+                  <option key={doctor.id} value={doctor.id}>
+                  {doctor.firstName} {doctor.lastName}
+                </option>               
+            
+               ))}
+              </select>
+
+              <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" /></svg>
+              </div>
+            </div>
+          </div> */}
+        {/* <div className="absolute inset-y-0 right-0 flex items-center px-2 text-gray-700 pointer-events-none">
           <svg
             className="w-4 h-4 fill-current"
             xmlns="http://www.w3.org/2000/svg"
@@ -386,13 +414,39 @@ export default function AddPatient({
           >
             <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
           </svg>
-        </div>
+        </div> */}
       </div>
 
-      <div className="w-64 pt-8 mx-auto">
+
+     
+
+
+
+
+      <div className="flex justify-around w-full">
+        <button
+          onClick={handleClose}
+          type=""
+          className="px-10 py-2 mt-5 font-bold text-white transition-colors bg-red-500 rounded shadow focus:outline-none hover:bg-red-700"
+        >
+          Cancel
+        </button>
+        <button
+          onClick={handleSubmit}
+          type=""
+          className="px-10 py-2 mt-5 font-bold text-white transition-colors rounded shadow bg-primary focus:outline-none hover:bg-blue-700"
+        >
+          Add patient
+        </button>
+      </div>
+    </form>
+
+
+{/* 
+    <div className="w-64 pt-8 mx-auto">
         <img
           className="p-2 mx-auto mt-12 border rounded-lg h-52 w-52 md:mt-0"
-          src={`/images/${imagePreview}`}
+          src={imagePreview}
           alt="step"
         />
         <div className="m-4">
@@ -419,31 +473,18 @@ export default function AddPatient({
                 </p>
               </div>
               <input
+                accept="image/*"
                 type="file"
                 className="opacity-0"
-                value=""
                 onChange={handleImageChange}
               />
+              <button onClick={handleImageUpload}>upload image</button>
             </label>
           </div>
         </div>
-      </div>
-      <div className="flex justify-around w-full">
-        <button
-          onClick={handleClose}
-          type=""
-          className="px-10 py-2 mt-5 font-bold text-white transition-colors bg-red-500 rounded shadow focus:outline-none hover:bg-red-700"
-        >
-          Cancel
-        </button>
-        <button
-          onClick={handleSubmit}
-          type=""
-          className="px-10 py-2 mt-5 font-bold text-white transition-colors rounded shadow bg-primary focus:outline-none hover:bg-blue-700"
-        >
-          Add patient
-        </button>
-      </div>
-    </form>
+      </div> */}
+
+</>
+
   );
 }

@@ -3,44 +3,60 @@ import { Link } from "react-router-dom";
 import PrescriptionModal from "./prescriptionModal";
 import { useSelector } from "react-redux";
 
-export default function DoctorContent(props) {  
-const patients = useSelector((state) => state.patients.patients);
-const prescriptions=useSelector((state) => state.prescriptions.prescriptions);
-const appointments=useSelector((state)=>state.appointments.appointments);
-const [showModal,setShowModal] = useState(false);
-const handleClose=()=>setShowModal(false);
-const handleShow=()=>setShowModal(true);
-const currentUser=useSelector((state)=>state.currentUser.currentUser);
-const [filteredAppointmentsWithName, setFilteredAppointmentsWithName] = useState([]);
-const getPatientName = (patientId) =>{
-const patient = patients.find((p) => p.id === patientId);
-return patient ? `${patient.firstName} ${patient.lastName}`:'';
-    };
-const getGender = (patientId) =>{
-const patient = patients.find((p) => p.id === patientId);
-return patient ? patient.gender :'';
-
-    };
-const getContact = (patientId) =>{
+export default function DoctorContent(props) {
+  const patients=useSelector((state)=>state.patients.patients)
+  const prescriptions = useSelector((state) => state.prescriptions.prescriptions);
+  const appointments = useSelector((state) => state.appointments.appointments);
+  const [showModal, setShowModal] = useState(false);
+  const [doctorPrescriptions, setDoctorPrescriptions] = useState([])
+  const handleClose = () => setShowModal(false);
+  const handleShow = () => setShowModal(true);
+  const currentUser = useSelector((state) => state.currentUser.currentUser);
+  const [filteredAppointmentsWithName, setFilteredAppointmentsWithName] = useState([]);
+  // const getPatientName = (patientId) => {
+  //   const patient = patients.find((p) => p.id=== patientId)
+  //   return patient? `${patient.firstName} ${patient.lastName}` : '';
+  // };
+  const getPatientName=(patientId) =>{
     const patient = patients.find((p) => p.id === patientId);
-    return patient ? patient.contact :'';
-        };
-     useEffect(() => {
-      const filtered = appointments.filter((appointment) => appointment.doctorId === currentUser.id);
-      const appointmentPatientNames = filtered.map((appointment) => ({
-        ...appointment,
-        patientName:getPatientName(appointment.patientId),
-        gender:getGender(appointment.patientId),
-        contact:getContact(appointment.patientId)
-      }));
-    
-      localStorage.setItem('filteredAppointmentsWithName', JSON.stringify(appointmentPatientNames));
-      const savedAppointments = JSON.parse(localStorage.getItem('filteredAppointmentsWithName') || '[]');
-      setFilteredAppointmentsWithName(savedAppointments);
-    
-      console.log("appointment with name is ", savedAppointments);
-    },[]);
-    
+    return patient? `${patient.firstName} ${patient.lastName}`:'';
+  };
+  const getGender =  (patientId) => {
+    const patient =patients.find((p) => p.id === patientId);
+    // console.log("the gender of this patient is",patient.gender)
+    // console.log("tha name of this patient is",patient.firstName)
+    return patient ? patient.gender :'';
+  };
+
+  const getContact = (patientId) => {
+    const patient = patients.find((p) => p.id === patientId);
+    return patient ? patient.contact : '';
+  };
+
+
+  
+  
+  useEffect(() => { 
+    const filtered = appointments.filter((appointment) => appointment.doctorId ===currentUser.id);
+    console.log("good")
+    const appointmentPatientNames = filtered.map((appointment) => ({
+      ...appointment,
+      patientName: getPatientName(appointment.patientId),
+      gender: getGender(appointment.patientId),
+      contact: getContact(appointment.patientId)
+    }));
+    setFilteredAppointmentsWithName(appointmentPatientNames);
+    const filteredPrescriptions = prescriptions.filter((prescription) => prescription.doctorId===currentUser.id);
+    const prescriptionPatientNames = filteredPrescriptions.map((prescription) => ({
+      ...prescription,
+      patientName: getPatientName(prescription.patientId),
+      gender: getGender(prescription.patientId),
+      contact: getContact(prescription.patientId)
+    }));
+    setDoctorPrescriptions(prescriptionPatientNames);
+  },[]);
+
+
   return (
     <>
       <div className="mx-4 mt-4">
@@ -95,6 +111,9 @@ const getContact = (patientId) =>{
           </form>
 
           <div className="w-full rounded-lg shadow-xs">
+          <h1 className="px-2 py-4 text-center font-mono text-xl font-bold tracking-widest text-gray-700 ">
+            Your New  Appointments
+            </h1>
             <div className="w-full overflow-visible">
               <table className="w-full sm:w-full">
                 <thead>
@@ -110,60 +129,57 @@ const getContact = (patientId) =>{
                   </tr>
                 </thead>
                 <tbody className="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
-                  { 
-               filteredAppointmentsWithName && filteredAppointmentsWithName.map((item, index) => (
-                    <tr
-                      key={index}
-                      className="text-gray-700 bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-900 dark:text-gray-400"
-                    >
-                      <td className="px-4 py-3">
-                        <div className="flex items-center text-sm">
-                          <div className="relative hidden w-8 h-8 mr-3 rounded-full md:block">
-                            <img
-                              className="object-cover w-full h-full rounded-full"
-                              src="https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&amp;q=80&amp;fm=jpg&amp;crop=entropy&amp;cs=tinysrgb&amp;w=200&amp;fit=max&amp;ixid=eyJhcHBfaWQiOjE3Nzg0fQ"
-                              alt=""
-                              loading="lazy"
-                            />
-                            <div
-                              className="absolute inset-0 rounded-full shadow-inner"
-                              aria-hidden="true"
-                            ></div>
+                  {
+                    filteredAppointmentsWithName && filteredAppointmentsWithName.map((item, index) => (
+                      <tr
+                        key={index}
+                        className="text-gray-700 bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-900 dark:text-gray-400"
+                      >
+                        <td className="px-4 py-3">
+                          <div className="flex items-center text-sm">
+                            {/* <div className="relative hidden w-8 h-8 mr-3 rounded-full md:block">
+                              <img
+                                className="object-cover w-full h-full rounded-full"
+                                src="https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&amp;q=80&amp;fm=jpg&amp;crop=entropy&amp;cs=tinysrgb&amp;w=200&amp;fit=max&amp;ixid=eyJhcHBfaWQiOjE3Nzg0fQ"
+                                alt=""
+                                loading="lazy"
+                              />
+                              <div
+                                className="absolute inset-0 rounded-full shadow-inner"
+                                aria-hidden="true"
+                              ></div>
+                            </div> */}
+                            <div>
+                              <p className="font-semibold">
+                                {item.patientName}
+                              </p>
+                            </div>
                           </div>
-                          <div>
-                            <p className="font-semibold">
-                              {item.patientName}
-                            </p>
-                          </div>
-                        </div>
-                      </td>
+                        </td>
 
-                      <td className="px-4 py-3 text-sm">{item.gender}</td>
+                        <td className="px-4 py-3 text-sm">{item.gender}</td>
+                        <td className="px-4 py-3 text-sm">{item.contact}</td>
+                        <td className="px-4 py-3 text-sm">{item.date}</td>
+                        <td className="px-4 py-3 text-sm">{item.time}</td>
+                        <td className="px-4 py-3 text-sm">{item.location}</td>
+                        <td className="px-2 py-3">
+                          <div className="inline-flex items-center space-x-3">
+                            <div className="flex-shrink-0">
+                              <button
+                                onClick={handleShow}
+                                className="p-2 text-sm font-medium text-white bg-green-500 rounded-lg hover:bg-green-600"
+                              >
+                                Prescribe
+                              </button>
+                              <PrescriptionModal
+                                showModal={showModal}
+                                handleClose={handleClose}
+                                // item here is appointment
+                                item={item}
+                              />
+                            </div>
 
-                      <td className="px-4 py-3 text-sm">{item.contact}</td>
-
-                      <td className="px-4 py-3 text-sm">{item.date}</td>
-                      <td className="px-4 py-3 text-sm">{item.time}</td>
-                      <td className="px-4 py-3 text-sm">{item.location}</td>
-
-                      <td className="px-2 py-3">
-                        <div className="inline-flex items-center space-x-3">
-                          <div className="flex-shrink-0">
-                            <button
-                              onClick={handleShow}
-                              className="p-2 text-sm font-medium text-white bg-green-500 rounded-lg hover:bg-green-600"
-                            >
-                              Prescribe
-                            </button>
-                            <PrescriptionModal
-                              showModal={showModal}
-                              handleClose={handleClose}
-                              // item here is appointment
-                              item={item}
-                            />
-                          </div>
-
-                          {/* <div className="flex-shrink-0">
+                            {/* <div className="flex-shrink-0">
                             <a
                               href="/"
                               className="p-2 text-sm font-medium text-white rounded-lg bg-primary hover:bg-blue-700"
@@ -171,104 +187,22 @@ const getContact = (patientId) =>{
                               Send Lab Test
                             </a>
                           </div> */}
-                          <div className="flex-shrink-0">
-                            <a
-                              href="#"
-                              className="p-2 text-sm font-medium rounded-lg text-cyan-600 hover:bg-gray-100"
-                            >
-                              Detail
-                            </a>
+                            {/* <div className="flex-shrink-0">
+                              <a
+                                href="#"
+                                className="p-2 text-sm font-medium rounded-lg text-cyan-600 hover:bg-gray-100"
+                              >
+                                Detail
+                              </a>
+                            </div> */}
                           </div>
-                        </div>
-                      </td>
-                    </tr>
-                  ))}
+                        </td>
+                      </tr>
+                    ))}
                 </tbody>
               </table>
             </div>
-            <div className="grid px-4 py-3 text-xs font-semibold tracking-wide text-gray-500 uppercase border-t dark:border-gray-700 bg-gray-50 sm:grid-cols-9 dark:text-gray-400 dark:bg-gray-800">
-              <span className="flex items-center col-span-3">
-                {" "}
-                Showing 21-30 of 100{" "}
-              </span>
-              <span className="col-span-2"></span>
-              {/* <!-- Pagination --> */}
-              <span className="flex col-span-4 mt-2 sm:mt-auto sm:justify-end">
-                <nav aria-label="Table navigation">
-                  <ul className="inline-flex items-center">
-                    <li>
-                      <button
-                        className="px-3 py-1 rounded-md rounded-l-lg focus:outline-none focus:shadow-outline-purple"
-                        aria-label="Previous"
-                      >
-                        <svg
-                          aria-hidden="true"
-                          className="w-4 h-4 fill-current"
-                          viewBox="0 0 20 20"
-                        >
-                          <path
-                            d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
-                            clip-rule="evenodd"
-                            fill-rule="evenodd"
-                          ></path>
-                        </svg>
-                      </button>
-                    </li>
-                    <li>
-                      <button className="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-purple">
-                        1
-                      </button>
-                    </li>
-                    <li>
-                      <button className="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-purple">
-                        2
-                      </button>
-                    </li>
-                    <li>
-                      <button className="px-3 py-1 text-white transition-colors duration-150 bg-blue-600 border border-r-0 border-blue-600 rounded-md dark:text-gray-800 dark:bg-gray-100 dark:border-gray-100 focus:outline-none focus:shadow-outline-purple">
-                        3
-                      </button>
-                    </li>
-                    <li>
-                      <button className="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-purple">
-                        4
-                      </button>prescriptions
-                    </li>
-                    <li>
-                      <span className="px-3 py-1">...</span>
-                    </li>
-                    <li>
-                      <button className="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-purple">
-                        8
-                      </button>
-                    </li>
-                    <li>
-                      <button className="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-purple">
-                        9
-                      </button>
-                    </li>
-                    <li>
-                      <button
-                        className="px-3 py-1 rounded-md rounded-r-lg focus:outline-none focus:shadow-outline-purple"
-                        aria-label="Next"
-                      >
-                        <svg
-                          className="w-4 h-4 fill-current"
-                          aria-hidden="true"
-                          viewBox="0 0 20 20"
-                        >
-                          <path
-                            d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                            clip-rule="evenodd"
-                            fill-rule="evenodd"
-                          ></path>
-                        </svg>
-                      </button>
-                    </li>
-                  </ul>
-                </nav>
-              </span>
-            </div>  
+
           </div>
           <div className="w-full pt-32 rounded-lg shadow-xs">
             <h1 className="px-2 py-4 font-mono text-xl font-bold tracking-widest text-gray-700 ">
@@ -278,7 +212,9 @@ const getContact = (patientId) =>{
               <table className="w-full sm:w-full">
                 <thead>
                   <tr className="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
-                    <th className="px-4 py-3">Patient ID</th>
+                    <th className="px-4 py-3">Patient Name</th>
+                    <th className="px-4 py-3">Patient contact</th>
+
                     <th className="px-4 py-3">Issue Date</th>
                     {/* <th className="px-4 py-3"></th>
                     <th className="px-4 py-3">Contact</th>
@@ -288,14 +224,14 @@ const getContact = (patientId) =>{
                   </tr>
                 </thead>
                 <tbody className="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
-                  {prescriptions.map((item, index) => item.status==="issued" && (
+                  {doctorPrescriptions.map((item, index) => item.status ==="issued" && (
                     <tr
                       key={index}
                       className="text-gray-700 bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-900 dark:text-gray-400"
                     >
                       <td className="px-4 py-3">
                         <div className="flex items-center text-sm">
-                          <div className="relative hidden w-8 h-8 mr-3 rounded-full md:block">
+                          {/* <div className="relative hidden w-8 h-8 mr-3 rounded-full md:block">
                             <img
                               className="object-cover w-full h-full rounded-full"
                               src="https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&amp;q=80&amp;fm=jpg&amp;crop=entropy&amp;cs=tinysrgb&amp;w=200&amp;fit=max&amp;ixid=eyJhcHBfaWQiOjE3Nzg0fQ"
@@ -306,28 +242,28 @@ const getContact = (patientId) =>{
                               className="absolute inset-0 rounded-full shadow-inner"
                               aria-hidden="true"
                             ></div>
-                          </div>
+                          </div> */}
                           <div>
                             <p className="font-semibold">
-                              {item.id}
+                              {item.patientName}
                             </p>
                           </div>
                         </div>
                       </td>
+                      <td className="px-4 py-3 text-sm">{item.contact}</td>
                       <td className="px-4 py-3 text-sm">{item.issueDate}</td>
 
-                      <td className="px-2 py-3">
+                      {/* <td className="px-2 py-3">
                         <div className="inline-flex items-center space-x-3">
                           <div className="flex-shrink-0">
-                            <a
-                              href="/"
+                            <Link to={`/doctor/prescriptionDetail/${item.id}`}
                               className="p-2 text-sm font-medium rounded-lg text-cyan-600 hover:bg-gray-100"
                             >
                               Detail
-                            </a>
+                            </Link>
                           </div>
-                        </div>
-                      </td>
+                        </div>   
+                      </td> */}
                     </tr>
                   ))}
                 </tbody>
@@ -342,8 +278,12 @@ const getContact = (patientId) =>{
               <table className="w-full sm:w-full">
                 <thead>
                   <tr className="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
-                    <th className="px-4 py-3">Patient ID</th>
+                    <th className="px-4 py-3">Patient Name</th>
+                    <th className="px-4 py-3">Patient Contact</th>
+
                     <th className="px-4 py-3">Issue Date</th>
+                    <th className="px-4 py-3">Confirmed Date</th>
+
                     {/* <th className="px-4 py-3"></th>
                     <th className="px-4 py-3">Contact</th>
                     <th className="px-4 py-3">Date</th>
@@ -352,15 +292,15 @@ const getContact = (patientId) =>{
                   </tr>
                 </thead>
                 <tbody className="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
-                  
-                  {prescriptions.map((item, index) => item.status === "confirmed" && (
+
+                  {doctorPrescriptions.map((item, index) => item.status === "confirmed" && (
                     <tr
                       key={index}
                       className="text-gray-700 bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-900 dark:text-gray-400"
                     >
                       <td className="px-4 py-3">
                         <div className="flex items-center text-sm">
-                          <div className="relative hidden w-8 h-8 mr-3 rounded-full md:block">
+                          {/* <div className="relative hidden w-8 h-8 mr-3 rounded-full md:block">
                             <img
                               className="object-cover w-full h-full rounded-full"
                               src="https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&amp;q=80&amp;fm=jpg&amp;crop=entropy&amp;cs=tinysrgb&amp;w=200&amp;fit=max&amp;ixid=eyJhcHBfaWQiOjE3Nzg0fQ"
@@ -371,25 +311,46 @@ const getContact = (patientId) =>{
                               className="absolute inset-0 rounded-full shadow-inner"
                               aria-hidden="true"
                             ></div>
-                          </div>
+                          </div> */}
                           <div>
                             <p className="font-semibold">
-                              {item.id}
+                              {item.patientName}
                             </p>
                           </div>
                         </div>
                       </td>
+                      <td className="px-4 py-3 text-sm">{item.contact}</td>
+
                       <td className="px-4 py-3 text-sm">{item.issueDate}</td>
+                      <td className="px-4 py-3 text-sm">{item.confirmDate}</td>
 
                       <td className="px-2 py-3">
                         <div className="inline-flex items-center space-x-3">
                           <div className="flex-shrink-0">
-                            <a
-                              href="#"
+
+
+
+                      <div className="inline-flex items-center space-x-3">
+                          <div className="flex-shrink-0">
+                            <Link to={`/doctor/prescriptionDetail/${item.id}`}
                               className="p-2 text-sm font-medium rounded-lg text-cyan-600 hover:bg-gray-100"
                             >
                               Detail
-                            </a>
+                            </Link>
+                          </div>
+                        </div> 
+                            
+
+
+
+
+                         
+
+
+
+
+
+
                           </div>
                         </div>
                       </td>

@@ -1,6 +1,7 @@
 import React from 'react'
 import './add.js'
-import { useState, useEffect } from 'react'
+import { useState, } from 'react'
+import { updatePatient } from '../../redux/patientSlice.jsx';
 import { useSelector, useDispatch } from 'react-redux';
 import Swal from "sweetalert2";
 import { addAppointment } from '../../redux/appointmentSlice.jsx';
@@ -14,6 +15,7 @@ export default function AddAppointment({
 })
  {
 const doctors = useSelector((state) => state.doctors.doctors);
+const patients=useSelector((state)=>state.patients.patients)
 const dispatch = useDispatch();
 
 const navigate=useNavigate();
@@ -42,19 +44,25 @@ const goBack = () => {
     setFormData({ ...formData, doctorId: selectedDoctorId });
   };
   const handleSubmit = async (event) => {
+    const patientToUpdate = patients.find((p) => p.id === patientId);
+
     event.preventDefault();
-  
+     
     console.log(formData);
     await dispatch(addAppointment(formData));
-  
+    if(patientToUpdate){
+      const   updatedPatient={...patientToUpdate,isNew:"no"}
+      console.log("Oh My God the patient is ",patientToUpdate)
+
+      dispatch(updatePatient(updatedPatient))
+    }
     Swal.fire({
       icon: "success",
       title: "Appointment Added Successfully",
       showConfirmButton: true,
       timer: 1800,
     });
-  
-    navigate('/adminDashbord/appointment');
+  navigate('/adminDashbord/appointment');
   };
   
   return (

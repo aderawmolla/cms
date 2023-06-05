@@ -13,8 +13,8 @@ export default function AddDoctor({
 }) {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
-  const [specialization, setSpecialization] = useState("");
-  const [gender, setGender] = useState("");
+  const [specialization, setSpecialization] = useState("Doctor");
+  const [gender, setGender] = useState("male");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [phone, setPhone] = useState("");
@@ -178,7 +178,7 @@ export default function AddDoctor({
             className="block mb-2 text-xs font-bold tracking-wide text-gray-700 uppercase"
             for="grid-password"
           >
-            email
+          email
           </label>
           <input
             className="block w-full px-4 py-3 mb-3 leading-tight text-gray-700 border rounded appearance-none focus:outline-none focus:bg-white focus:border-gray-500"
@@ -303,45 +303,12 @@ export default function AddDoctor({
         </div>
       </div>
 
-      <div className="w-64 pt-8 mx-auto">
-        <img
-          className="p-2 mx-auto mt-12 border rounded-lg h-52 w-52 md:mt-0"
-          src={`/images/${imagePreview}`}
-          alt="step"
-        />
-        <div className="m-4">
-          <div className="flex items-center justify-center w-full">
-            <label className="flex flex-col w-full border-4 border-gray-200 border-dashed cursor-pointer h-14 hover:border-gray-300 hover:bg-gray-100">
-              <div className="flex items-center justify-center mt-4 space-x-1">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke-width="1.5"
-                  stroke="currentColor"
-                  className="w-6 h-6 text-gray-400"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    d="M12 16.5V9.75m0 0l3 3m-3-3l-3 3M6.75 19.5a4.5 4.5 0 01-1.41-8.775 5.25 5.25 0 0110.233-2.33 3 3 0 013.758 3.848A3.752 3.752 0 0118 19.5H6.75z"
-                  />
-                </svg>
 
-                <p className="text-sm tracking-wider text-gray-400 font-laonoto group-hover:text-gray-600">
-                  Choose Profile Picture
-                </p>
-              </div>
-              <input
-                type="file"
-                className="opacity-0"
-                value=""
-                onChange={handleImageChange}
-              />
-            </label>
-          </div>
-        </div>
-      </div>
+
+     
+      
+      
+      
       <div className="flex justify-around w-full">
         <button
           onClick={handleClose}
