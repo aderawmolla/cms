@@ -170,7 +170,7 @@ export default function PatientProfile() {
         </div>
 
         <div className="my-4 flex flex-col 2xl:flex-row space-y-4 2xl:space-y-0 2xl:space-x-4">
-          <div className="w-full flex flex-col 2xl:w-1/3">
+          <div className="w-full flex flex-col">
             <div className="flex-1 bg-white rounded-lg shadow-xl p-8">
               <h4 className="text-xl text-gray-900 font-bold">Personal Info</h4>
               <ul className="mt-2 text-gray-700">
@@ -224,7 +224,7 @@ export default function PatientProfile() {
               <h4 className="text-xl py-2 text-gray-900 font-bold px-4 font">Appointements </h4>
               <div className="relative px-4">
                 <div className="absolute h-full border border-dashed border-opacity-20 border-secondary"></div>
-                <table className="min-w-full bg-white">
+                  <table className="min-w-full bg-white">
   <thead>
     <tr className="bg-blue-800 text-white">
       <th className="px-4 py-2">Doctor</th>
@@ -238,11 +238,13 @@ export default function PatientProfile() {
     {patientApt.map((apt, index) => {
       const currentDate = new Date(); // Current date and time
       const [mm, dd, yy] = apt.date.split('-'); // Splitting date into month, day, and year
-      const [hh, min, period] = apt.time.split(/:|\s/); // Splitting time into hours, minutes, and AM/PM
 
       // Create a new date object with the correct format
-      const aptDate = new Date(yy, mm - 1, dd, hh, min, 0);
-      const status = aptDate > currentDate ? 'Active' : 'Closed'; // Compare dates
+      const aptDate = new Date(yy, mm - 1, dd);
+      aptDate.setHours(0, 0, 0, 0); // Set time to 00:00:00 for comparison
+      currentDate.setHours(0, 0, 0, 0); // Set time to 00:00:00 for comparison
+
+      const status = aptDate.getTime() > currentDate.getTime() ? 'Pending' : 'Closed'; // Compare dates
 
       return (
         <tr
@@ -259,6 +261,10 @@ export default function PatientProfile() {
     })}
   </tbody>
 </table>
+
+
+
+
 
               </div>
             </div>
