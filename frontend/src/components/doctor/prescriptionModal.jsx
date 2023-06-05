@@ -13,8 +13,6 @@ export default function PrescriptionModal({ showModal, handleClose, item }) {
 
   const [description, setDescription] = useState();
   const [date, setDate] = useState();
-  const [patient, setPatient] = useState();
-  const [doctor, setDoctor] = useState();
   const [selectedTests, setSelectedTests] = useState([]);
 
   const handleTestChange = (test) => {
@@ -95,7 +93,7 @@ export default function PrescriptionModal({ showModal, handleClose, item }) {
                 />
               </div>
               <div className="grid grid-cols-2 mx-3 mb-6 gap-8">
-                <div className="w-full  px-3">
+                {/* <div className="w-full  px-3">
                   <label
                     className="block uppercase tracking-wide text-blue-500 text-xs font-bold mb-2"
                     for="grid-last-name"
@@ -128,7 +126,7 @@ export default function PrescriptionModal({ showModal, handleClose, item }) {
                       <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
                     </svg>
                   </div>
-                </div>
+                </div> */}
                 <div className="w-full  px-3">
                   <label
                     className="block uppercase tracking-wide text-blue-500 text-xs font-bold mb-2"

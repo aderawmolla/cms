@@ -29,8 +29,8 @@ import PatientDetail from "./components/patient/patientDetail";
 import DoctorDetail from "./components/doctor/doctorDetail";
 import DoctorPrescription from "./components/prescription/doctorPrescription";
 import LaboratoryPrescription from "./components/prescription/labPrescription";
+import PrescriptionResult from "./views/dashbord/prescriptionResult";
 export default function App() {
-
   return (
     <>
       <Routes>
@@ -39,32 +39,52 @@ export default function App() {
         <Route path="/doctor" element={<DoctorDashbord />}>
           <Route path="" element={<DoctorContent />} />
           <Route path="labratory" element={<ResponseLabratoryComponent />} />
-          <Route path="prescription" element={<DoctorPrescriptionComponent />} />
+          <Route
+            path="prescription"
+            element={<DoctorPrescriptionComponent />}
+          />
           <Route path="appointment" element={<DoctorAppointmentComponent />} />
         </Route>
         <Route path="/lab" element={<LabDoctorDashbord />}>
-          <Route path="prescriptions" element={<LabRequest/>} />
+          <Route path="prescriptions" element={<LabRequest />} />
+          <Route path="prescription" element={<PrescriptionResult />} />
           <Route path="prescriptions/:id" element={<LabResult />} />
         </Route>
-       
+
         <Route path="/signIn" element={<Login />}>
           <Route path="" element={<SingIn />} />
           <Route path="signUp" element={<SingUp />} />
           <Route path="payment" element={<Payment />} />
-       </Route>
+        </Route>
         {/* <Route path="/doctor" element={<DoctorComponent />} /> */}
         <Route path="/patient" element={<PatientProfile />} />
         <Route path="/verify" element={<Verify />} />
         <Route path="/adminDashbord/" element={<AdminDashbord />}>
           <Route path="" element={<DashbordContent />} />
-          <Route path="patient" element={<PatientComponent/>} />
-          <Route path="patient/:patientId" index element={<PatientDetail />} ></Route>
+          <Route path="patient" element={<PatientComponent />} />
+          <Route
+            path="patient/:patientId"
+            index
+            element={<PatientDetail />}
+          ></Route>
           <Route path="doctor" element={<DoctorComponent />} />
-          <Route path="doctor/:doctorId" index element={<DoctorDetail />} ></Route>
+          <Route
+            path="doctor/:doctorId"
+            index
+            element={<DoctorDetail />}
+          ></Route>
           <Route path="appointment" element={<AppointmentComponent />} />
           <Route path="prescription" element={<PrescriptionComponent />} />
-          <Route path="prescription/:doctorId/:prescriptionId" index element={<DoctorPrescription />} ></Route>
-          <Route path="prescription/:laboratoryId/:prescriptionId" index element={<LaboratoryPrescription />} ></Route>
+          <Route
+            path="prescription/:doctorId/:prescriptionId"
+            index
+            element={<DoctorPrescription />}
+          ></Route>
+          <Route
+            path="prescription/:laboratoryId/:prescriptionId"
+            index
+            element={<LaboratoryPrescription />}
+          ></Route>
           <Route path="addPatient" element={<AddPatient />} />
           <Route path="addDoctor" element={<AddDoctor />} />
           <Route path="addAppointment" element={<AddAppointment />} />

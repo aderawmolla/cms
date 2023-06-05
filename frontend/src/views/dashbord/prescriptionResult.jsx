@@ -3,105 +3,25 @@ import { useDispatch, useSelector } from "react-redux";
 import Swal from "sweetalert2";
 import { useParams } from "react-router-dom";
 import { sendBackPrescription } from "../../redux/prescriptionSlice";
-export default function LabResult() {
+export default function PrescriptionResult() {
   let { id } = useParams();
 
   const prescriptions = useSelector(
     (state) => state.prescriptions.prescriptions
   );
 
-  const dispatch = useDispatch();
-  const [confirmDate, setConfirmDate] = useState();
-
-  const data = prescriptions.filter((item) => {
-    if (id === item.id)
+  const prescription = prescriptions.filter((item) => {
+    if ("doc1" === item.docId)
       return {
         item,
       };
   });
 
-  const [prscData, setPrscData] = useState(data[0]);
-
-  // const testResults = prescriptions
-  //   .filter((patient) => id === patient.id)
-  //   .map((patient) =>
-  //     patient.results.map((result) => ({
-  //       testName: result.test_name,
-  //       values: result.values,
-  //     }))
-  //   );
-
-  // const [results, setResults] = useState(testResults);
-
-  const handleChange = (index, field, value) => {
-    const updatedResults = [...prscData.results];
-    updatedResults[index] = {
-      ...updatedResults[index],
-      [field]: value,
-    };
-    const updatedPrscData = {
-      ...prscData,
-      results: updatedResults,
-    };
-    setPrscData(updatedPrscData);
-  };
-
-  const handleOtherChanges = (index, field, value) => {
-    var updatedDate = [...prscData.confirmDate];
-    const updatedStatus = "confirmed";
-    updatedDate = {
-      ...updatedDate,
-      [field]: value,
-    };
-    const updatedPrscData = {
-      ...prscData,
-      confirmDate: updatedDate,
-      status: updatedStatus,
-    };
-    setPrscData(updatedPrscData);
-    
-  };
-
-  // const toBeSent = prescriptions
-  //   .filter((patient) => id === patient.id)
-  //   .map((item, index) => ({
-  //     id: id,
-  //     patient_id: item.patient_id,
-  //     issueDate: item.issueDate,
-  //     confirmDate: confirmDate,
-  //     docId: item.docId,
-  //     description: item.description,
-  //     status: "confirmed",
-  //     results: results.filter((result) => {
-  //       return {
-  //         test_name: result.test_name,
-  //         values: result.values,
-  //       };
-  //     }),
-  //   }));
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    Swal.fire({
-      title: "Are you sure?",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, send back test results!",
-    }).then((result) => {
-      if (result.isConfirmed) {
-        dispatch(sendBackPrescription(prscData));
-      }
-    });
-    // dispatch(updatePatient(patient));
-  };
+  const data = prescription[0];
 
   useEffect(() => {
-    console.log(prscData);
-    localStorage.clear();
     // console.log(testResults);
-  }, [prscData]);
+  }, []);
 
   return (
     <>
@@ -132,7 +52,7 @@ export default function LabResult() {
               type="text"
               placeholder="Write a short description and background about the patient."
             >
-              {prscData.description}
+              {data.description}
             </p>
           </div>
           <div className="grid grid-cols-2 mx-3 mb-6 gap-8">
@@ -147,7 +67,7 @@ export default function LabResult() {
                 className="appearance-none block w-full  text-blue-500 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                 type="text"
               >
-                {prscData.patient_id}
+                {data.patient_id}
               </p>
             </div>
             <div className="w-full  px-3">
@@ -158,7 +78,7 @@ export default function LabResult() {
                 Issued Date
               </label>
               <p className="appearance-none block w-full  text-gray-500 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
-                {prscData.issueDate}
+                {data.issueDate}
               </p>
             </div>
           </div>
@@ -168,7 +88,7 @@ export default function LabResult() {
                 Test Results
               </h3>
               <ul className="w-full grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm font-medium text-gray-900 bg-white  dark:bg-gray-700 dark:border-gray-600 dark:text-white">
-                {prscData.results.map((test, index) => (
+                {data.results.map((test, index) => (
                   <li
                     key={index}
                     className="w-full grid grid-cols-2 gap-4 rounded-t-lg dark:border-gray-600"
@@ -184,14 +104,9 @@ export default function LabResult() {
                       >
                         {test.test_name}
                       </label>
-                      <input
-                        type="text"
-                        // value={test.values}
-                        onChange={(event) =>
-                          handleChange(index, "values", event.target.value)
-                        }
-                        className="w-16 h-8 text-blue-600 bg-gray-100 border border-gray-200  rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
-                      />
+                      <p className="w-16 h-8 text-blue-600 bg-gray-100 border border-gray-200  rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                        {test.values}
+                      </p>
                     </div>
                     {/* ))} */}
                   </li>
@@ -205,17 +120,12 @@ export default function LabResult() {
               >
                 Confirmation Date
               </label>
-              <input
-                className="appearance-none block w-full  text-blue-500 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                id="grid-last-name"
-                type="date"
-                placeholder="fill date in E.C"
-                value={confirmDate}
-                onChange={(e) => handleOtherChanges("values", e.target.value)}
-              />
+              <p className="appearance-none block w-full  text-blue-500 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+                {data.confirmDate}
+              </p>
             </div>
 
-            <div className="flex w-full justify-between px-[4%] gap-16">
+            {/* <div className="flex w-full justify-between px-[4%] gap-16">
               <button
                 // onClick={handleClose}
                 type=""
@@ -230,7 +140,7 @@ export default function LabResult() {
               >
                 Send Lab Test
               </button>
-            </div>
+            </div> */}
           </form>
         </div>
       </div>
