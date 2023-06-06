@@ -57,7 +57,6 @@ export default function PrescriptionModal({ showModal, handleClose, item }) {
   };
 
   useEffect(() => {
-    // localStorage.clear();
     console.log(prescription);
   }, [selectedTests]);
 

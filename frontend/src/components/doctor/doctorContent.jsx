@@ -247,63 +247,61 @@ export default function DoctorContent(props) {
                   <tr className="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
                     <th className="px-4 py-3">Patient ID</th>
                     <th className="px-4 py-3">Issue Date</th>
-                    {/* <th className="px-4 py-3"></th>
-                    <th className="px-4 py-3">Contact</th>
-                    <th className="px-4 py-3">Date</th>
-                    <th className="px-4 py-4">Actions</th> */}
-                    <th></th>
                   </tr>
                 </thead>
                 <tbody className="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
-                  {prsc.map((item, index) => item.status === "issued" && (
-                    <tr
-                      key={index}
-                      className="text-gray-700 bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-900 dark:text-gray-400"
-                    >
-                      <td className="px-4 py-3">
-                        <div className="flex items-center text-sm">
-                          <div className="relative hidden w-8 h-8 mr-3 rounded-full md:block">
-                            <img
-                              className="object-cover w-full h-full rounded-full"
-                              src="https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&amp;q=80&amp;fm=jpg&amp;crop=entropy&amp;cs=tinysrgb&amp;w=200&amp;fit=max&amp;ixid=eyJhcHBfaWQiOjE3Nzg0fQ"
-                              alt=""
-                              loading="lazy"
-                            />
-                            <div
-                              className="absolute inset-0 rounded-full shadow-inner"
-                              aria-hidden="true"
-                            ></div>
-                          </div>
-                          <div>
-                            <p className="font-semibold">
-                              {item.id}
-                            </p>
-                          </div>
-                        </div>
-                      </td>
-                      <td className="px-4 py-3 text-sm">{item.issueDate}</td>
+                  {prsc.map(
+                    (item, index) =>
+                      item.status === "issued" && (
+                        <tr
+                          key={index}
+                          className="text-gray-700 bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-900 dark:text-gray-400"
+                        >
+                          <td className="px-4 py-3">
+                            <div className="flex items-center text-sm">
+                              <div className="relative hidden w-8 h-8 mr-3 rounded-full md:block">
+                                <img
+                                  className="object-cover w-full h-full rounded-full"
+                                  src="https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&amp;q=80&amp;fm=jpg&amp;crop=entropy&amp;cs=tinysrgb&amp;w=200&amp;fit=max&amp;ixid=eyJhcHBfaWQiOjE3Nzg0fQ"
+                                  alt=""
+                                  loading="lazy"
+                                />
+                                <div
+                                  className="absolute inset-0 rounded-full shadow-inner"
+                                  aria-hidden="true"
+                                ></div>
+                              </div>
+                              <div>
+                                <p className="font-semibold">{item.id}</p>
+                              </div>
+                            </div>
+                          </td>
+                          <td className="px-4 py-3 text-sm">
+                            {item.issueDate}
+                          </td>
 
-                      <td className="px-2 py-3">
-                        <div className="inline-flex items-center space-x-3">
-                          <div className="flex-shrink-0">
-                            <a
-                              href="/"
-                              className="p-2 text-sm font-medium rounded-lg text-cyan-600 hover:bg-gray-100"
-                            >
-                              Detail
-                            </a>
-                          </div>
-                        </div>
-                      </td>
-                    </tr>
-                  ))}
+                          <td className="px-2 py-3">
+                            <div className="inline-flex items-center space-x-3">
+                              <div className="flex-shrink-0">
+                                <a
+                                  href="/"
+                                  className="p-2 text-sm font-medium rounded-lg text-cyan-600 hover:bg-gray-100"
+                                >
+                                  Detail
+                                </a>
+                              </div>
+                            </div>
+                          </td>
+                        </tr>
+                      )
+                  )}
                 </tbody>
               </table>
             </div>
           </div>
           <div className="pt-8 w-full  rounded-lg shadow-xs">
             <h1 className="text-xl py-4  font-bold text-gray-700 px-2 font-mono tracking-widest ">
-              Confimed Prescriptions
+              Confirmed Prescriptions
             </h1>
             <div className="w-full   overflow-visible">
               <table className="w-full sm:w-full">
@@ -311,56 +309,61 @@ export default function DoctorContent(props) {
                   <tr className="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
                     <th className="px-4 py-3">Patient ID</th>
                     <th className="px-4 py-3">Issue Date</th>
+                    <th className="px-4 py-3">Action</th>
+
                     {/* <th className="px-4 py-3"></th>
-                    <th className="px-4 py-3">Contact</th>
                     <th className="px-4 py-3">Date</th>
                     <th className="px-4 py-4">Actions</th> */}
-                    <th></th>
                   </tr>
                 </thead>
                 <tbody className="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
-                  {prsc.map((item, index) => item.status === "confirmed" && (
-                    <tr
-                      key={index}
-                      className="text-gray-700 bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-900 dark:text-gray-400"
-                    >
-                      <td className="px-4 py-3">
-                        <div className="flex items-center text-sm">
-                          <div className="relative hidden w-8 h-8 mr-3 rounded-full md:block">
-                            <img
-                              className="object-cover w-full h-full rounded-full"
-                              src="https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&amp;q=80&amp;fm=jpg&amp;crop=entropy&amp;cs=tinysrgb&amp;w=200&amp;fit=max&amp;ixid=eyJhcHBfaWQiOjE3Nzg0fQ"
-                              alt=""
-                              loading="lazy"
-                            />
-                            <div
-                              className="absolute inset-0 rounded-full shadow-inner"
-                              aria-hidden="true"
-                            ></div>
-                          </div>
-                          <div>
-                            <p className="font-semibold">
-                              {item.id}
-                            </p>
-                          </div>
-                        </div>
-                      </td>
-                      <td className="px-4 py-3 text-sm">{item.issueDate}</td>
-
-                      <td className="px-2 py-3">
-                        <div className="inline-flex items-center space-x-3">
-                          <div className="flex-shrink-0">
-                            <a
-                              href="/"
-                              className="p-2 text-sm font-medium rounded-lg text-cyan-600 hover:bg-gray-100"
-                            >
-                              Detail
-                            </a>
-                          </div>
-                        </div>
-                      </td>
-                    </tr>
-                  ))}
+                  {prsc.map(
+                    (item, index) =>
+                      item.status === "confirmed" && (
+                        <tr
+                          key={index}
+                          className="text-gray-700 bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-900 dark:text-gray-400"
+                        >
+                          <td className="px-4 py-3">
+                            <div className="flex items-center text-sm">
+                              <div className="relative hidden w-8 h-8 mr-3 rounded-full md:block">
+                                <img
+                                  className="object-cover w-full h-full rounded-full"
+                                  src="https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&amp;q=80&amp;fm=jpg&amp;crop=entropy&amp;cs=tinysrgb&amp;w=200&amp;fit=max&amp;ixid=eyJhcHBfaWQiOjE3Nzg0fQ"
+                                  alt=""
+                                  loading="lazy"
+                                />
+                                <div
+                                  className="absolute inset-0 rounded-full shadow-inner"
+                                  aria-hidden="true"
+                                ></div>
+                              </div>
+                              <div>
+                                <p className="font-semibold">{item.id}</p>
+                              </div>
+                            </div>
+                          </td>
+                          <td className="px-4 py-3 text-sm">
+                            {item.issueDate}
+                          </td>
+                          <td className="px-2 py-3">
+                            <div className="inline-flex items-center space-x-3">
+                              <div className="flex-shrink-0">
+                                <a
+                                  href="/"
+                                  className="p-2 text-sm font-medium rounded-lg text-cyan-600 hover:bg-gray-100"
+                                >
+                                  Detail
+                                </a>
+                              </div>
+                              <div className="flex items-center space-x-4 bg-blue-800 text-white px-2 py-1 rounded-lg">
+                                Send Prescription
+                              </div>
+                            </div>
+                          </td>{" "}
+                        </tr>
+                      )
+                  )}
                 </tbody>
               </table>
             </div>

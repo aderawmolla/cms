@@ -22,16 +22,6 @@ export default function LabResult() {
 
   const [prscData, setPrscData] = useState(data[0]);
 
-  // const testResults = prescriptions
-  //   .filter((patient) => id === patient.id)
-  //   .map((patient) =>
-  //     patient.results.map((result) => ({
-  //       testName: result.test_name,
-  //       values: result.values,
-  //     }))
-  //   );
-
-  // const [results, setResults] = useState(testResults);
 
   const handleChange = (index, field, value) => {
     const updatedResults = [...prscData.results];
@@ -62,24 +52,6 @@ export default function LabResult() {
     
   };
 
-  // const toBeSent = prescriptions
-  //   .filter((patient) => id === patient.id)
-  //   .map((item, index) => ({
-  //     id: id,
-  //     patient_id: item.patient_id,
-  //     issueDate: item.issueDate,
-  //     confirmDate: confirmDate,
-  //     docId: item.docId,
-  //     description: item.description,
-  //     status: "confirmed",
-  //     results: results.filter((result) => {
-  //       return {
-  //         test_name: result.test_name,
-  //         values: result.values,
-  //       };
-  //     }),
-  //   }));
-
   const handleSubmit = (event) => {
     event.preventDefault();
     Swal.fire({
@@ -94,13 +66,10 @@ export default function LabResult() {
         dispatch(sendBackPrescription(prscData));
       }
     });
-    // dispatch(updatePatient(patient));
   };
 
   useEffect(() => {
     console.log(prscData);
-    localStorage.clear();
-    // console.log(testResults);
   }, [prscData]);
 
   return (
