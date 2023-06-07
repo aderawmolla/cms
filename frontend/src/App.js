@@ -30,6 +30,7 @@ import DoctorDetail from "./components/doctor/doctorDetail";
 import DoctorPrescription from "./components/prescription/doctorPrescription";
 import LaboratoryPrescription from "./components/prescription/labPrescription";
 import PrescriptionResult from "./views/dashbord/prescriptionResult";
+import Diagnosis from "./components/doctor/diagnosis";
 export default function App() {
   return (
     <>
@@ -44,6 +45,7 @@ export default function App() {
             element={<DoctorPrescriptionComponent />}
           />
           <Route path="appointment" element={<DoctorAppointmentComponent />} />
+          <Route path="diagnosis:patient_id" element={<Diagnosis />} />
         </Route>
         <Route path="/lab" element={<LabDoctorDashbord />}>
           <Route path="prescriptions" element={<LabRequest />} />

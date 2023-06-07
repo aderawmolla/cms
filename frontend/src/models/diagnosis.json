@@ -1,0 +1,37 @@
+[
+    {
+      "id": "diag1",
+      "patient_id": "takami1",
+      "date": "2023-05-24",
+      "disease": "typhonid",
+      "docId": "doc1",
+      "status": "pending",
+      "medication": [
+      ]
+      
+    },
+    {
+      "id": "diag2",
+      "patient_id": "takami2",
+      "date": "2023-05-24",
+      "disease": "typhonid",
+      "docId": "doc1",
+      "status": "pending",
+      "medication": [
+      ]
+      
+    },
+    {
+      "id": "diag3",
+      "patient_id": "takami3",
+      "date": "2023-05-24",
+      "disease": "typhonid",
+      "docId": "doc2",
+      "status": "pending",
+      "medication": [
+
+      ]
+      
+    }
+  ]
+  

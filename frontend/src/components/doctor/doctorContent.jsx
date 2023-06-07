@@ -1,16 +1,23 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import PrescriptionModal from "./prescriptionModal";
 import { useSelector } from "react-redux";
+import DiagnosisModal from "./diagnosis";
 
 export default function DoctorContent(props) {
   const doctorId = "doc3";
+  const [patientId, setPatientId] = useState("");
   const patients = useSelector((state) => state.patients.patients);
   const prsc = useSelector((state) => state.prescriptions.prescriptions);
 
   const [showModal, setShowModal] = useState(false);
   const handleClose = () => setShowModal(false);
   const handleShow = () => setShowModal(true);
+
+
+  useEffect(() => {
+    console.log(patientId)
+  }, [patientId])
 
   return (
     <>
@@ -356,17 +363,20 @@ export default function DoctorContent(props) {
                                   Detail
                                 </a>
                               </div>
-                              <div className="flex items-center space-x-4 bg-blue-800 text-white px-2 py-1 rounded-lg">
-                                Send Prescription
-                              </div>
+                              <Link  to={`/doctor/diagnosis/${item.patientId}`} className="flex items-center space-x-4 bg-blue-900 hover:bg-blue-600 text-white px-2 py-1 rounded-lg">
+                                Send to patient
+                              </Link>
                             </div>
                           </td>{" "}
+
                         </tr>
                       )
                   )}
                 </tbody>
               </table>
             </div>
+          </div>
+          <div>
           </div>
         </div>
       </div>
