@@ -17,8 +17,7 @@ const storeddiagnosisData = localStorage.getItem("diagnosises");
 const initialState =
   storeddiagnosisData !== null
     ? JSON.parse(storeddiagnosisData)
-    :
-     {
+    : {
         diagnosises: diagnosisData,
       };
 
@@ -26,7 +25,7 @@ export const diagnosiseslice = createSlice({
   name: "diagnosises",
   initialState,
   reducers: {
-    senddiagnosises: (state, action) => {
+    sendDiagnosises: (state, action) => {
       const itemIndex = state.diagnosises.findIndex(
         (item) => item.id === action.payload.id
       );
@@ -34,6 +33,7 @@ export const diagnosiseslice = createSlice({
         state.diagnosises.push(action.payload);
         Swal.fire("diagnosis Sent.", "Success");
       } else {
+        Swal.fire("Send fail.");
         console.log("not added");
       }
       localStorage.setItem("diagnosises", JSON.stringify(state));
@@ -53,6 +53,5 @@ export const diagnosiseslice = createSlice({
   },
 });
 
-export const { senddiagnosises, sendBackdiagnosis } =
-  diagnosiseslice.actions;
+export const { sendDiagnosises, sendBackdiagnosis } = diagnosiseslice.actions;
 export default diagnosiseslice.reducer;

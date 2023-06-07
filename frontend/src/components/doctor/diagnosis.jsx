@@ -1,26 +1,77 @@
-import {useEffect, useState} from 'react';
-import { useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
-import diseases from "../../models/disease.json"
+import { useEffect, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { Link, useParams } from "react-router-dom";
+import diseases from "../../models/disease.json";
+import { v4 as uuidv4 } from "uuid";
+import Swal from "sweetalert2";
+import { sendDiagnosises } from "../../redux/diagnosisSlice";
 
-const Diagnosis = ({  }) => {
-  
-let { patientId } = useParams();
-const diagnosises = useSelector((state) => state.diagnosises.diagnosises)
-const [disease, setDisease] = useState([]);
+const Diagnosis = ({}) => {
+  let { patientId } = useParams();
+  let AuthenticatedDocId = "doc3";
 
-const diagonisis = diagnosises.filter((item) => {
-    if (patientId === item.patient_id){
-        return{
-            item
-        }
+  const diagnosises = useSelector((state) => state.diagnosises.diagnosises);
+  const dispatch = useDispatch();
+  const [disease, setDisease] = useState("");
+  const [date, setDate] = useState("");
+
+  const diagonisis = diagnosises.filter((item) => {
+    if (patientId === item.patient_id) {
+      return {
+        item,
+      };
     }
-})
-const patientDiagonisis = diagnosises[0];
+  });
 
-useEffect(() => {
-    // console.log(disease)
-}, [disease])
+  const patientDiagonisis = diagnosises[0];
+  const [diagData, setDiagData] = useState(patientDiagonisis);
+
+  const handleChange = (index, field, price, name) => {
+    const updatedDiags = [...diagData.medications];
+    updatedDiags[index] = {
+      ...updatedDiags[index],
+      name: name,
+      [field]: price,
+    };
+    const updatedDiagData = {
+      ...diagData,
+      medications: updatedDiags,
+    };
+    setDiagData(updatedDiagData);
+  };
+
+  const handleOtherChanges = (value) => {
+    const updatedPrscData = {
+      ...diagData,
+      id: uuidv4(),
+      date: value,
+      status: "sent",
+      disease: disease,
+      docId: AuthenticatedDocId,
+      patient_id: patientId,
+    };
+    setDiagData(updatedPrscData);
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    Swal.fire({
+      title: "Are you sure?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, send prescription to the patient!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        dispatch(sendDiagnosises(diagData));
+      }
+    });
+  };
+
+  useEffect(() => {
+    console.log(diagData);
+  }, [diagData]);
 
   return (
     <div className=" text-black">
@@ -28,58 +79,99 @@ useEffect(() => {
       <div className="bg-white p-6 rounded shadow-lg z-10 max-w-[1300px] h-[80vh] w-full mx-auto">
         <div className="flex justify-center items-center mb-4 pt-8">
           <h2 className="text-2xl font-bold">Patient Diagnosis</h2>
-
         </div>
         <div className="flex flex-col md:flex-row justify-between gap-8 pt-8">
-        <div className=''>
-        <div class='w-full text-center mb-3'>
+          <div className="">
+            <div className="w-full text-center mb-3"></div>
+            <div className="mb-4 flex gap-8">
+              <label className="font-bold">Doctor Id: </label>
+              <p>{AuthenticatedDocId}</p>
             </div>
-          <div className="mb-4 flex gap-8">
-            <label className="font-bold">Doctor Id: </label>
-            <p>{patientDiagonisis.docId}</p>
-          </div>
-          <div className="mb-4 flex gap-8">
-            <label className="font-bold">Patient Id:</label>
-            <p>{patientDiagonisis.patient_id}</p>
-          </div>
-          <div className="mb-4 flex gap-8">
-            <label className="font-bold">Disease:</label>
-            <select
-                className='border-gray-400 border rounded-lg h-8 focus:border-blue-500 focus:border-2'
-                value={disease}  // Set the value of the select to the current disease state
+            <div className="mb-4 flex gap-8">
+              <label className="font-bold">Patient Id:</label>
+              <p>{patientId}</p>
+            </div>
+            <div className="mb-4 flex gap-8">
+              <label className="font-bold">Disease:</label>
+              <select
+                className="border-gray-400 border rounded-lg h-8 focus:border-blue-500 focus:border-2"
+                value={disease} // Set the value of the select to the current disease state
                 onChange={(e) => setDisease(e.target.value)} // Update the disease state on change
-                >
+              >
                 <option value="">Choose a disease</option>
                 {diseases.map((disease, index) => (
-                    <option key={index} value={disease.name}>
+                  <option key={index} value={disease.name}>
                     {disease.name}
-                    </option>
+                  </option>
                 ))}
-                </select>
-          </div>
-          <div className="mb-4 flex gap-8">
-            <label className="font-bold">Medications:</label>
-            <ul>
-                <div className='flex justify-between gap-6 font-semibold rounded-lg py-2 px-4'>
-                    <p>Medicine</p>
-                    <p>Doze</p>
+              </select>
+            </div>
+            <div className="mb-4 flex gap-8">
+              <label className="font-bold">Medications:</label>
+              <ul>
+                <div className="flex justify-between gap-6 font-semibold rounded-lg py-2 px-4">
+                  <p>Medicine</p>
+                  <p>Doze</p>
                 </div>
-              {diseases.map((diag, index) => diag.name === disease && 
-              (
-                <div>{console.log(diag.name)}
-                {diag.medications.map((item, index) => (
-                <li key={index} className='flex justify-between gap-6 border border-gray-200 rounded-lg py-2 px-4'>
-                    <label htmlFor="">{item.name}</label>
-                    <input className='w-20 h-6 bg-gray-100 px-4 ' type="number" />
-                </li>
-                ))}
-                </div>
-              )
-              )}
-            </ul>
+                {diseases.map(
+                  (diag, index) =>
+                    diag.name === disease && (
+                      <div>
+                        {diag.medications.map((item, index) => (
+                          <li
+                            key={index}
+                            className="flex justify-between gap-6 border border-gray-200 rounded-lg py-2 px-4"
+                          >
+                            <label htmlFor="">{item.name}</label>
+                            <input
+                              onChange={(event) =>
+                                handleChange(
+                                  index,
+                                  "price",
+                                  event.target.value,
+                                  item.name
+                                )
+                              }
+                              className="w-20 h-6 bg-gray-100 px-4 "
+                              type="number"
+                            />
+                          </li>
+                        ))}
+                      </div>
+                    )
+                )}
+              </ul>
+            </div>
+            <div className="mb-4 flex gap-8">
+              <label className="font-bold">Date:</label>
+              <input
+                className="appearance-none block w-full   border border-gray-200 rounded py-1 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                id="grid-last-name"
+                type="date"
+                placeholder="fill date in E.C"
+                value={date}
+                onChange={async (e) => {
+                  await setDate(e.target.value);
+                  handleOtherChanges(e.target.value);
+                }}
+              />
+            </div>
+            <div className="flex justify-between gap-16">
+              <Link
+                to="/doctor"
+                className="rounded-lg bg-red-400 hover:bg-red-600 text-white py-2 px-4 font-semibold"
+              >
+                Cancel
+              </Link>
+              <button
+                onClick={handleSubmit}
+                className="rounded-lg bg-blue-400 hover:bg-blue-600 text-white py-2 px-4 font-semibold"
+              >
+                send
+              </button>
+            </div>
           </div>
-        </div>
-        {/* <div class='px-2 py-3 w-3/4'>
+          {/* <div class='px-2 py-3 w-3/4'>
 
             <table class="w-full border">
                 <thead>
@@ -136,4 +228,3 @@ useEffect(() => {
 };
 
 export default Diagnosis;
-
