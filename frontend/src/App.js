@@ -45,7 +45,7 @@ export default function App() {
             element={<DoctorPrescriptionComponent />}
           />
           <Route path="appointment" element={<DoctorAppointmentComponent />} />
-          <Route path="diagnosis:patient_id" element={<Diagnosis />} />
+          <Route path="dgs/:patientId" element={<Diagnosis />} />
         </Route>
         <Route path="/lab" element={<LabDoctorDashbord />}>
           <Route path="prescriptions" element={<LabRequest />} />

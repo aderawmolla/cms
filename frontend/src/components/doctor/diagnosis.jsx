@@ -1,76 +1,85 @@
-import {useEffect} from 'react';
+import {useEffect, useState} from 'react';
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
+import diseases from "../../models/disease.json"
 
-const Diagnosis = ({ isOpen, closeModal, patientId }) => {
+const Diagnosis = ({  }) => {
   
-let { patient_id } = useParams();
+let { patientId } = useParams();
 const diagnosises = useSelector((state) => state.diagnosises.diagnosises)
+const [disease, setDisease] = useState([]);
 
-const patientDiagonisis = diagnosises.filter((item) => {
-    if (patient_id === diagnosises.patient_id){
+const diagonisis = diagnosises.filter((item) => {
+    if (patientId === item.patient_id){
         return{
             item
         }
     }
 })
+const patientDiagonisis = diagnosises[0];
 
 useEffect(() => {
-    console.log(patientDiagonisis)
-    console.log(patientId)
-}, [])
+    // console.log(disease)
+}, [disease])
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center z-50 text-black">
-      <div className="fixed inset-0 bg-black opacity-50 "></div>
+    <div className=" text-black">
+      <div className=" "></div>
       <div className="bg-white p-6 rounded shadow-lg z-10 max-w-[1300px] h-[80vh] w-full mx-auto">
-        <div className="flex justify-between items-center mb-4">
+        <div className="flex justify-center items-center mb-4 pt-8">
           <h2 className="text-2xl font-bold">Patient Diagnosis</h2>
-          <button
-            className="text-gray-500 hover:text-gray-700"
-            onClick={closeModal}
-          >
-            <svg
-              className="w-6 h-6 fill-current"
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-            >
-              <path d="M12 10.586L17.293 5.293A1 1 0 0118.707 6.707L13.414 12l5.293 5.293a1 1 0 01-1.414 1.414L12 13.414l-5.293 5.293a1 1 0 01-1.414-1.414L10.586 12 5.293 6.707A1 1 0 016.707 5.293L12 10.586z" />
-            </svg>
-          </button>
+
         </div>
-        <div className="flex flex-col md:flex-row justify-between gap-8 pt-32">
-        {/* <div className='w-1/4'>
+        <div className="flex flex-col md:flex-row justify-between gap-8 pt-8">
+        <div className=''>
         <div class='w-full text-center mb-3'>
             </div>
-          <div className="mb-4">
-            <label className="font-bold">Doctor Name:</label>
-            <p>{patientDiagonisis.doctorName}</p>
+          <div className="mb-4 flex gap-8">
+            <label className="font-bold">Doctor Id: </label>
+            <p>{patientDiagonisis.docId}</p>
           </div>
-          <div className="mb-4">
-            <label className="font-bold">Patient Name:</label>
-            <p>{patientDiagonisis.patientDiagonisisName}</p>
+          <div className="mb-4 flex gap-8">
+            <label className="font-bold">Patient Id:</label>
+            <p>{patientDiagonisis.patient_id}</p>
           </div>
-          <div className="mb-4">
+          <div className="mb-4 flex gap-8">
             <label className="font-bold">Disease:</label>
-            <p>{patientDiagonisis.disease}</p>
+            <select
+                className='border-gray-400 border rounded-lg h-8 focus:border-blue-500 focus:border-2'
+                value={disease}  // Set the value of the select to the current disease state
+                onChange={(e) => setDisease(e.target.value)} // Update the disease state on change
+                >
+                <option value="">Choose a disease</option>
+                {diseases.map((disease, index) => (
+                    <option key={index} value={disease.name}>
+                    {disease.name}
+                    </option>
+                ))}
+                </select>
           </div>
-          <div className="mb-4">
+          <div className="mb-4 flex gap-8">
             <label className="font-bold">Medications:</label>
             <ul>
-              {patientDiagonisis.medications.map((medication) => (
-                <li key={medication.id}>
-                  {medication.name} - {medication.dosage}
+                <div className='flex justify-between gap-6 font-semibold rounded-lg py-2 px-4'>
+                    <p>Medicine</p>
+                    <p>Doze</p>
+                </div>
+              {diseases.map((diag, index) => diag.name === disease && 
+              (
+                <div>{console.log(diag.name)}
+                {diag.medications.map((item, index) => (
+                <li key={index} className='flex justify-between gap-6 border border-gray-200 rounded-lg py-2 px-4'>
+                    <label htmlFor="">{item.name}</label>
+                    <input className='w-20 h-6 bg-gray-100 px-4 ' type="number" />
                 </li>
-              ))}
+                ))}
+                </div>
+              )
+              )}
             </ul>
           </div>
-          <div>
-            <label className="font-bold">Lab Results:</label>
-            <p>{patientDiagonisis.labResults}</p>
-          </div>
-        </div> */}
-        <div class='px-2 py-3 w-3/4'>
+        </div>
+        {/* <div class='px-2 py-3 w-3/4'>
 
             <table class="w-full border">
                 <thead>
@@ -119,7 +128,7 @@ useEffect(() => {
                     </tr>
                 </thead>
             </table>
-        </div>
+        </div> */}
         </div>
       </div>
     </div>

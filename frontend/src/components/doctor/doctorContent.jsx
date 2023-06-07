@@ -346,7 +346,7 @@ export default function DoctorContent(props) {
                                 ></div>
                               </div>
                               <div>
-                                <p className="font-semibold">{item.id}</p>
+                                <p className="font-semibold">{item.patientId}</p>
                               </div>
                             </div>
                           </td>
@@ -363,7 +363,7 @@ export default function DoctorContent(props) {
                                   Detail
                                 </a>
                               </div>
-                              <Link  to={`/doctor/diagnosis/${item.patientId}`} className="flex items-center space-x-4 bg-blue-900 hover:bg-blue-600 text-white px-2 py-1 rounded-lg">
+                              <Link  to={`/doctor/dgs/${item.patientId}`} className="flex items-center space-x-4 bg-blue-900 hover:bg-blue-600 text-white px-2 py-1 rounded-lg">
                                 Send to patient
                               </Link>
                             </div>
