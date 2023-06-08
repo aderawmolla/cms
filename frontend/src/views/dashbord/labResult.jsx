@@ -1,11 +1,13 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import { sendBackPrescription } from "../../redux/prescriptionSlice";
 import { updateTestNames } from "../../redux/testNameSlice";
 export default function LabResult(){
   let { id } = useParams();
+  const navigate=useNavigate()
   const prescriptions = useSelector((state) => state.prescriptions.prescriptions);
   const testNames=useSelector((state)=>state.testNames.testNames)
   
@@ -65,6 +67,7 @@ export default function LabResult(){
         });
       }
     });
+    navigate("/lab")
   };
    useEffect(() => {
       console.log(prscData);

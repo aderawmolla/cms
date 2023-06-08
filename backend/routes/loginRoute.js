@@ -6,7 +6,7 @@ const {Patient}=require('../models/patientModel')
 const {Admin}=require('../models/adminModel')
 const {Doctor}=require('../models/doctorModel');
 const { Labratoriest}=require('../models/labModel');
-
+const { Finance } = require('../models/financeModel');
  router.post('/login', async (req, res) => {
   const username = req.body.username;
   const password = req.body.password;
@@ -21,6 +21,9 @@ const { Labratoriest}=require('../models/labModel');
     if (!user) {
       user = await Labratoriest.findOne({ where: { username } });
     }  
+    if (!user) {
+      user = await Finance.findOne({ where: { username } });
+    } 
     // if (!user){
     //   return res.json({ message: 'User not found' });
     // } 

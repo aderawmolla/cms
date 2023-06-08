@@ -64,7 +64,7 @@ export const prescriptionSlice = createSlice({
       } else {
         axios.put(`http://localhost:5000/prescriptions/${action.payload.id}`,action.payload); 
         removeObjectWithId(state.prescriptions, action.payload.id);
-        state.prescriptions.push(action.payload);
+        state.prescriptions.unshift(action.payload);
       }
       localStorage.setItem("prescriptions",JSON.stringify(state));
     },

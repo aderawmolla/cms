@@ -37,7 +37,7 @@ export default function PrescriptionComponent(props) {
 
     <>
     <h1 className="px-2 py-4 text-center font-mono text-3xl font-bold  tracking-widest text-gray-700 ">
-              Prescriptions
+            Lab Orders
             </h1>
       <div className="mx-4 mt-7">
         <div className="flex flex-col items-end mb-10">
@@ -140,8 +140,7 @@ export default function PrescriptionComponent(props) {
 
                       <td className="px-4 py-3 text-sm">{prescription.issueDate}</td>
                       <td className="p-3 text-right">
-                        {prescription.status == "issued" ? <>
-
+                        {prescription.status =="issued"?<>
                           <td className="px-4 py-3 text-xs">
                             <span className="px-2 py-1 font-semibold leading-tight text-blue-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100">
                               issued
@@ -149,7 +148,6 @@ export default function PrescriptionComponent(props) {
                           </td>
 
                         </> : <>
-
                           <td className="px-4 py-3 text-xs">
                             <span className="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100">
                               Confirmed

@@ -3,11 +3,8 @@ import { useSelector } from "react-redux";
 
 
 export default function PatientDetail() {
-
     const patients = useSelector((state) => state.patients.patients)
-
     let { patientId } = useParams();
-
   return (
     <>
       {patients.map((patient, index) => patient.id === patientId && (

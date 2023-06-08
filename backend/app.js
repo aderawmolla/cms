@@ -1,7 +1,8 @@
 //sudo service apache2 stop
 //sudo /opt/lampp/xampp start
 // git pull origin front
-
+//sudo lsof -i :3000
+//sudo kill <PID>
 const express=require("express")
 const app=express()
 const cors=require('cors')
@@ -16,14 +17,13 @@ const testNameRoutes=require('./routes/testNameRoutes')
 const prescriptionRoutes=require('./routes/prescriptionRoutes')
 const labRoutes=require('./routes/labRoutes')
 const imageRoutes=require('./routes/uploadImage')
+const financeRoutes=require('./routes/financeRoutes')
 
 app.use(express.json());
 const bodyParser = require('body-parser');
 app.use(bodyParser.json());
-
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
-
 app.listen(PORT,()=>{
     console.log(`app running on port ${PORT}`)
 })
@@ -37,4 +37,4 @@ app.use('/testNames',testNameRoutes)
 app.use('/prescriptions',prescriptionRoutes)
 app.use('/labratories',labRoutes)
 app.use('/upload',imageRoutes)
-
+app.use('/finances',financeRoutes)

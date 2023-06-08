@@ -173,7 +173,7 @@ export default function DoctorDashbord(props) {
                   </div>
                   <div className="flex flex-col justify-around flex-grow ml-5 text-white">
                     <div className="text-2xl whitespace-nowrap">
-                     Issued  Prescriptions
+                     Issued  Lab Orders
                     </div>
                     <div className="">{numberIssued}</div>
                   </div>
@@ -190,7 +190,7 @@ export default function DoctorDashbord(props) {
                   </div>
                   <div className="flex flex-col justify-around flex-grow ml-5 text-white">
                     <div className="text-2xl whitespace-nowrap overflow-ellipsis">
-                   Confirmed Prescriptions
+                   Confirmed Lab Orders
                     </div>
                     <div className="">{numberConfirmed}</div>
                   </div>

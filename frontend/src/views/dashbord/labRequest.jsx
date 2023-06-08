@@ -2,7 +2,8 @@ import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import {useState,useEffect} from 'react'
 import currentUser from "../../redux/currentUser";
-export default function LabRequest(props) { 
+export default function LabRequest(props) 
+{ 
 const prescriptions = useSelector((state) => state.prescriptions.prescriptions)
 const patients=useSelector((state)=>state.patients.patients)
 const doctors=useSelector((state)=>state.doctors.doctors)
@@ -78,7 +79,7 @@ const getDoctorName = (doctorId) =>{
           </form>
 
           <div className="w-full rounded-lg shadow-xs">
-          <h1 className="py-4 text-xl font-bold text-center text-gray-500">Issued Prescriptions</h1>
+          <h1 className="py-4 text-xl font-bold text-center text-gray-500">Issued Lab Orders</h1>
             <div className="w-full overflow-visible">
               <table className="w-full sm:w-full">
                 <thead>
@@ -167,7 +168,7 @@ const getDoctorName = (doctorId) =>{
           
           </div>
           <div className="w-full py-8 rounded-lg shadow-xs">
-          <h1 className="py-4 text-xl font-bold text-center text-gray-500">Confirmed Prescriptions</h1>
+          <h1 className="py-4 text-xl font-bold text-center text-gray-500">Confirmed Lab Orders</h1>
           <div className="w-full overflow-visible">
               <table className="w-full sm:w-full">
                 <thead>

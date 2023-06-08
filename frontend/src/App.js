@@ -9,6 +9,7 @@ import PrescriptionComponent from "./components/admin/prescriptionComponent";
 import AddPatient from "./views/add/addPatient";
 import AddDoctor from "./views/add/addDoctor";
 import AddAppointment from "./views/add/addAppointment";
+import FinanceDashbord from "./views/dashbord/financeDashbord";
 import Login from "./views/login/login";
 import AdminDashbord from "./views/dashbord/adminDashbord";
 import Home from "./views/home/home";
@@ -58,6 +59,10 @@ export default function App(){
           <Route path="prescription" element={<DoctorPrescriptionComponent />} />
           <Route path="prescription/:laboratoryId/:prescriptionId" index element={<LaboratoryPrescription />} ></Route>
           <Route path="prescriptions/:id" element={<LabResult />} />
+        </Route>
+        <Route path="/finance" element={<FinanceDashbord />}>
+          <Route path="" element={<LabRequest/>} />
+  
         </Route>
         <Route path="/signIn" element={<Login />}>
           <Route path="" element={<SingIn/>} />

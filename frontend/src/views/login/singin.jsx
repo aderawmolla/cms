@@ -26,10 +26,20 @@ export default function SingIn() {
         navigate("/incorrectPassword")
       }
       
-    } else if (responseData && responseData.userType === "Doctor") {
+    } 
+    else if (responseData && responseData.userType === "Doctor") {
       setUser("user")
       if(responseData.isLogIn){
         navigate("/doctor");
+      }
+      else{
+        navigate("/incorrectPassword")
+      }
+    }
+    else if (responseData && responseData.userType === "Finance") {
+      setUser("user")
+      if(responseData.isLogIn){
+        navigate("/finance");
       }
       else{
         navigate("/incorrectPassword")

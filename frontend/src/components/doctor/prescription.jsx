@@ -48,7 +48,7 @@ export default function DoctorPrescriptionComponent(props) {
   return (
     <>
     <h1 className="px-2 py-4 text-center font-mono text-3xl font-bold tracking-widest text-gray-700 ">
-              Your Prescriptions and Responses
+              Your Lab orders and Responses
      </h1>
       <div className="mx-4 mt-4">
         <div className="flex flex-col items-end mb-10">
@@ -104,7 +104,7 @@ export default function DoctorPrescriptionComponent(props) {
            
           <div className="w-full pt-32 rounded-lg shadow-xs">
             <h1 className="px-2 py-4 font-mono text-xl font-bold tracking-widest text-gray-700 ">
-              Issued Prescriptions
+              Issued Lab Orders
             </h1>
             <div className="w-full overflow-visible">
               <table className="w-full sm:w-full">
@@ -171,7 +171,7 @@ export default function DoctorPrescriptionComponent(props) {
           </div>
           <div className="w-full pt-8 rounded-lg shadow-xs">
             <h1 className="px-2 py-4 font-mono text-xl font-bold tracking-widest text-gray-700 ">
-              Confimed Prescriptions
+              Confimed Lab orders
             </h1>
             <div className="w-full overflow-visible">
               <table className="w-full sm:w-full">

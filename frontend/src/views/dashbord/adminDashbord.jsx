@@ -164,7 +164,7 @@ export default function AdminDashbord(props){
                     </div>
                     <div class="text-right">
                       <p class="text-2xl">{prescriptions}</p>
-                      <p>Prescriptions</p>
+                      <p>Lab Orders</p>
                     </div>
                   </div>
                 </div>

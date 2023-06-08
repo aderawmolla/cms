@@ -18,7 +18,7 @@ export default function SingUp() {
       age: '',
       description: "",
       photo: "https://w7.pngwing.com/pngs/328/335/png-transparent-icon-user-male-avatar-business-person-profile.png",
-      gender: "",
+      gender: "male",
       password: "",
       contact: "",
       username: "",
@@ -83,7 +83,7 @@ export default function SingUp() {
             <input
               className="w-full px-4 py-2 text-base border-2 border-gray-300 focus:outline-none focus:border-indigo-500"
               type="text"
-              placeholder="Enter your medical card number"
+              placeholder="Enter first name"
               // value={""}
               value={formData.firstName} name="firstName" onChange={handleChange}
             />
@@ -95,7 +95,7 @@ export default function SingUp() {
             <input
               className="w-full px-4 py-2 text-base border-2 border-gray-300 focus:outline-none focus:border-indigo-500"
               type="text"
-              placeholder="Enter your medical card number"
+              placeholder="Enter last name"
               // value={""}
               onChange={handleChange} value={formData.lastName} name="lastName"
             />
@@ -153,7 +153,7 @@ export default function SingUp() {
             <input
               className="w-full px-4 py-2 text-base border-2 border-gray-300 focus:outline-none focus:border-indigo-500"
               type="text"
-              placeholder="Enter your medical card number"
+              placeholder="Enter username"
               // value={""}
               onChange={handleChange} value={formData.username} name="username"
             />

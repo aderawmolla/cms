@@ -4,7 +4,7 @@ import PrescriptionModal from "./prescriptionModal";
 import { useSelector } from "react-redux";
 
 export default function DoctorContent(props) {
-  const patients=useSelector((state)=>state.patients.patients)
+  const patients = useSelector((state) => state.patients.patients)
   const prescriptions = useSelector((state) => state.prescriptions.prescriptions);
   const appointments = useSelector((state) => state.appointments.appointments);
   const [showModal, setShowModal] = useState(false);
@@ -17,15 +17,16 @@ export default function DoctorContent(props) {
   //   const patient = patients.find((p) => p.id=== patientId)
   //   return patient? `${patient.firstName} ${patient.lastName}` : '';
   // };
-  const getPatientName=(patientId) =>{
+  const getPatientName = (patientId) => {
     const patient = patients.find((p) => p.id === patientId);
-    return patient? `${patient.firstName} ${patient.lastName}`:'';
+    return patient ? `${patient.firstName} ${patient.lastName}` : '';
   };
-  const getGender =  (patientId) => {
-    const patient =patients.find((p) => p.id === patientId);
+
+  const getGender = (patientId) => {
+    const patient = patients.find((p) => p.id === patientId);
     // console.log("the gender of this patient is",patient.gender)
     // console.log("tha name of this patient is",patient.firstName)
-    return patient ? patient.gender :'';
+    return patient ? patient.gender : '';
   };
 
   const getContact = (patientId) => {
@@ -33,11 +34,8 @@ export default function DoctorContent(props) {
     return patient ? patient.contact : '';
   };
 
-
-  
-  
-  useEffect(() => { 
-    const filtered = appointments.filter((appointment) => appointment.doctorId ===currentUser.id);
+  useEffect(() => {
+    const filtered = appointments.filter((appointment) => appointment.doctorId === currentUser.id);
     console.log("good")
     const appointmentPatientNames = filtered.map((appointment) => ({
       ...appointment,
@@ -46,7 +44,7 @@ export default function DoctorContent(props) {
       contact: getContact(appointment.patientId)
     }));
     setFilteredAppointmentsWithName(appointmentPatientNames);
-    const filteredPrescriptions = prescriptions.filter((prescription) => prescription.doctorId===currentUser.id);
+    const filteredPrescriptions = prescriptions.filter((prescription) => prescription.doctorId === currentUser.id);
     const prescriptionPatientNames = filteredPrescriptions.map((prescription) => ({
       ...prescription,
       patientName: getPatientName(prescription.patientId),
@@ -54,7 +52,7 @@ export default function DoctorContent(props) {
       contact: getContact(prescription.patientId)
     }));
     setDoctorPrescriptions(prescriptionPatientNames);
-  },[]);
+  }, []);
 
 
   return (
@@ -111,8 +109,8 @@ export default function DoctorContent(props) {
           </form>
 
           <div className="w-full rounded-lg shadow-xs">
-          <h1 className="px-2 py-4 text-center font-mono text-xl font-bold tracking-widest text-gray-700 ">
-            Your New  Appointments
+            <h1 className="px-2 py-4 font-mono text-xl font-bold tracking-widest text-center text-gray-700 ">
+              Your New  Appointments
             </h1>
             <div className="w-full overflow-visible">
               <table className="w-full sm:w-full">
@@ -167,9 +165,9 @@ export default function DoctorContent(props) {
                             <div className="flex-shrink-0">
                               <button
                                 onClick={handleShow}
-                                className="p-2 text-sm font-medium text-white bg-green-500 rounded-lg hover:bg-green-600"
+                                className="p-2 text-sm font-medium text-white rounded-lg bg-primary hover:bg-blue-700"
                               >
-                                Prescribe
+                                Send Lab Test
                               </button>
                               <PrescriptionModal
                                 showModal={showModal}
@@ -178,23 +176,17 @@ export default function DoctorContent(props) {
                                 item={item}
                               />
                             </div>
-
-                            {/* <div className="flex-shrink-0">
-                            <a
-                              href="/"
-                              className="p-2 text-sm font-medium text-white rounded-lg bg-primary hover:bg-blue-700"
-                            >
-                              Send Lab Test
-                            </a>
-                          </div> */}
-                            {/* <div className="flex-shrink-0">
-                              <a
-                                href="#"
-                                className="p-2 text-sm font-medium rounded-lg text-cyan-600 hover:bg-gray-100"
+                            <div className="flex-shrink-0">
+                              <button
+                                // onClick={handleShow}
+                                className="p-2 text-sm font-medium text-white bg-green-500 rounded-lg hover:bg-green-600"
                               >
-                                Detail
-                              </a>
-                            </div> */}
+                                Prescribe
+                              </button>
+
+                            </div>
+
+
                           </div>
                         </td>
                       </tr>
@@ -206,7 +198,7 @@ export default function DoctorContent(props) {
           </div>
           <div className="w-full pt-32 rounded-lg shadow-xs">
             <h1 className="px-2 py-4 font-mono text-xl font-bold tracking-widest text-gray-700 ">
-              Issued Prescriptions
+              Issued Lab Orders
             </h1>
             <div className="w-full overflow-visible">
               <table className="w-full sm:w-full">
@@ -224,7 +216,7 @@ export default function DoctorContent(props) {
                   </tr>
                 </thead>
                 <tbody className="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
-                  {doctorPrescriptions.map((item, index) => item.status ==="issued" && (
+                  {doctorPrescriptions.map((item, index) => item.status === "issued" && (
                     <tr
                       key={index}
                       className="text-gray-700 bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-900 dark:text-gray-400"
@@ -272,7 +264,7 @@ export default function DoctorContent(props) {
           </div>
           <div className="w-full pt-8 rounded-lg shadow-xs">
             <h1 className="px-2 py-4 font-mono text-xl font-bold tracking-widest text-gray-700 ">
-              Confimed Prescriptions
+              Confimed Lab Orders
             </h1>
             <div className="w-full overflow-visible">
               <table className="w-full sm:w-full">
@@ -327,30 +319,21 @@ export default function DoctorContent(props) {
                       <td className="px-2 py-3">
                         <div className="inline-flex items-center space-x-3">
                           <div className="flex-shrink-0">
-
-
-
-                      <div className="inline-flex items-center space-x-3">
-                          <div className="flex-shrink-0">
-                            <Link to={`/doctor/prescriptionDetail/${item.id}`}
-                              className="p-2 text-sm font-medium rounded-lg text-cyan-600 hover:bg-gray-100"
-                            >
-                              Detail
-                            </Link>
-                          </div>
-                        </div> 
-                            
-
-
-
-
-                         
-
-
-
-
-
-
+                            <div className="inline-flex items-center space-x-3">
+                              <div className="flex-shrink-0">
+                                <Link to={`/doctor/prescriptionDetail/${item.id}`}
+                                  className="p-2 text-sm font-medium rounded-lg text-cyan-600 hover:bg-gray-100"
+                                >
+                                  Detail
+                                </Link>
+                              </div>
+                              <button
+                                // onClick={handleShow}
+                                className="p-2 text-sm font-medium text-white bg-green-500 rounded-lg hover:bg-green-600"
+                              >
+                                Prescribe
+                              </button>
+                            </div>
                           </div>
                         </div>
                       </td>
