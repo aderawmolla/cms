@@ -1,42 +1,71 @@
 import { Link } from "react-router-dom";
 import React, { useState } from 'react'
 import axios from 'axios'
+import { Formik, Field, Form, ErrorMessage } from 'formik';
+import * as Yup from 'yup';
+
 export default function SingUp() {
 
-  const [formData, setFormData] = useState(
-    {
-      firstName: '',
-      lastName: '',
-      age: '',
-      description: "",
-      photo: "https://w7.pngwing.com/pngs/328/335/png-transparent-icon-user-male-avatar-business-person-profile.png",
-      gender: "",
-      password: "",
-      contact: "",
-      username: "",
-      email: "",
-      date: Date.now(),
-      state: "Amhara",
-      wereda: "Bahir Dar",
-      kebele: "Poly",
-      cardNumber: ""
-    });
-
-  const handleChange = (e) => {
-    setFormData((prevState) => ({
-      ...prevState,
-      [e.target.name]: e.target.value,
-    }));
+  const initialValues = {
+    firstName: '',
+    lastName: '',
+    age: '',
+    description: '',
+    photo: 'https://w7.pngwing.com/pngs/328/335/png-transparent-icon-user-male-avatar-business-person-profile.png',
+    gender: '',
+    password: '',
+    contact: '',
+    username: '',
+    email: '',
+    date: Date.now(),
+    state: 'Amhara',
+    wereda: 'Bahir Dar',
+    kebele: 'Poly',
+    phoneNumner: "",
+    cardNumber: ''
   };
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+
+  const validationSchema = Yup.object().shape({
+    firstName: Yup.string().required('First name is required'),
+    lastName: Yup.string().required('Last name is required'),
+    age: Yup.number().required('Age is required'),
+    gender: Yup.string().required('Gender is required'),
+    password: Yup.string().required('Password is required'),
+    contact: Yup.string().required('Phone number is required'),
+    username: Yup.string().required('Username is required'),
+    email: Yup.string().email('Invalid email').required('Email is required'),
+    state: Yup.string().required('State is required'),
+    wereda: Yup.string().required('City/Wereda is required'),
+    kebele: Yup.string().required('Kebele is required'),
+    phoneNumber: Yup.string()
+    .required("Phone number is required")
+    .test(
+      "phone-number",
+      "Phone number must start with '+2519'",
+      (value) => {
+        if (!value) return true; // Allow empty value to be handled by the 'required' validation
+        return value.startsWith("+2519");
+      }
+    )
+    .test(
+      "phone-number-length",
+      "Phone number must be exactly 13 characters long",
+      (value) => {
+        if (!value) return true; // Allow empty value to be handled by the 'required' validation
+        return value.length === 13;
+      }
+    ),
+  });
+
+  const handleSubmit = async (values) => {
     try {
-      const response = await axios.post(' http://localhost:5000/patients',formData);
+      const response = await axios.post('http://localhost:5000/patients', values);
       console.log(response.data);
     } catch (error) {
       console.error(error);
     }
   };
+
   return (
     <div
       className="w-full p-8 bg-white md:flex md:items-center md:justify-center sm:w-auto md:h-full xl:w-2/5 md:p-10 lg:p-14 sm:rounded-lg md:rounded-none"
@@ -51,33 +80,45 @@ export default function SingUp() {
             Please Register to access our services.
           </p>
         </div>
-
-        <form onSubmit={handleSubmit} className="pb-8 space-y-6" action="#" method="POST">
+        <Formik
+            initialValues={initialValues}
+            validationSchema={validationSchema}
+            onSubmit={handleSubmit}
+        >
+                  <Form onSubmit={handleSubmit} className="pb-8 space-y-6" action="#" method="POST">
           <input type="hidden" name="remember" value="true" />
           <div className="relative">
             <label className=" text-sm font-bold tracking-wide text-gray-700">
               first name
             </label>
-            <input
-              className="w-full px-4 py-2 text-base border-2 border-gray-300 focus:outline-none focus:border-indigo-500"
-              type="text"
-              placeholder="Enter your medical card number"
-              // value={""}
-              value={formData.firstName} name="firstName" onChange={handleChange}
-            />
+            <Field
+            className="w-full px-4 py-2 text-base border-2 border-gray-300 focus:outline-none focus:border-indigo-500"
+            type="text"
+            placeholder="Enter your last name"
+            name="firstName"
+          />
+          <ErrorMessage
+            name="firstName"
+            component="div"
+            className="text-red-500 text-xs mt-1"
+          />
           </div>
           <div className="relative">
-            <label className=" text-sm font-bold tracking-wide text-gray-700">
-              last name
-            </label>
-            <input
-              className="w-full px-4 py-2 text-base border-2 border-gray-300 focus:outline-none focus:border-indigo-500"
-              type="text"
-              placeholder="Enter your medical card number"
-              // value={""}
-              onChange={handleChange} value={formData.lastName} name="lastName"
-            />
-          </div>
+          <label className="text-sm font-bold tracking-wide text-gray-700">
+            Last Name
+          </label>
+          <Field
+            className="w-full px-4 py-2 text-base border-2 border-gray-300 focus:outline-none focus:border-indigo-500"
+            type="text"
+            placeholder="Enter your last name"
+            name="lastName"
+          />
+          <ErrorMessage
+            name="lastName"
+            component="div"
+            className="text-red-500 text-xs mt-1"
+          />
+        </div>
           <div className="flex justify-between pr-8">
             <div className="w-1/2  mb-6 md:mb-0">
               <label
@@ -89,7 +130,7 @@ export default function SingUp() {
               <div className="relative">
                 <select
 
-                  onChange={handleChange} value={formData.gender} name="gender"
+                  // onChange={handleChange} value={formData.gender} name="gender"
                   className="block appearance-none w-full bg-white border-2 border-gray-300  text-gray-700 py-[10.5px] px-4  rounded leading-tight focus:outline-none focus:bg-white focus:border-indigo-500"
                   id="grid-state"
                 >
@@ -114,13 +155,17 @@ export default function SingUp() {
               >
                 Age
               </label>
-              <input
-                onChange={handleChange} value={formData.age} name="age"
-                className="px-4 py-2 text-base border-2 border-gray-300 focus:outline-none focus:border-indigo-500"
-                id="grid-zip"
-                type="number"
-                placeholder="Fill age"
-              />
+              <Field
+            className="w-full px-4 py-2 text-base border-2 border-gray-300 focus:outline-none focus:border-indigo-500"
+            type="text"
+            placeholder="Enter your last name"
+            name="age"
+          />
+          <ErrorMessage
+            name="age"
+            component="div"
+            className="text-red-500 text-xs mt-1"
+          />
             </div>
           </div>
 
@@ -128,52 +173,65 @@ export default function SingUp() {
             <label className=" text-sm font-bold tracking-wide text-gray-700">
               username
             </label>
-            <input
-              className="w-full px-4 py-2 text-base border-2 border-gray-300 focus:outline-none focus:border-indigo-500"
-              type="text"
-              placeholder="Enter your medical card number"
-              // value={""}
-              onChange={handleChange} value={formData.username} name="username"
-            />
+            <Field
+            className="w-full px-4 py-2 text-base border-2 border-gray-300 focus:outline-none focus:border-indigo-500"
+            type="text"
+            placeholder="Enter your last name"
+            name="username"
+          />
+          <ErrorMessage
+            name="username"
+            component="div"
+            className="text-red-500 text-xs mt-1"
+          />
           </div>
           <div className="content-center mt-8">
             <label className=" text-sm font-bold tracking-wide text-gray-700">
               Password
             </label>
-            <input
-              className="content-center w-full px-4 py-2 text-base border-2 border-gray-300 focus:outline-none focus:border-indigo-500"
-              type="password"
-              placeholder="Enter your password"
-              onChange={handleChange} value={formData.password} name="password"
-
-            // value={""}
-            />
+            <Field
+            className="w-full px-4 py-2 text-base border-2 border-gray-300 focus:outline-none focus:border-indigo-500"
+            type="text"
+            placeholder="Enter your last name"
+            name="password"
+          />
+          <ErrorMessage
+            name="password"
+            component="div"
+            className="text-red-500 text-xs mt-1"
+          />
           </div>
           <div className="content-center mt-8">
             <label className=" text-sm font-bold tracking-wide text-gray-700">
               Email
             </label>
-            <input
-              className="content-center w-full px-4 py-2 text-base border-2 border-gray-300 focus:outline-none focus:border-indigo-500"
-              type="email"
-              placeholder="Enter your email"
-              onChange={handleChange} value={formData.email} name="email"
-
-            // value={""}
-            />
+            <Field
+            className="w-full px-4 py-2 text-base border-2 border-gray-300 focus:outline-none focus:border-indigo-500"
+            type="text"
+            placeholder="Enter your last name"
+            name="email"
+          />
+          <ErrorMessage
+            name="email"
+            component="div"
+            className="text-red-500 text-xs mt-1"
+          />
           </div>
           <div className="content-center mt-8">
             <label className=" text-sm font-bold tracking-wide text-gray-700">
               Phone Number
             </label>
-            <input
-              className="content-center w-full px-4 py-2 text-base border-2 border-gray-300 focus:outline-none focus:border-indigo-500"
-              type="text"
-              placeholder="Enter your password"
-              onChange={handleChange} value={formData.contact} name="contact"
-
-            // value={""}
-            />
+            <Field
+            className="w-full px-4 py-2 text-base border-2 border-gray-300 focus:outline-none focus:border-indigo-500"
+            type="text"
+            placeholder="Enter your last name"
+            name="phoneNumber"
+          />
+          <ErrorMessage
+            name="phoneNumber"
+            component="div"
+            className="text-red-500 text-xs mt-1"
+          />
           </div>
           <div class="flex flex-wrap -mx-3 mb-2">
 
@@ -182,7 +240,9 @@ export default function SingUp() {
                 State
               </label>
               <div class="relative">
-                <select name="state" value={formData.state} onChange={handleChange} class="block appearance-none w-full  border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-state">
+                <select name="state" 
+                // value={formData.state} onChange={handleChange}
+                 class="block appearance-none w-full  border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-state">
                   <option>Amhara</option>
                   <option>Oromia</option>
                   <option>SNNPR</option>
@@ -197,14 +257,14 @@ export default function SingUp() {
               <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-city">
                 City/Wereda
               </label>
-              <input name="wereda" value={formData.wereda} onChange={handleChange} class="appearance-none block w-full text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-city" type="text" placeholder="Woreda" />
+              {/* <input name="wereda" value={formData.wereda} onChange={handleChange} class="appearance-none block w-full text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-city" type="text" placeholder="Woreda" /> */}
             </div>
 
             <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
               <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-zip">
                 kebele
               </label>
-              <input name="kebele" value={formData.kebele} onChange={handleChange} class="appearance-none block w-full  text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-zip" type="text" placeholder="kebele" />
+              {/* <input name="kebele" value={formData.kebele} onChange={handleChange} class="appearance-none block w-full  text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-zip" type="text" placeholder="kebele" /> */}
             </div>
           </div>
           <div className="flex items-center justify-between">
@@ -246,7 +306,8 @@ export default function SingUp() {
               Sign in
             </Link>
           </p>
-        </form>
+        </Form>
+        </Formik>
       </div>
     </div>
   );
