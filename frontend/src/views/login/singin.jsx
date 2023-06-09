@@ -57,7 +57,7 @@ export default function SingIn() {
         </div>
 
         <form onSubmit={handleSubmit} className="pb-8 space-y-6" action="#" method="POST">
-        {errorMessage && <p class=" text-center   text-red-500 text-xl font-normal  max-w-full flex-initial">{errorMessage}</p>}
+        {errorMessage && <p className=" text-center   text-red-500 text-xl font-normal  max-w-full flex-initial">{errorMessage}</p>}
 
           <input type="hidden" name="remember" value="true" />
           <div className="relative">
