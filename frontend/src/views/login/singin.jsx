@@ -1,7 +1,30 @@
 import { Link ,useNavigate} from "react-router-dom";
 import { useState, useEffect } from "react";
 import axios from 'axios'
+import { useFormik } from "formik";
+import * as yup from "yup";
+
+
+const validationSchema = yup.object().shape({
+  username: yup.string().required("Username is required"),
+  password: yup.string().required("Password is required").min(6, "Password should be at least 6 character"),
+});
+
 export default function SingIn() {
+
+  const formik = useFormik({
+    initialValues: {
+      username: "",
+      password: "",
+    },
+    validationSchema,
+    onSubmit: (values) => {
+      // Handle form submission
+      console.log(values);
+    },
+  });
+
+
   const [responseData, setResponseData] = useState(null)
   const navigate= useNavigate(); // Create a history object
   const [errorMessage, setErrorMessage] = useState('');
@@ -61,29 +84,47 @@ export default function SingIn() {
 
           <input type="hidden" name="remember" value="true" />
           <div className="relative">
-            <label className="ml-3 text-sm font-bold tracking-wide text-gray-700">
-              username
-            </label>
-            <input
-              className="w-full px-4 py-2 text-base border-2 border-gray-300 focus:outline-none focus:border-indigo-500"
-              type="text"
-              placeholder="Enter your medical card number"
-              // value={""}
-              onChange={handleChange} name="username" value={formData.username}
-            />
-          </div>
-          <div className="content-center mt-8">
-            <label className="ml-3 text-sm font-bold tracking-wide text-gray-700">
-              Password
-            </label>
-            <input
-              className="content-center w-full px-4 py-2 text-base border-2 border-gray-300 focus:outline-none focus:border-indigo-500"
-              type="password"
-              placeholder="Enter your password"
-              // value={""}
-              onChange={handleChange} name="password" value={formData.password}
-            />
-          </div>
+        <label className="ml-3 text-sm font-bold tracking-wide text-gray-700">
+          Username
+        </label>
+        <input
+          className={`w-full px-4 py-2 text-base border-2 ${
+            formik.errors.username && formik.touched.username
+              ? "border-red-500"
+              : "border-gray-300"
+          } focus:outline-none focus:border-indigo-500`}
+          type="text"
+          placeholder="Enter your medical card number"
+          name="username"
+          value={formik.values.username}
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
+        />
+        {formik.errors.username && formik.touched.username && (
+          <div className="text-red-500">{formik.errors.username}</div>
+        )}
+      </div>
+      <div className="content-center mt-8">
+        <label className="ml-3 text-sm font-bold tracking-wide text-gray-700">
+          Password
+        </label>
+        <input
+          className={`content-center w-full px-4 py-2 text-base border-2 ${
+            formik.errors.password && formik.touched.password
+              ? "border-red-500"
+              : "border-gray-300"
+          } focus:outline-none focus:border-indigo-500`}
+          type="password"
+          placeholder="Enter your password"
+          name="password"
+          value={formik.values.password}
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
+        />
+        {formik.errors.password && formik.touched.password && (
+          <div className="text-red-500">{formik.errors.password}</div>
+        )}
+      </div>
           <div className="flex items-center justify-between">
             <div className="flex items-center">
               <input
@@ -106,7 +147,7 @@ export default function SingIn() {
             </div>
           </div>
           <div>
-            <button onSubmit={handleSubmit}
+            <button type="submit"
               // to={`${username === "admin" ? "/adminDashbord" : username === "doctor" ? "/doctor" : username === "lab" ? "/lab" : "/patient"}
               // `}
               className="flex justify-center w-full p-4 font-semibold tracking-wide text-gray-100 transition duration-500 ease-in rounded-full shadow-lg cursor-pointer bg-gradient-to-r from-indigo-500 to-blue-600 hover:bg-gradient-to-l hover:from-blue-500 hover:to-indigo-600"
