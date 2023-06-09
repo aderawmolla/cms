@@ -61,9 +61,6 @@ export default function DoctorComponent(props) {
       setCurrentPage(currentPage + 1);
     }
   };
-
-  
-  
   const [searchText, setSearchText] = useState('');
   const [searchResults, setSearchResults] = useState([]);
   const handleSearch = (e) => {
@@ -87,13 +84,10 @@ export default function DoctorComponent(props) {
   };
   
   useEffect(() => {
-    handleSearch(); // Call handleSearch function on component creation
+    handleSearch()
   }, []);
   
-  useEffect(() => {
-    console.log("search results are", searchResults);
-    console.log(posts);
-  }, [searchResults]);
+ 
   
 
   const dispatch = useDispatch();

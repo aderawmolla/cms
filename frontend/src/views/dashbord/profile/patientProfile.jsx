@@ -287,7 +287,7 @@ export default function PatientProfile() {
             </div>
 
             <div className="flex-1 p-8 mt-4 bg-white rounded-lg shadow-xl lg:col-span-1">
-              <h4 className="text-xl font-bold text-gray-900">Your History</h4>
+              <h4 className="text-xl font-bold text-gray-900">Treatment  History</h4>
               <div className="relative px-4">
                 <div className="absolute h-full border border-dashed border-opacity-20 border-secondary"></div>
                 <div className="overflow-x-auto">
@@ -334,8 +334,8 @@ export default function PatientProfile() {
                         })
                       ) 
                       : (
-                        <div className="text-center flex flex-col items-center justify-center mt-10">
-                          <p className="text-gray-600 text-2xl font-bold mb-4">Please wait or contact the doctor.</p>
+                        <div className="flex flex-col items-center justify-center mt-10 text-center">
+                          <p className="mb-4 text-2xl font-bold text-gray-600">Please wait or contact the doctor.</p>
                           <p className="text-gray-600">You have no prescriptions yet.</p>
                         </div>
                       )}
@@ -346,7 +346,7 @@ export default function PatientProfile() {
             </div>
 
 
-            <div className="flex-1 p-8 mt-4 bg-white rounded-lg overflow-x-auto shadow-xl lg:col-span-2">
+            <div className="flex-1 p-8 mt-4 overflow-x-auto bg-white rounded-lg shadow-xl lg:col-span-2">
               <h4 className="px-4 py-2 text-xl font-bold text-gray-900 font">Appointments</h4>
               <div className="relative px-4">
                 <div className="absolute h-full border border-dashed border-opacity-20 border-secondary"></div>
@@ -384,8 +384,8 @@ export default function PatientProfile() {
                           );
                         })
                       ) : (
-                        <div className="text-center flex flex-col items-center justify-center mt-10">
-                          <p className="text-gray-600 text-2xl font-bold mb-4">Please wait or contact Admin.</p>
+                        <div className="flex flex-col items-center justify-center mt-10 text-center">
+                          <p className="mb-4 text-2xl font-bold text-gray-600">Please wait or contact Admin.</p>
                           <p className="text-gray-600">You have no appointments yet.</p>
                         </div>
                       )}

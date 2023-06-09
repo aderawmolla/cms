@@ -7,6 +7,7 @@
 const express=require("express")
 const app=express()
 const cors=require('cors')
+
 const PORT=5000
 const patientRoutes=require('./routes/patientRoutes')
 const adminRoutes=require('./routes/adminRoutes')

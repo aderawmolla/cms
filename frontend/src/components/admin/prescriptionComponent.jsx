@@ -9,7 +9,8 @@ export default function PrescriptionComponent(props) {
   const doctors = useSelector((state) => state.doctors.doctors)
   const prescriptions = useSelector((state) => state.prescriptions.prescriptions)
   const [namedPrescriptions,setNamedPrescriptions] = useState([])
-
+  const [searchText, setSearchText] = useState('');
+  const [searchResults, setSearchResults] = useState([]);
   const getPatientName=(patientId) => {
     const patient = patients.find((p) => p.id === patientId);
     return patient ? `${patient.firstName} ${patient.lastName}`:'';
@@ -20,23 +21,46 @@ export default function PrescriptionComponent(props) {
     return doctor ? `${doctor.firstName} ${doctor.lastName}` : '';
 
   };
-
   useEffect(() => {
-    
     const prescriptionsWithNames = prescriptions.map((p) => ({
       ...p,
-      patientName:getPatientName(p.patientId),
+      patientName: getPatientName(p.patientId),
       doctorName: getDoctorName(p.doctorId),
     }));
-    setNamedPrescriptions(prescriptionsWithNames)
-    console.log("prescriptions with names are",prescriptionsWithNames)
-    console.log("prescriptions with names are",prescriptionsWithNames)
+    setNamedPrescriptions(prescriptionsWithNames);
+    handleSearch()
+  }, []);
+  
+  
+  const handleSearch = (e) => {
+  
+    if (e) {
+      e.preventDefault();
+    } 
+    const results =  namedPrescriptions.filter((prescription) => {
+      const searchQuery = searchText.toLowerCase();
+      const doctorName = prescription.doctorName.toLowerCase();
+      const patientName = prescription.patientName.toLowerCase();
+      const issueDate = prescription.issueDate;
+      const status = prescription.status.toLowerCase();
+      return (
+        doctorName.includes(searchQuery) ||
+        patientName.includes(searchQuery)||
+        // issueDate.includes(searchQuery) ||
+        status.includes(searchQuery)
+      );
+    });
+  setSearchResults(results);
+  };
+  
+  useEffect(() => {
+    handleSearch()
+  }, [searchText]);
 
-  },[])
   return (
 
     <>
-    <h1 className="px-2 py-4 text-center font-mono text-3xl font-bold  tracking-widest text-gray-700 ">
+    <h1 className="px-2 py-4 font-mono text-3xl font-bold tracking-widest text-center text-gray-700 ">
             Lab Orders
             </h1>
       <div className="mx-4 mt-7">
@@ -62,14 +86,15 @@ export default function PrescriptionComponent(props) {
               </div>
               <input
                 type="text"
-                id="voice-search"
+                value={searchText}
+                onChange={(e) => setSearchText(e.target.value)}
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                placeholder="Search prescription "
-                required
+                placeholder="Search prescription  by thire doctor,patients,issueDate and status"
               />
             </div>
             <button
               type="submit"
+              onClick={handleSearch}
               className="inline-flex items-center py-2.5 px-3 ml-2 text-sm font-medium text-white bg-primary rounded-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
             >
               <svg
@@ -105,7 +130,7 @@ export default function PrescriptionComponent(props) {
               </thead>
               <tbody className="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
                 {
-                  namedPrescriptions && namedPrescriptions.map((prescription, index) => (
+                  searchResults && searchResults.map((prescription, index) => (
                     <tr key={index} className="text-gray-700 bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-900 dark:text-gray-400">
 
                       <td>
