@@ -4,6 +4,7 @@ import axios from 'axios'
 import { useDispatch,useSelector } from "react-redux";
 import { setCurrentUser } from "../../redux/currentUser";
 export default function SingIn() {
+
   const [responseData, setResponseData] = useState(null)
   const navigate= useNavigate(); // Create a history object
   const [errorMessage,setErrorMessage] = useState('');
@@ -66,7 +67,7 @@ export default function SingIn() {
      
     }
     else if(responseData && responseData.isLogIn!=true){
-        setErrorMessage("Invalid  username")   
+        setErrorMessage("No User with this username")   
     }
   },
   [responseData,navigate])
@@ -82,8 +83,6 @@ export default function SingIn() {
       [e.target.name]: e.target.value,
     }));
   };
-  
-  
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -93,7 +92,7 @@ export default function SingIn() {
       setResponseData(response.data);
     } catch (error) {
       console.log("Invalid username or password");
-      setErrorMessage("Invalid username");
+      setErrorMessage("No User with this username ");
     }
   };
   
