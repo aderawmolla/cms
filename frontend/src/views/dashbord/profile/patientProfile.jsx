@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from 'react-redux';
 import { useParams } from "react-router-dom";
+import {Link} from 'react-router-dom'
 import Swal from "sweetalert2"
 import { useDispatch } from "react-redux";
 import Modal from "../../update/profileUpdateModal";
 import EditPatientInfo from "../../update/editPersonalInformation";
 import { updatePatient } from "../../../redux/patientSlice";
 export default function PatientProfile() {
-  const appointments=useSelector((state)=>state.appointments.appointments)
-  const prescriptions=useSelector((state)=>state.prescriptions.prescriptions)
-  const doctors=useSelector((state)=>state.doctors.doctors)
+  const appointments = useSelector((state) => state.appointments.appointments)
+  const prescriptions = useSelector((state) => state.diagnosises.diagnosises)
+  const doctors = useSelector((state) => state.doctors.doctors)
   const [isModalOpen, setIsModalOpen] = useState(false);
   // const [patientData, setPatientData] = useState(null);
   const handleEdit = () => {
@@ -18,29 +19,32 @@ export default function PatientProfile() {
   const handleCloseModal = () => {
     setIsModalOpen(false);
   };
- const dispatch=useDispatch()
+  const dispatch = useDispatch()
   const handleSubmit = (updatedInfo) => {
-    console.log("what is wrong",updatedInfo)
+    console.log("what is wrong", updatedInfo)
     dispatch(updatePatient(updatedInfo))
-     Swal.fire("Updated!", `the profile updated successfully.`, "success")
+    Swal.fire("Updated!", `the profile updated successfully.`, "success")
     // Save the updated information to the database
     setIsModalOpen(false); // close the modal
   };
 
   const [appointmentWithName, setAppointmentWithNames] = useState([]);
-  const getDoctorName=(doctorId) =>{
-  const doctor = doctors.find((d) => d.id === doctorId);
-  return doctor? `${doctor.firstName} ${doctor.lastName}`:'';};
-  
-  const getDoctorContact= (doctorId) =>{
-      const doctor = doctors.find((d) => d.id === doctorId);
-       return doctor ? `${doctor.contact}`:'';
-          };
-  
+  const [prescriptionWithName, setPrescriptionWithNames] = useState([]);
+
+  const getDoctorName = (doctorId) => {
+    const doctor = doctors.find((d) => d.id === doctorId);
+    return doctor ? `${doctor.firstName} ${doctor.lastName}` : '';
+  };
+
+  const getDoctorContact = (doctorId) => {
+    const doctor = doctors.find((d) => d.id === doctorId);
+    return doctor ? `${doctor.contact}` : '';
+  };
+
   const patients = useSelector((state) => state.patients.patients);
   const { id } = useParams();
-  
-  
+
+
   const [isLoading, setIsLoading] = useState(true);
   const [data, setData] = useState(null);
   useEffect(() => {
@@ -54,14 +58,18 @@ export default function PatientProfile() {
             console.log(selectedPatient)
             setData(selectedPatient)
             setIsLoading(false)
-            const appointmentsWithNames =appointments.map((appointment) => ({
+            const appointmentsWithNames = appointments.map((appointment) => ({
               ...appointment,
-              doctorName:getDoctorName(appointment.doctorId),
-              doctorContact:getDoctorContact(appointment.doctorId),
+              doctorName: getDoctorName(appointment.doctorId),
+              doctorContact: getDoctorContact(appointment.doctorId),
             }));
             setAppointmentWithNames(appointmentsWithNames)
-            
-
+            const prescriptionsWithNames = prescriptions.map((prescription) => ({
+              ...prescription,
+              doctorName: getDoctorName(prescription.doctorId),
+              doctorContact: getDoctorContact(prescription.doctorId),
+            }));
+            setPrescriptionWithNames(prescriptionsWithNames)
           } catch (error) {
             console.error(error);
           }
@@ -74,19 +82,19 @@ export default function PatientProfile() {
     }
   }, []);
   const authPatientId = id;
-  const patientApt = appointmentWithName.filter(apt =>{
+  const patientApt = appointmentWithName.filter(apt => {
     if (authPatientId === apt.patientId)
       return {
         apt
       }
   })
-  const patientPrsc = prescriptions.filter(prsc => {
+  const patientPrsc = prescriptionWithName.filter(prsc => {
     if (authPatientId === prsc.patientId)
       return {
-        prsc
+        prsc,
       }
   })
-  
+
   if (isLoading) {
     return (
       <div className="flex items-center justify-center h-screen">
@@ -97,7 +105,7 @@ export default function PatientProfile() {
       </div>
     );
   }
-  
+
   return (
     <div className="h-full p-8 bg-gray-200">
       <div className="pb-8 bg-white rounded-lg shadow-xl">
@@ -191,6 +199,7 @@ export default function PatientProfile() {
             </div>
           </div>
           <div className="w-full h-[250px]">
+           
             <img
               src="/images/profile-background.jpg"
               className="w-full h-full rounded-tl-lg rounded-tr-lg"
@@ -225,7 +234,7 @@ export default function PatientProfile() {
           <div className="flex flex-col items-center justify-end flex-1 px-8 mt-2 lg:items-end">
             <div className="flex items-center mt-2 space-x-4">
               <button className="flex items-center px-4 py-2 space-x-2 text-sm text-gray-100 transition duration-100 bg-blue-600 rounded hover:bg-blue-700">
-               {/* <svg
+                {/* <svg
                   xmlns="http://www.w3.org/2000/svg"
                   className="w-4 h-4"
                   viewBox="0 0 20 20"
@@ -276,28 +285,72 @@ export default function PatientProfile() {
                 </li>
               </ul>
             </div>
-            <div className="grid justify-between grid-cols-1 lg:grid-cols-3">
-              <div className="flex-1 p-8 mt-4 bg-white rounded-lg shadow-xl lg:col-span-1">
-                <h4 className="text-xl font-bold text-gray-900">Patient History </h4>
-                <div className="relative px-4">
-                  <div className="absolute h-full border border-dashed border-opacity-20 border-secondary"></div>
-                  {patientPrsc.map((prsc, index) => {
-                    <div key={index} className="flex items-center w-full my-6 -ml-1.5">
-                      <div className="z-10 w-1/12">
-                        <div className="w-3.5 h-3.5 bg-blue-600 rounded-full"></div>
+
+            <div className="flex-1 p-8 mt-4 bg-white rounded-lg shadow-xl lg:col-span-1">
+              <h4 className="text-xl font-bold text-gray-900">Your History</h4>
+              <div className="relative px-4">
+                <div className="absolute h-full border border-dashed border-opacity-20 border-secondary"></div>
+                <div className="overflow-x-auto">
+                  <table className="min-w-full bg-white">
+                    <thead>
+                      <tr className="text-white bg-blue-800">
+                        <th className="px-4 py-2">Doctor Name</th>
+                        <th className="px-4 py-2">Doctor Contact</th>
+                        <th className="px-4 py-2">Disease</th>
+                        <th className="px-4 py-2">Dosage</th>
+                        <th className="px-4 py-2">Date</th>
+                        <th className="px-4 py-2">Status</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {patientPrsc !=="" ? (
+                        patientPrsc.map((apt, index) => {
+                          return 
+                          (
+                            <tr
+                              key={index}
+                              className={`text-center ${index % 2 === 0 ? 'bg-gray-100' : 'bg-white'}`}
+                            >
+                              <td className="px-4 py-2 border">{apt.doctorName}</td>
+                              <td className="px-4 py-2 border">{apt.doctorContact}</td>
+                              <td className="px-4 py-2 border">{apt.disease}</td>
+                              <td className="px-4 py-2 border">{apt.dosage}</td>
+                              <td className="px-4 py-2 border">{apt.date}</td>
+                              <td className="px-4 py-3 text-sm">
+                          {apt.status=="paid"? (
+                        <><div className="text-center text-white bg-green-600 rounded ">
+                        {apt.status}
+                      </div></>
+                           ) : (
+                         <>
+                      <div className="text-center text-white bg-red-600 rounded ">
+                         {apt.status}
                       </div>
-                      <div className="w-11/12">
-                        <p className="text-sm text-black">{prsc.disease} diagnostic with {prsc.docId}</p>
-                        <p className="text-xs text-gray-500">3 min ago</p>
-                      </div>
-                    </div>
-                  })}
+                        </>
+                    )} 
+                       </td>   
+                            </tr>
+                          );
+                        })
+                      ) 
+                      : (
+                        <div className="text-center flex flex-col items-center justify-center mt-10">
+                          <p className="text-gray-600 text-2xl font-bold mb-4">Please wait or contact the doctor.</p>
+                          <p className="text-gray-600">You have no prescriptions yet.</p>
+                        </div>
+                      )}
+                    </tbody>
+                  </table>
                 </div>
               </div>
-              <div className="flex-1 p-8 mt-4 bg-white rounded-lg shadow-xl lg:col-span-2">
-                <h4 className="px-4 py-2 text-xl font-bold text-gray-900 font">Appointements </h4>
-                <div className="relative px-4">
-                  <div className="absolute h-full border border-dashed border-opacity-20 border-secondary"></div>
+            </div>
+
+
+            <div className="flex-1 p-8 mt-4 bg-white rounded-lg overflow-x-auto shadow-xl lg:col-span-2">
+              <h4 className="px-4 py-2 text-xl font-bold text-gray-900 font">Appointments</h4>
+              <div className="relative px-4">
+                <div className="absolute h-full border border-dashed border-opacity-20 border-secondary"></div>
+                <div className="overflow-x-auto">
                   <table className="min-w-full bg-white">
                     <thead>
                       <tr className="text-white bg-blue-800">
@@ -305,45 +358,45 @@ export default function PatientProfile() {
                         <th className="px-4 py-2">Doctor Contact</th>
                         <th className="px-4 py-2">Appointment Location</th>
                         <th className="px-4 py-2">Date</th>
-                        <th className="px-4 py-2">Time</th> {/* New column for status */}
+                        <th className="px-4 py-2">Time</th>
                       </tr>
                     </thead>
                     <tbody>
-                      {patientApt!=""?patientApt.map((apt, index) => {
-                        const currentDate = new Date(); // Current date and time
-                        const [mm, dd, yy] = apt.date.split('-'); // Splitting date into month, day, and year
-                        const [hh, min, period] = apt.time.split(/:|\s/); // Splitting time into hours, minutes, and AM/PM
+                      {patientApt !=="" ? (
+                        patientApt.map((apt, index) => {
+                          const currentDate = new Date();
+                          const [mm, dd, yy] = apt.date.split('-');
+                          const [hh, min, period] = apt.time.split(/:|\s/);
+                          const aptDate = new Date(yy, mm - 1, dd, hh, min, 0);
+                          const status = aptDate > currentDate ? 'Active' : 'Closed';
 
-                        // Create a new date object with the correct format
-                        const aptDate = new Date(yy, mm - 1, dd, hh, min, 0);
-                        const status = aptDate > currentDate ? 'Active' : 'Closed'; // Compare dates
-
-                        return (
-                          <tr
-                            key={index}
-                            className={`text-center ${index % 2 === 0 ? 'bg-gray-100' : 'bg-white'}`}
-                          >
-                            <td className="px-4 py-2 border">{apt.doctorName}</td>
-                            <td className="px-4 py-2 border">{apt.doctorContact}</td>
-                            <td className="px-4 py-2 border">{apt.location}</td>
-                            <td className="px-4 py-2 border">{apt.date}</td>
-                            <td className="px-4 py-2 border">{apt.time}</td>
-                             {/* Display the status */}
-                          </tr>
-                        );
-                      })
-                      :<div class="text-center flex flex-col items-center justify-center mt-10">
-                       <p class="text-gray-600 text-2xl font-bold mb-4">Please wait or contact Admin.</p>
-                       <p class="text-gray-600">You have no appointments yet.</p>
-                      </div>
-                    
-                      }
+                          return (
+                            <tr
+                              key={index}
+                              className={`text-center ${index % 2 === 0 ? 'bg-gray-100' : 'bg-white'}`}
+                            >
+                              <td className="px-4 py-2 border">{apt.doctorName}</td>
+                              <td className="px-4 py-2 border">{apt.doctorContact}</td>
+                              <td className="px-4 py-2 border">{apt.location}</td>
+                              <td className="px-4 py-2 border">{apt.date}</td>
+                              <td className="px-4 py-2 border">{apt.time}</td>
+                            </tr>
+                          );
+                        })
+                      ) : (
+                        <div className="text-center flex flex-col items-center justify-center mt-10">
+                          <p className="text-gray-600 text-2xl font-bold mb-4">Please wait or contact Admin.</p>
+                          <p className="text-gray-600">You have no appointments yet.</p>
+                        </div>
+                      )}
                     </tbody>
                   </table>
-
                 </div>
               </div>
             </div>
+
+
+
           </div>
         </div>
       </div>
@@ -359,5 +412,5 @@ export default function PatientProfile() {
     </div>
 
   );
-  
- }
+
+}

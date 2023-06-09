@@ -9,7 +9,6 @@ const Pagination = ({
   handleNextPage,
 }) => {
   const totalPages = Math.ceil(totalPosts / postsPerPage);
-
   const getPageNumbers = () => {
     const pageNumbers = [];
     const maxPageNumbers = 5; // Change this to adjust the number of page numbers to display

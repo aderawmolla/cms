@@ -10,6 +10,7 @@ import AddPatient from "./views/add/addPatient";
 import AddDoctor from "./views/add/addDoctor";
 import AddAppointment from "./views/add/addAppointment";
 import FinanceDashbord from "./views/dashbord/financeDashbord";
+import FinanceContent from "./views/dashbord/financeContent";
 import Login from "./views/login/login";
 import AdminDashbord from "./views/dashbord/adminDashbord";
 import Home from "./views/home/home";
@@ -28,11 +29,13 @@ import LabResult from "./views/dashbord/labResult";
 import DoctorDetail from "./components/doctor/doctorDetail";
 import DoctorPrescription from "./components/prescription/doctorPrescription";
 import LaboratoryPrescription from "./components/prescription/labPrescription";
+import Diagnosis from "./components/doctor/diagnosis";
 import PaymentSuccess from "./views/login/paymentSuccess";
 import PaginationDisplay from "./components/prescription/pagination/displayTemp";
 import DoctorAppointmentComponent from "./components/doctor/doctorAppointmentComponent";
 import ForgetPassword from "./views/login/forgetPassword";
 import PrescriptionDetail from "./components/doctor/prescriptionDetail";
+import Treatment from "./components/doctor/treatment";
 export default function App(){
   return (
     <>
@@ -53,6 +56,8 @@ export default function App(){
           <Route path="prescription" element={<DoctorPrescriptionComponent />} />
           <Route path="prescription/:prescriptionId" index element={<DoctorPrescription />} ></Route>
           <Route path="appointment" element={<DoctorAppointmentComponent />} />
+          <Route path="dgs/:patientId" element={<Diagnosis />} />
+          <Route path="treatment" element={<Treatment />} />
         </Route>
         <Route path="/lab" element={<LabDoctorDashbord />}>
           <Route path="" element={<LabRequest/>} />
@@ -61,15 +66,14 @@ export default function App(){
           <Route path="prescriptions/:id" element={<LabResult />} />
         </Route>
         <Route path="/finance" element={<FinanceDashbord />}>
-          <Route path="" element={<LabRequest/>} />
-  
+          <Route path="" element={<FinanceContent/>} />
         </Route>
         <Route path="/signIn" element={<Login />}>
           <Route path="" element={<SingIn/>} />
           <Route path="signUp" element={<SingUp />} />
           {/* <Route path="forgetPassword" element={<ForgetPassword />} /> */}
           <Route path="payment" element={<Payment />} />
-       </Route>
+        </Route>
         {/* <Route path="/doctor" element={<DoctorComponent />} /> */}
         <Route path="/patient" element={<PatientHome />} />
         <Route path="/patient/:id" element={<PatientProfile/>} />
@@ -79,11 +83,23 @@ export default function App(){
           <Route path="patient" element={<PatientComponent/>} />
           <Route path="patient/:id" index element={<PatientProfile />} ></Route>
           <Route path="doctor" element={<DoctorComponent />} />
-          <Route path="doctor/:doctorId" index element={<DoctorDetail />} ></Route>
+          <Route
+            path="doctor/:doctorId"
+            index
+            element={<DoctorDetail />}
+          ></Route>
           <Route path="appointment" element={<AppointmentComponent />} />
           <Route path="prescription" element={<PrescriptionComponent />} />
-          <Route path="prescription/:doctorId/:prescriptionId" index element={<DoctorPrescription />} ></Route>
-          <Route path="prescription/:laboratoryId/:prescriptionId" index element={<LaboratoryPrescription />} ></Route>
+          <Route
+            path="prescription/:doctorId/:prescriptionId"
+            index
+            element={<DoctorPrescription />}
+          ></Route>
+          <Route
+            path="prescription/:laboratoryId/:prescriptionId"
+            index
+            element={<LaboratoryPrescription />}
+          ></Route>
           <Route path="addPatient" element={<AddPatient />} />
           <Route path="addDoctor" element={<AddDoctor />} />
           <Route path="forgetPassword" element={<ForgetPassword/>} />

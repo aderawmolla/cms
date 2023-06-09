@@ -11,14 +11,14 @@ const { Finance } = require('../models/financeModel');
   const username = req.body.username;
   const password = req.body.password;
   try {  
-    let user = await Patient.findOne({ where: { username } });
-    if (!user) {
+   let user = await Patient.findOne({ where: { username } });
+    if (!user){
       user = await Admin.findOne({ where: { username } });
     }
-    if (!user) {
+    if (!user){
       user = await Doctor.findOne({ where: { username } });
     }
-    if (!user) {
+    if (!user){
       user = await Labratoriest.findOne({ where: { username } });
     }  
     if (!user) {
@@ -27,7 +27,7 @@ const { Finance } = require('../models/financeModel');
     // if (!user){
     //   return res.json({ message: 'User not found' });
     // } 
-  
+
     const isPasswordMatch = password.trim() === user.password.trim();
     if (isPasswordMatch) {
       const userType = user.constructor.name;

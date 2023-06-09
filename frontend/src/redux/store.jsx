@@ -5,6 +5,8 @@ import appointmentReducer from "../redux/appointmentSlice";
  import TestNameReducer from '../redux/testNameSlice'
 import prescriptionReducer from "../redux/prescriptionSlice";
  import currentUser from "./currentUser";
+import diagnosisReducer from "../redux/diagnosisSlice"
+
 export const store = configureStore({
   reducer: {
     patients: patientReducer,
@@ -12,6 +14,7 @@ export const store = configureStore({
     appointments:appointmentReducer,
     prescriptions: prescriptionReducer,
     testNames:TestNameReducer,
-    currentUser:currentUser
+    currentUser:currentUser,
+    diagnosises: diagnosisReducer,
   },
 });

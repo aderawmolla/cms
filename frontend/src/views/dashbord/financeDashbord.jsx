@@ -7,16 +7,16 @@ export default function FinanceDashbord(props) {
   const currentUser=useSelector((state)=>state.currentUser.currentUser)
   const [numberIssued,setNumberIssued]=useState(0)
   const [numberConfirmed,setNumberConfirmed]=useState(0)
-  const prescriptions=useSelector((state)=>state.prescriptions.prescriptions)
+  const prescriptions=useSelector((state)=>state.diagnosises.diagnosises)
   useEffect(() => {
    const issuedPrescriptions = prescriptions.filter(
-     (prescription) => prescription.status === "issued"
+     (prescription) => prescription.status === "paid"
    );
    const issuedNumber = issuedPrescriptions.length;
    setNumberIssued(issuedNumber);
  
    const confirmedPrescriptions = prescriptions.filter(
-     (prescription) => prescription.status ==="confirmed"
+     (prescription) => prescription.status ==="unpaid"
    );
    const confirmedNumber = confirmedPrescriptions.length;
    setNumberConfirmed(confirmedNumber);
@@ -333,7 +333,7 @@ export default function FinanceDashbord(props) {
                     </div>
                     <div className="flex flex-col justify-around flex-grow ml-5 text-white">
                       <div className="text-2xl whitespace-nowrap">
-                       Issued Lab Orders
+                       Confirmed Payments
                       </div>
                       <div className="">{numberIssued}</div>
                     </div>
@@ -359,7 +359,7 @@ export default function FinanceDashbord(props) {
                     </div>
                     <div className="flex flex-col justify-around flex-grow ml-5 text-white">
                       <div className="text-2xl whitespace-nowrap">
-                        Confirmed Lab Orders
+                        UnConfirmed Payments
                       </div>
                       <div className="">{numberConfirmed}</div>
                     </div>

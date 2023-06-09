@@ -84,7 +84,8 @@ export default function DashbordContent(props) {
                          >
                          Send Appointment
                          </Link>
-                       </div></td>
+                       </div>
+                       </td>
                         <td className="px-4 py-3 text-sm">
                        {patient.fee ? (
                         <><div className="text-center text-white bg-green-600 rounded ">

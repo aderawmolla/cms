@@ -70,9 +70,10 @@ export default function SidebarComponent(props) {
               </span>
             </Link>
           </li>
-          {/* <li>
+          
+          <li>
             <Link
-              to="/doctor/labratory"
+              to="/doctor/treatment"
               className="relative flex flex-row items-center pr-6 border-l-4 border-transparent h-11 focus:outline-none hover:bg-blue-800 dark:hover:bg-gray-600 text-white-600 hover:text-white-800 hover:border-blue-500 dark:hover:border-gray-800"
             >
               <span className="inline-flex items-center justify-center ml-4">
@@ -92,10 +93,13 @@ export default function SidebarComponent(props) {
                 </svg>
               </span>
               <span className="ml-2 text-sm tracking-wide truncate">
-              Labratory
+              Prescription
               </span>
             </Link>
           </li>
+
+
+          {/*
           <li>
             <a
               href="/"

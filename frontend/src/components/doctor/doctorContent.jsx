@@ -1,16 +1,25 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import PrescriptionModal from "./prescriptionModal";
+import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+import DiagnosisModal from "./diagnosis";
 
 export default function DoctorContent(props) {
+  const navigate = useNavigate()
   const patients = useSelector((state) => state.patients.patients)
   const prescriptions = useSelector((state) => state.prescriptions.prescriptions);
   const appointments = useSelector((state) => state.appointments.appointments);
+  const doctorId = "doc3";
+  const [patientId, setPatientId] = useState("");
+  const prsc = useSelector((state) => state.prescriptions.prescriptions);
+
   const [showModal, setShowModal] = useState(false);
   const [doctorPrescriptions, setDoctorPrescriptions] = useState([])
   const handleClose = () => setShowModal(false);
   const handleShow = () => setShowModal(true);
+
+
   const currentUser = useSelector((state) => state.currentUser.currentUser);
   const [filteredAppointmentsWithName, setFilteredAppointmentsWithName] = useState([]);
   // const getPatientName = (patientId) => {
@@ -55,9 +64,14 @@ export default function DoctorContent(props) {
   }, []);
 
 
+
+  useEffect(() => {
+    console.log(patientId)
+  }, [patientId])
+
   return (
     <>
-      <div className="mx-4 mt-4">
+    <div className="mx-4 mt-4">
         <div className="flex flex-col items-end mb-10">
           <form className="flex items-center w-full">
             <label for="voice-search" className="sr-only">
@@ -66,7 +80,7 @@ export default function DoctorContent(props) {
             <div className="relative w-full">
               <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                 <svg
-                  className="w-5 h-5 text-gray-500 dark:text-gray-400"
+                  className="w-5 h-5  text-gray-500 dark:text-gray-400"
                   fill="currentColor"
                   viewBox="0 0 20 20"
                   xmlns="http://www.w3.org/2000/svg"
@@ -86,9 +100,10 @@ export default function DoctorContent(props) {
                 required
               />
             </div>
+
             <button
               type="submit"
-              className="inline-flex items-center py-2.5 px-3 ml-2 text-sm font-medium text-white bg-primary rounded-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+              className="inline-flex items-center py-2.5 px-3 ml-2 text-sm font-medium bg-blue-800 text-white rounded-lg border hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
             >
               <svg
                 className="w-5 h-5 mr-2 -ml-1"
@@ -98,14 +113,16 @@ export default function DoctorContent(props) {
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
                   d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
                 ></path>
               </svg>
               Search
             </button>
+
+
           </form>
 
           <div className="w-full rounded-lg shadow-xs">
@@ -176,17 +193,24 @@ export default function DoctorContent(props) {
                                 item={item}
                               />
                             </div>
-                            <div className="flex-shrink-0">
-                              <button
-                                // onClick={handleShow}
+                            <td className="px-2 py-3">
+                              <div className="inline-flex items-center space-x-3">
+                                <div className="flex-shrink-0">
+                                  <div className="inline-flex items-center space-x-3">
+
+                                    {/* <button
+                              onClick={handleDiagnosis(item.patientId)}
                                 className="p-2 text-sm font-medium text-white bg-green-500 rounded-lg hover:bg-green-600"
                               >
                                 Prescribe
-                              </button>
-
-                            </div>
-
-
+                              </button> */}
+                                    <Link to={`/doctor/dgs/${item.patientId}`} className="p-2 text-sm font-medium text-white bg-green-500 rounded-lg hover:bg-green-600">
+                                      Prescribe
+                                    </Link>
+                                  </div>
+                                </div>
+                              </div>
+                            </td>
                           </div>
                         </td>
                       </tr>
@@ -245,6 +269,7 @@ export default function DoctorContent(props) {
                       <td className="px-4 py-3 text-sm">{item.contact}</td>
                       <td className="px-4 py-3 text-sm">{item.issueDate}</td>
 
+
                       {/* <td className="px-2 py-3">
                         <div className="inline-flex items-center space-x-3">
                           <div className="flex-shrink-0">
@@ -280,7 +305,8 @@ export default function DoctorContent(props) {
                     <th className="px-4 py-3">Contact</th>
                     <th className="px-4 py-3">Date</th>
                     <th className="px-4 py-4">Actions</th> */}
-                    <th></th>
+                    <th>Lab Response</th>
+                    <th>Actions</th>
                   </tr>
                 </thead>
                 <tbody className="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
@@ -315,24 +341,27 @@ export default function DoctorContent(props) {
 
                       <td className="px-4 py-3 text-sm">{item.issueDate}</td>
                       <td className="px-4 py-3 text-sm">{item.confirmDate}</td>
-
+                      {/* <td><div className="flex-shrink-0">
+                        <Link to={`/doctor/prescriptionDetail/${item.id}`}
+                          className="p-2 text-sm font-medium rounded-lg text-cyan-600 hover:bg-gray-100"
+                        >
+                          Detail
+                        </Link>
+                      </div></td> */}
                       <td className="px-2 py-3">
                         <div className="inline-flex items-center space-x-3">
                           <div className="flex-shrink-0">
                             <div className="inline-flex items-center space-x-3">
-                              <div className="flex-shrink-0">
-                                <Link to={`/doctor/prescriptionDetail/${item.id}`}
-                                  className="p-2 text-sm font-medium rounded-lg text-cyan-600 hover:bg-gray-100"
-                                >
-                                  Detail
-                                </Link>
-                              </div>
-                              <button
-                                // onClick={handleShow}
+
+                              {/* <button
+                              onClick={handleDiagnosis(item.patientId)}
                                 className="p-2 text-sm font-medium text-white bg-green-500 rounded-lg hover:bg-green-600"
                               >
                                 Prescribe
-                              </button>
+                              </button> */}
+                              <Link to={`/doctor/dgs/${item.patientId}`} className="p-2 text-sm font-medium text-white bg-green-500 rounded-lg hover:bg-green-600">
+                                Prescribe
+                              </Link>
                             </div>
                           </div>
                         </div>
@@ -342,6 +371,8 @@ export default function DoctorContent(props) {
                 </tbody>
               </table>
             </div>
+          </div>
+          <div>
           </div>
         </div>
       </div>

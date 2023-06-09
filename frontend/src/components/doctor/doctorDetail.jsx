@@ -3,9 +3,7 @@ import doctors from "../../models/doctors.json"
 
 
 export default function DoctorDetail() {
-
   let { doctorId } = useParams();
-
   return (
     <>
       {
