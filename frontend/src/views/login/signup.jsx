@@ -352,4 +352,3 @@ export default function SingUp() {
     </div>
   );
 }
-git
