@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 // import doctors from "../../models/doctors.json"
 // import patients from "../../models/patients.json"
 import { useSelector } from 'react-redux'
+import { useCallback } from "react";
 export default function PrescriptionComponent(props) {
   const patients = useSelector((state) => state.patients.patients)
   const doctors = useSelector((state) => state.doctors.doctors)
@@ -28,16 +29,15 @@ export default function PrescriptionComponent(props) {
       doctorName: getDoctorName(p.doctorId),
     }));
     setNamedPrescriptions(prescriptionsWithNames);
-    handleSearch()
+    handleSearch();
   }, []);
   
   
-  const handleSearch = (e) => {
-  
+  const handleSearch = useCallback((e) => {
     if (e) {
       e.preventDefault();
-    } 
-    const results =  namedPrescriptions.filter((prescription) => {
+    }
+    const results = namedPrescriptions.filter((prescription) => {
       const searchQuery = searchText.toLowerCase();
       const doctorName = prescription.doctorName.toLowerCase();
       const patientName = prescription.patientName.toLowerCase();
@@ -45,18 +45,20 @@ export default function PrescriptionComponent(props) {
       const status = prescription.status.toLowerCase();
       return (
         doctorName.includes(searchQuery) ||
-        patientName.includes(searchQuery)||
+        patientName.includes(searchQuery) ||
         // issueDate.includes(searchQuery) ||
         status.includes(searchQuery)
       );
     });
-  setSearchResults(results);
-  };
+    setSearchResults(results);
+  }, [searchText, namedPrescriptions]);
   
   useEffect(() => {
-    handleSearch()
-  }, [searchText]);
-
+    handleSearch();
+  }, [handleSearch]);
+  
+  // Rest of your component code...
+  
   return (
 
     <>

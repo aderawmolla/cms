@@ -317,7 +317,7 @@ import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import DiagnosisModal from "./diagnosis";
 
-export default function DoctorContent(props) {
+export default function SendToLabratory(props) {
   const navigate=useNavigate()
   const patients = useSelector((state) => state.patients.patients)
   const prescriptions = useSelector((state) => state.prescriptions.prescriptions);
@@ -385,7 +385,7 @@ export default function DoctorContent(props) {
     <>
       <div className="mx-4 mt-4">
         <div className="flex flex-col items-end mb-10">
-          <form className="flex items-center w-full">
+          {/* <form className="flex items-center w-full">
             <label for="voice-search" className="sr-only">
               Search
             </label>
@@ -432,7 +432,7 @@ export default function DoctorContent(props) {
               </svg>
               Search
             </button>
-          </form>
+          </form> */}
     
           <div className="w-full  rounded-lg shadow-xs">
             <h1 className="px-2 font-mono text-xl font-bold tracking-widest text-gray-700 ">
@@ -444,13 +444,13 @@ export default function DoctorContent(props) {
                   <tr className="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
                     <th className="px-4 py-3">Patient Name</th>
                     <th className="px-4 py-3">Patient contact</th>
+                    <th className="px-4 py-3">Gender</th>
 
                     <th className="px-4 py-3">Issue Date</th>
                     {/* <th className="px-4 py-3"></th>
                     <th className="px-4 py-3">Contact</th>
                     <th className="px-4 py-3">Date</th>
                     <th className="px-4 py-4">Actions</th> */}
-                    <th></th>
                   </tr>
                 </thead>
                 <tbody className="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
@@ -481,6 +481,8 @@ export default function DoctorContent(props) {
                         </div>
                       </td>
                       <td className="px-4 py-3 text-sm">{item.contact}</td>
+                      <td className="px-4 py-3 text-sm">{item.gender}</td>
+
                       <td className="px-4 py-3 text-sm">{item.issueDate}</td>
                       
                        

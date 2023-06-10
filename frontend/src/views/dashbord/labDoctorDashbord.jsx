@@ -23,8 +23,6 @@ export default function LabDoctorDashbord(props) {
  
  }, [prescriptions,currentUser]);
 
-
-
   return ( 
       <>
         <div x-data="setup()" className="bg-black">

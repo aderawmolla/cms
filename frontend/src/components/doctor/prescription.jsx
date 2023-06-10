@@ -44,7 +44,6 @@ export default function DoctorPrescriptionComponent(props) {
     }));
     setDoctorPrescriptions(prescriptionPatientNames);
   }, []);
-
   return (
     <>
     <h1 className="px-2 py-4 text-center font-mono text-3xl font-bold tracking-widest text-gray-700 ">
@@ -52,7 +51,7 @@ export default function DoctorPrescriptionComponent(props) {
      </h1>
       <div className="mx-4 mt-4">
         <div className="flex flex-col items-end mb-10">
-          <form className="flex items-center w-full">
+          {/* <form className="flex items-center w-full">
             <label for="voice-search" className="sr-only">
               Search
             </label>
@@ -99,7 +98,7 @@ export default function DoctorPrescriptionComponent(props) {
               </svg>
               Search
             </button>
-          </form>
+          </form> */}
            
            
           <div className="w-full pt-32 rounded-lg shadow-xs">

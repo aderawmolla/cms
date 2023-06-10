@@ -35,7 +35,6 @@ export default function AdminDashbord(props){
        <>
         <div x-data="setup()" class="bg-black">
             <div class="min-h-screen flex flex-col flex-auto flex-shrink-0 antialiased bg-white dark:bg-gray-700 text-black dark:text-white">
-              {/* <!-- Header --> */}
               <div class="fixed w-full flex items-center justify-between h-14 text-white z-10">
                 <div class="flex items-center justify-start md:justify-center pl-3 w-14 md:w-64 h-14 bg-blue-800 dark:bg-gray-800 border-none">
                 <img class="rounded-full mr-2 w-10 h-10 relative object-cover" src="https://img.freepik.com/free-photo/no-problem-concept-bearded-man-makes-okay-gesture-has-everything-control-all-fine-gesture-wears-spectacles-jumper-poses-against-pink-wall-says-i-got-this-guarantees-something_273609-42817.jpg?w=1800&t=st=1669749937~exp=1669750537~hmac=4c5ab249387d44d91df18065e1e33956daab805bee4638c7fdbf83c73d62f125" alt=""/>
@@ -111,15 +110,8 @@ export default function AdminDashbord(props){
                   </ul>
                 </div>
               </div>
-              {/* <!-- ./Header --> */}
-            
-              {/* <!-- Sidebar --> */}
               <SidebarComponent/>
-              {/* <!-- ./Sidebar --> */}
-            
               <div class="h-full ml-14 mt-14 mb-10 md:ml-64">
-            
-                {/* <!-- Statistics Cards --> */}
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 p-4 gap-4">
                   <div class="bg-blue-500 dark:bg-gray-800 shadow-lg rounded-md flex items-center justify-between p-3 border-b-4 border-blue-600 dark:border-gray-600 text-white font-medium group">
                     <div class="flex justify-center items-center w-14 h-14 bg-white rounded-full transition-all duration-300 transform group-hover:rotate-12">
@@ -168,8 +160,6 @@ export default function AdminDashbord(props){
                     </div>
                   </div>
                 </div>
-                
-                {/* <!-- Client Table --> */}
               <Outlet/>
             </div>
 

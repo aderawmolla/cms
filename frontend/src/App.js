@@ -36,6 +36,7 @@ import DoctorAppointmentComponent from "./components/doctor/doctorAppointmentCom
 import ForgetPassword from "./views/login/forgetPassword";
 import PrescriptionDetail from "./components/doctor/prescriptionDetail";
 import Treatment from "./components/doctor/treatment";
+import SendToLabratory from "./components/doctor/sendToLabratory";
 export default function App(){
   return (
     <>
@@ -53,7 +54,7 @@ export default function App(){
           <Route path="" element={<DoctorContent />} />
           <Route path="prescriptionDetail/:id" element={<PrescriptionDetail />} />
           <Route path="labratory" element={<ResponseLabratoryComponent />} />
-          <Route path="prescription" element={<DoctorPrescriptionComponent />} />
+          <Route path="prescription" element={<SendToLabratory/>} />
           <Route path="prescription/:prescriptionId" index element={<DoctorPrescription />} ></Route>
           <Route path="appointment" element={<DoctorAppointmentComponent />} />
           <Route path="dgs/:patientId" element={<Diagnosis />} />

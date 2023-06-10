@@ -73,7 +73,7 @@ export default function DoctorContent(props) {
     <>
     <div className="mx-4 mt-4">
         <div className="flex flex-col items-end mb-10">
-          <form className="flex items-center w-full">
+          {/* <form className="flex items-center w-full">
             <label for="voice-search" className="sr-only">
               Search
             </label>
@@ -123,7 +123,7 @@ export default function DoctorContent(props) {
             </button>
 
 
-          </form>
+          </form> */}
 
           <div className="w-full rounded-lg shadow-xs">
             <h1 className="px-2 py-4 font-mono text-xl font-bold tracking-widest text-center text-gray-700 ">
@@ -219,159 +219,7 @@ export default function DoctorContent(props) {
               </table>
             </div>
 
-          </div>
-          <div className="w-full pt-32 rounded-lg shadow-xs">
-            <h1 className="px-2 py-4 font-mono text-xl font-bold tracking-widest text-gray-700 ">
-              Issued Lab Orders
-            </h1>
-            <div className="w-full overflow-visible">
-              <table className="w-full sm:w-full">
-                <thead>
-                  <tr className="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
-                    <th className="px-4 py-3">Patient Name</th>
-                    <th className="px-4 py-3">Patient contact</th>
-
-                    <th className="px-4 py-3">Issue Date</th>
-                    {/* <th className="px-4 py-3"></th>
-                    <th className="px-4 py-3">Contact</th>
-                    <th className="px-4 py-3">Date</th>
-                    <th className="px-4 py-4">Actions</th> */}
-                    <th></th>
-                  </tr>
-                </thead>
-                <tbody className="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
-                  {doctorPrescriptions.map((item, index) => item.status === "issued" && (
-                    <tr
-                      key={index}
-                      className="text-gray-700 bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-900 dark:text-gray-400"
-                    >
-                      <td className="px-4 py-3">
-                        <div className="flex items-center text-sm">
-                          {/* <div className="relative hidden w-8 h-8 mr-3 rounded-full md:block">
-                            <img
-                              className="object-cover w-full h-full rounded-full"
-                              src="https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&amp;q=80&amp;fm=jpg&amp;crop=entropy&amp;cs=tinysrgb&amp;w=200&amp;fit=max&amp;ixid=eyJhcHBfaWQiOjE3Nzg0fQ"
-                              alt=""
-                              loading="lazy"
-                            />
-                            <div
-                              className="absolute inset-0 rounded-full shadow-inner"
-                              aria-hidden="true"
-                            ></div>
-                          </div> */}
-                          <div>
-                            <p className="font-semibold">
-                              {item.patientName}
-                            </p>
-                          </div>
-                        </div>
-                      </td>
-                      <td className="px-4 py-3 text-sm">{item.contact}</td>
-                      <td className="px-4 py-3 text-sm">{item.issueDate}</td>
-
-
-                      {/* <td className="px-2 py-3">
-                        <div className="inline-flex items-center space-x-3">
-                          <div className="flex-shrink-0">
-                            <Link to={`/doctor/prescriptionDetail/${item.id}`}
-                              className="p-2 text-sm font-medium rounded-lg text-cyan-600 hover:bg-gray-100"
-                            >
-                              Detail
-                            </Link>
-                          </div>
-                        </div>   
-                      </td> */}
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </div>
-          <div className="w-full pt-8 rounded-lg shadow-xs">
-            <h1 className="px-2 py-4 font-mono text-xl font-bold tracking-widest text-gray-700 ">
-              Confimed Lab Orders
-            </h1>
-            <div className="w-full overflow-visible">
-              <table className="w-full sm:w-full">
-                <thead>
-                  <tr className="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
-                    <th className="px-4 py-3">Patient Name</th>
-                    <th className="px-4 py-3">Patient Contact</th>
-
-                    <th className="px-4 py-3">Issue Date</th>
-                    <th className="px-4 py-3">Confirmed Date</th>
-
-                    {/* <th className="px-4 py-3"></th>
-                    <th className="px-4 py-3">Contact</th>
-                    <th className="px-4 py-3">Date</th>
-                    <th className="px-4 py-4">Actions</th> */}
-                    <th>Lab Response</th>
-                    <th>Actions</th>
-                  </tr>
-                </thead>
-                <tbody className="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
-
-                  {doctorPrescriptions.map((item, index) => item.status === "confirmed" && (
-                    <tr
-                      key={index}
-                      className="text-gray-700 bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-900 dark:text-gray-400"
-                    >
-                      <td className="px-4 py-3">
-                        <div className="flex items-center text-sm">
-                          {/* <div className="relative hidden w-8 h-8 mr-3 rounded-full md:block">
-                            <img
-                              className="object-cover w-full h-full rounded-full"
-                              src="https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&amp;q=80&amp;fm=jpg&amp;crop=entropy&amp;cs=tinysrgb&amp;w=200&amp;fit=max&amp;ixid=eyJhcHBfaWQiOjE3Nzg0fQ"
-                              alt=""
-                              loading="lazy"
-                            />
-                            <div
-                              className="absolute inset-0 rounded-full shadow-inner"
-                              aria-hidden="true"
-                            ></div>
-                          </div> */}
-                          <div>
-                            <p className="font-semibold">
-                              {item.patientName}
-                            </p>
-                          </div>
-                        </div>
-                      </td>
-                      <td className="px-4 py-3 text-sm">{item.contact}</td>
-
-                      <td className="px-4 py-3 text-sm">{item.issueDate}</td>
-                      <td className="px-4 py-3 text-sm">{item.confirmDate}</td>
-                      {/* <td><div className="flex-shrink-0">
-                        <Link to={`/doctor/prescriptionDetail/${item.id}`}
-                          className="p-2 text-sm font-medium rounded-lg text-cyan-600 hover:bg-gray-100"
-                        >
-                          Detail
-                        </Link>
-                      </div></td> */}
-                      <td className="px-2 py-3">
-                        <div className="inline-flex items-center space-x-3">
-                          <div className="flex-shrink-0">
-                            <div className="inline-flex items-center space-x-3">
-
-                              {/* <button
-                              onClick={handleDiagnosis(item.patientId)}
-                                className="p-2 text-sm font-medium text-white bg-green-500 rounded-lg hover:bg-green-600"
-                              >
-                                Prescribe
-                              </button> */}
-                              <Link to={`/doctor/dgs/${item.patientId}`} className="p-2 text-sm font-medium text-white bg-green-500 rounded-lg hover:bg-green-600">
-                                Prescribe
-                              </Link>
-                            </div>
-                          </div>
-                        </div>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </div>
+          </div>     
           <div>
           </div>
         </div>

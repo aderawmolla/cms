@@ -11,10 +11,10 @@ export default function PrescriptionDetail() {
         const testNamesFiltered = testNames.filter((testName) => testName.prescId == id)
         setTestName(testNamesFiltered)
     }, [])
-
     if (!testName) {
         return (<div>Loading</div>)
     }
+
     return (
         <>
            <div class=" ml-40 w-full p-4 overflow-x-hidden overflow-y-auto  md:inset-0 h-[calc(100%-1rem)] max-h-full">
@@ -46,7 +46,7 @@ export default function PrescriptionDetail() {
                             </ul>
                         </div>
                         <div class="flex items-center p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
-                            <Link to="/doctor" data-modal-hide="bottom-right-modal" type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">cancel</Link>
+                            <Link to="/doctor/prescription" data-modal-hide="bottom-right-modal" type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">cancel</Link>
                         </div>
 
                     </div>
