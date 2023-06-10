@@ -101,7 +101,7 @@ console.log(firstName,lastName,phoneNumber,email)
           </div>
         </div>     
          <form class="container flex flex-wrap justify-center max-w-3xl px-5  mx-auto mt-10 bg-white rounded-lg" method="POST" action="https://api.chapa.co/v1/hosted/pay" >
-          <input type="hidden" name="public_key" value="CHAPUBK_TEST-dSrBv6jdz3kkff8n6bVeMExhEtNovvUM"/>
+          <input type="hidden" name="public_key" value="CHAPUBK_TEST-iamHtHkd02b8U9IVh6VCiTCze09vTQPa"/>
           <input type="hidden" name="tx_ref" value={id} />
           <input type="hidden" name="amount" value="100" />
           <input type="hidden" name="currency" value="ETB" />
