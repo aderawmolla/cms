@@ -31,7 +31,6 @@ export default function DoctorDashbord(props) {
     <>
       <div x-data="setup()" className="bg-black">
         <div className="min-h-screen flex flex-col flex-auto flex-shrink-0 antialiased bg-white dark:bg-gray-700 text-black dark:text-white">
-          {/* <!-- Header --> */}
           <div className="fixed w-full flex items-center justify-between h-14 text-white z-10">
             <div className="flex items-center justify-start md:justify-center pl-3 w-14 md:w-64 h-14 bg-blue-800 dark:bg-gray-800 border-none">
               <img
