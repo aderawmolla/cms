@@ -198,18 +198,27 @@ export default function PatientProfile() {
               </button>
             </div>
           </div>
-          <div className="w-full h-[250px]">
-
+          <div className="w-full h-[250px] relative">
             <img
               src="/images/profile-background.jpg"
-              className="w-full h-full rounded-tl-lg rounded-tr-lg"
+              className="w-full h-full rounded-tl-lg  rounded-tr-lg"
             />
+
+            <Link to="/" className="absolute  text-white top-4 right-4 flex items-center hover:text-blue-100">
+              <span className="inline-flex mr-1">
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
+                </svg>
+              </span>
+              Logout
+            </Link>
           </div>
+
           <div className="flex flex-col items-center -mt-20">
 
             <img
               src="https://t3.ftcdn.net/jpg/03/46/83/96/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg"
-              className="w-40 border-4 border-white rounded-full"
+              className="w-40 border-4 border-white rounded-full z-10"
             />
 
             <div className="flex items-center mt-2 space-x-2">
