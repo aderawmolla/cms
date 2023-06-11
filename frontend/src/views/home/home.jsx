@@ -67,7 +67,7 @@ export default function Home() {
       </nav>
       <Landing />
 
-      <section className="py-16 bg-white dark:bg-gray-900">
+      {/* <section className="py-16 bg-white dark:bg-gray-900">
         <div className="grid max-w-screen-xl px-4 py-8 mx-auto overflow-x-hidden lg:gap-8 xl:gap-0 lg:py-16 lg:grid-cols-12">
           <div className="mr-auto place-self-center lg:col-span-7">
             <h1
@@ -113,7 +113,7 @@ export default function Home() {
             <img src="/images/5.png" alt="mockup" />
           </div>
         </div>
-      </section>
+      </section> */}
 
       <section className="bg-white dark:bg-gray-900">
         <div
@@ -218,7 +218,7 @@ export default function Home() {
             <p className="mb-4 font-medium">
             KidaneMihret Special Medical and Surgical Center is dedicated to providing high-quality, personalized care to their patients. With their team of skilled medical professionals and state-of-the-art equipment, patients can feel confident in the care they receive at the clinic.
             </p>
-            <a
+            {/* <a
               href="#"
               className="inline-flex items-center font-medium text-blue-600 hover:text-blue-800 dark:text-blue-500 dark:hover:text-blue-700"
             >
@@ -235,7 +235,7 @@ export default function Home() {
                   clip-rule="evenodd"
                 ></path>
               </svg>
-            </a>
+            </a> */}
           </div>
         </div>
       </section>

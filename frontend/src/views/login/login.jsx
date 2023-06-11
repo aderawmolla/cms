@@ -26,7 +26,7 @@ export default function LogIn() {
             style={{ fontFamily: "Righteous" }}
           >
             <div className="mb-6 font-bold leading-tight tracking-wide sm:text-4xl xl:text-5xl">
-              Welcome to our Clini Management 
+              Welcome to our Clinic Management System
             </div>
             <div
               className="font-mono font-normal text-white sm:text-sm xl:text-xl"
