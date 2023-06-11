@@ -80,7 +80,6 @@ export default function UpdatePatient({
   if (!patientToBeUpdated) {
     return <div>Loading...</div>; // Or any other appropriate loading state
   }
-  
   return (
     <> 
       {showModal &&(

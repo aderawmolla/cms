@@ -25,17 +25,14 @@ export default function DoctorComponent(props) {
     const maxPageNumbers = 5; // Change this to adjust the number of page numbers to display
     let startPage = Math.max(1, currentPage - Math.floor(maxPageNumbers / 2));
     let endPage = startPage + maxPageNumbers - 1;
-
     if (endPage > totalPages) {
       endPage = totalPages;
       startPage = Math.max(1, endPage - maxPageNumbers + 1);
       // pageNumbers.pop('...');
     }
-
     for (let i = startPage; i <= endPage; i++) {
       pageNumbers.push(i);
     }
-
     if (startPage > 1) {
       pageNumbers.unshift("...");
       pageNumbers.unshift(1);

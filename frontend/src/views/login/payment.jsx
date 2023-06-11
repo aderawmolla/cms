@@ -15,11 +15,11 @@ console.log(firstName,lastName,phoneNumber,email)
     <div className="container flex flex-wrap justify-center max-w-3xl px-5 py-24 mx-auto mt-10 bg-white rounded-lg">
       <div className="flex-wrap items-center md:flex">
         <div className="mx-auto">
-          <img
+          {/* <img
             className="w-full h-full p-2 mx-auto mt-12 border rounded-lg md:mt-0"
             src="/images/pay.png"
             alt="step"
-          />
+          /> */}
         </div>
         <div className="max-w-sm mt-8 md:mt-0 md:ml-10 md:w-2/3">
           <div className="relative flex pb-12">
@@ -114,10 +114,10 @@ console.log(firstName,lastName,phoneNumber,email)
           <input type="hidden" name="callback_url" value="https://example.com/callbackurl" />
           <input type="hidden" name="return_url" value="http://localhost:3000/paymentSuccess" />
           <input type="hidden" name="meta[title]" value="test" />
-           <button type="submit"
+          <button type="submit"
            className="text-center w-full mx-[7%] block rounded-md border bg-blue-500  py-2 text-white outline-none"
             >Complete Payment
-         </button>
+          </button>
       </form>    
       </div>
     </div>

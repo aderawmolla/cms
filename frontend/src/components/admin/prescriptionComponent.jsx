@@ -126,8 +126,9 @@ export default function PrescriptionComponent(props) {
                   <th className="px-4 py-3">Doctor Name</th>
 
                   <th className="px-4 py-3">issued Date</th>
+                  <th className="px-4 py-3">Confirm Date</th>
+
                   <th className="px-4 py-3">status</th>
-                  <th className="px-4 py-4">Actions</th>
                 </tr>
               </thead>
               <tbody className="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
@@ -170,6 +171,18 @@ export default function PrescriptionComponent(props) {
                         {prescription.status =="issued"?<>
                           <td className="px-4 py-3 text-xs">
                             <span className="px-2 py-1 font-semibold leading-tight text-blue-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100">
+                              ..............
+                            </span>
+                          </td>
+
+                        </> : <>
+                        <td className="px-4 py-3 text-sm">{prescription.confirmDate}</td>
+                        </>}
+                      </td>
+                      <td className="p-3 text-right">
+                        {prescription.status =="issued"?<>
+                          <td className="px-4 py-3 text-xs">
+                            <span className="px-2 py-1 font-semibold leading-tight text-blue-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100">
                               issued
                             </span>
                           </td>
@@ -183,8 +196,8 @@ export default function PrescriptionComponent(props) {
                         </>}
                       </td>
 
-                      <td className="px-2 py-3">
-                        <div className="inline-flex items-center space-x-3">
+                      {/* <td className="px-2 py-3">
+                        <div className="inline-flex items-center space-x-3"> */}
                           {/* <a href="/" title="Edit" className="hover:text-black">
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
@@ -218,7 +231,7 @@ export default function PrescriptionComponent(props) {
                             />
                           </svg>
                         </a> */}
-                          <div className="flex-shrink-0">
+                          {/* <div className="flex-shrink-0">
                             <a
                               href="/"
                               className="p-2 text-sm font-medium rounded-lg text-cyan-600 hover:bg-gray-100"
@@ -227,7 +240,7 @@ export default function PrescriptionComponent(props) {
                             </a>
                           </div>
                         </div>
-                      </td>
+                      </td> */}
                     </tr>
                   ))}
               </tbody>

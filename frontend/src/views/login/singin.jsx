@@ -64,7 +64,6 @@ export default function SingIn() {
       else{
         navigate("/incorrectPassword")
       }
-     
     }
     else if(responseData && responseData.isLogIn!=true){
         setErrorMessage("No User with this username")   
@@ -95,7 +94,6 @@ export default function SingIn() {
       setErrorMessage("No User with this username ");
     }
   };
-  
   return (
      <>
     <div

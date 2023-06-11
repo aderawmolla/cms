@@ -11,13 +11,14 @@ export default function PrescriptionDetail() {
         const testNamesFiltered = testNames.filter((testName) => testName.prescId == id)
         setTestName(testNamesFiltered)
     }, [])
+   
     if (!testName) {
         return (<div>Loading</div>)
     }
 
     return (
         <>
-           <div class=" ml-40 w-full p-4 overflow-x-hidden overflow-y-auto  md:inset-0 h-[calc(100%-1rem)] max-h-full">
+            <div class=" ml-40 w-full p-4 overflow-x-hidden overflow-y-auto  md:inset-0 h-[calc(100%-1rem)] max-h-full">
                 <div class="relative w-full max-w-md max-h-full">
                     <div class=" border border-black flex flex-col align-center bg-black-300 rounded-lg shadow dark:bg-gray-700">
                         <div class="px-6 py-4  rounded-t dark:border-black">
@@ -53,5 +54,5 @@ export default function PrescriptionDetail() {
                 </div>
             </div>
         </>
-  )
+    )
 }

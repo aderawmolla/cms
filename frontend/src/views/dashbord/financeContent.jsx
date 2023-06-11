@@ -49,10 +49,6 @@ export default function FinanceContent(props) {
           return null;
         }
       };
-      
-      
-
-
     const handleSubmit = (prescId) => {
         Swal.fire({
             title: "Are you sure?",
@@ -79,7 +75,7 @@ export default function FinanceContent(props) {
         <>
             <div className="mx-4 mt-4">
                 <div className="flex flex-col items-end mb-10">
-                    <form className="flex items-center w-full">
+                    {/* <form className="flex items-center w-full">
                         <label for="voice-search" className="sr-only">
                             Search
                         </label>
@@ -126,7 +122,7 @@ export default function FinanceContent(props) {
                             </svg>
                             Search
                         </button>
-                    </form>
+                    </form> */}
 
                     <div className="w-full rounded-lg shadow-xs">
                         <h1 className="py-4 text-xl font-bold text-center text-gray-500">Unpaid Prescriptions </h1>

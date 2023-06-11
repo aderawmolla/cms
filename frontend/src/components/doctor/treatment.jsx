@@ -44,7 +44,7 @@ export default function Treatment(){
   return (
   <div className="mx-4 mt-4">
         <div className="flex flex-col items-end mb-10">
-          <form className="flex items-center w-full">
+          {/* <form className="flex items-center w-full">
             <label for="voice-search" className="sr-only">
               Search
             </label>
@@ -91,8 +91,7 @@ export default function Treatment(){
               </svg>
               Search
             </button>
-          </form>
-
+          </form> */}
           <div className="w-full rounded-lg shadow-xs">
             <h1 className="px-2 py-4 font-mono text-xl font-bold tracking-widest text-center text-gray-700 ">
               Your prescriptions

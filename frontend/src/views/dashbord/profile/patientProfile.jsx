@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from 'react-redux';
 import { useParams } from "react-router-dom";
-import {Link} from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import Swal from "sweetalert2"
 import { useDispatch } from "react-redux";
 import Modal from "../../update/profileUpdateModal";
@@ -42,6 +42,7 @@ export default function PatientProfile() {
   };
 
   const patients = useSelector((state) => state.patients.patients);
+
   const { id } = useParams();
 
 
@@ -81,15 +82,14 @@ export default function PatientProfile() {
       console.error(error);
     }
   }, []);
-  const authPatientId = id;
   const patientApt = appointmentWithName.filter(apt => {
-    if (authPatientId === apt.patientId)
+    if (id === apt.patientId)
       return {
         apt
       }
   })
   const patientPrsc = prescriptionWithName.filter(prsc => {
-    if (authPatientId === prsc.patientId)
+    if (id === prsc.patientId)
       return {
         prsc,
       }
@@ -199,17 +199,19 @@ export default function PatientProfile() {
             </div>
           </div>
           <div className="w-full h-[250px]">
-           
+
             <img
               src="/images/profile-background.jpg"
               className="w-full h-full rounded-tl-lg rounded-tr-lg"
             />
           </div>
           <div className="flex flex-col items-center -mt-20">
+
             <img
               src="https://t3.ftcdn.net/jpg/03/46/83/96/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg"
               className="w-40 border-4 border-white rounded-full"
             />
+
             <div className="flex items-center mt-2 space-x-2">
               <p className="text-2xl">{data.firstName}  {data.lastName}</p>
               <span className="p-1 bg-blue-500 rounded-full" title="Verified">
@@ -252,6 +254,8 @@ export default function PatientProfile() {
             </div>
           </div>
         </div>
+
+
         <div className="flex flex-col my-4 space-y-4 2xl:flex-row 2xl:space-y-0 2xl:space-x-4">
           <div className="flex flex-col w-full 2xl:w-1/3">
             <div className="flex-1 p-8 bg-white rounded-lg shadow-xl">
@@ -303,13 +307,13 @@ export default function PatientProfile() {
                       </tr>
                     </thead>
                     <tbody>
-                      {patientPrsc !=="" ? (
+                      {patientPrsc !== "" ? (
                         patientPrsc.map((apt, index) => {
-                          return 
-                          (
+                          return (
                             <tr
                               key={index}
-                              className={`text-center ${index % 2 === 0 ? 'bg-gray-100' : 'bg-white'}`}
+                              className={`text-center ${index % 2 === 0 ? 'bg-gray-100' : 'bg-white'
+                                }`}
                             >
                               <td className="px-4 py-2 border">{apt.doctorName}</td>
                               <td className="px-4 py-2 border">{apt.doctorContact}</td>
@@ -317,30 +321,34 @@ export default function PatientProfile() {
                               <td className="px-4 py-2 border">{apt.dosage}</td>
                               <td className="px-4 py-2 border">{apt.date}</td>
                               <td className="px-4 py-3 text-sm">
-                          {apt.status=="paid"? (
-                        <><div className="text-center text-white bg-green-600 rounded ">
-                        {apt.status}
-                      </div></>
-                           ) : (
-                         <>
-                      <div className="text-center text-white bg-red-600 rounded ">
-                         {apt.status}
-                      </div>
-                        </>
-                    )} 
-                       </td>   
+                                {apt.status === 'paid' ? (
+                                  <>
+                                    <div className="text-center text-white bg-green-600 rounded">
+                                      {apt.status}
+                                    </div>
+                                  </>
+                                ) : (
+                                  <>
+                                    <div className="text-center text-white bg-red-600 rounded">
+                                      {apt.status}
+                                    </div>
+                                  </>
+                                )}
+                              </td>
                             </tr>
                           );
                         })
-                      ) 
-                      : (
+                      ) : (
                         <div className="flex flex-col items-center justify-center mt-10 text-center">
-                          <p className="mb-4 text-2xl font-bold text-gray-600">Please wait or contact the doctor.</p>
+                          <p className="mb-4 text-2xl font-bold text-gray-600">
+                            Please wait or contact the doctor.
+                          </p>
                           <p className="text-gray-600">You have no prescriptions yet.</p>
                         </div>
                       )}
                     </tbody>
                   </table>
+
                 </div>
               </div>
             </div>
@@ -362,7 +370,7 @@ export default function PatientProfile() {
                       </tr>
                     </thead>
                     <tbody>
-                      {patientApt !=="" ? (
+                      {patientApt !== "" ? (
                         patientApt.map((apt, index) => {
                           const currentDate = new Date();
                           const [mm, dd, yy] = apt.date.split('-');

@@ -6,7 +6,7 @@ import { v4 as uuidv4 } from "uuid";
 import Swal from "sweetalert2";
 import { sendDiagnosises } from "../../redux/diagnosisSlice";
 import { useNavigate } from "react-router-dom";
-const Diagnosis = ({ }) => {
+const Diagnosis = ({}) => {
   const navigate=useNavigate()
   const currentUser = useSelector((state) => state.currentUser.currentUser)
   let { patientId } = useParams();
@@ -252,5 +252,4 @@ const Diagnosis = ({ }) => {
     </div>
   );
 };
-
 export default Diagnosis;

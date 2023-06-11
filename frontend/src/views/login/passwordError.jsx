@@ -2,10 +2,9 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom'
 export default function PasswordError(props){
-    const navigate=useNavigate()
+const navigate=useNavigate()
 const handleHome=(e)=>navigate('/')
 const handleLogin=(e)=>navigate("/signIn")
-
 return <>
   <div class="fixed left-0 top-0 flex h-full w-full items-center justify-center bg-black bg-opacity-50 py-10">
   <div class="max-h-full w-full max-w-xl overflow-y-auto sm:rounded-2xl bg-white">
@@ -23,7 +22,5 @@ return <>
     </div>
   </div>
 </div>
-
 </>
-
 }

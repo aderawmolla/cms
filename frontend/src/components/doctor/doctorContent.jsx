@@ -7,20 +7,19 @@ import DiagnosisModal from "./diagnosis";
 
 export default function DoctorContent(props) {
   const navigate = useNavigate()
+
   const patients = useSelector((state) => state.patients.patients)
   const prescriptions = useSelector((state) => state.prescriptions.prescriptions);
   const appointments = useSelector((state) => state.appointments.appointments);
-  const doctorId = "doc3";
   const [patientId, setPatientId] = useState("");
   const prsc = useSelector((state) => state.prescriptions.prescriptions);
-
+  const currentUser=useSelector((state)=>state.currentUser.currentUser);
   const [showModal, setShowModal] = useState(false);
   const [doctorPrescriptions, setDoctorPrescriptions] = useState([])
   const handleClose = () => setShowModal(false);
   const handleShow = () => setShowModal(true);
 
 
-  const currentUser = useSelector((state) => state.currentUser.currentUser);
   const [filteredAppointmentsWithName, setFilteredAppointmentsWithName] = useState([]);
   // const getPatientName = (patientId) => {
   //   const patient = patients.find((p) => p.id=== patientId)
@@ -31,6 +30,7 @@ export default function DoctorContent(props) {
     return patient ? `${patient.firstName} ${patient.lastName}` : '';
   };
 
+  
   const getGender = (patientId) => {
     const patient = patients.find((p) => p.id === patientId);
     // console.log("the gender of this patient is",patient.gender)
@@ -38,14 +38,15 @@ export default function DoctorContent(props) {
     return patient ? patient.gender : '';
   };
 
-  const getContact = (patientId) => {
+  const getContact=(patientId)=>{
     const patient = patients.find((p) => p.id === patientId);
     return patient ? patient.contact : '';
   };
 
-  useEffect(() => {
+  useEffect(()=>{
+
     const filtered = appointments.filter((appointment) => appointment.doctorId === currentUser.id);
-    console.log("good")
+    console.log("good currrent user id is ",currentUser.id)
     const appointmentPatientNames = filtered.map((appointment) => ({
       ...appointment,
       patientName: getPatientName(appointment.patientId),
@@ -61,14 +62,14 @@ export default function DoctorContent(props) {
       contact: getContact(prescription.patientId)
     }));
     setDoctorPrescriptions(prescriptionPatientNames);
-  }, []);
-
-
+  },[]
+  );
 
   useEffect(() => {
     console.log(patientId)
   }, [patientId])
 
+  
   return (
     <>
     <div className="mx-4 mt-4">

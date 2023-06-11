@@ -55,7 +55,7 @@ export default function ForgetPassword(props) {
                             <form onSubmit={handleSubmit}>
                                 <div class="grid gap-y-4">
                                     <div>
-                                        <label for="email" class="block text-sm font-bold ml-1 mb-2 dark:text-white">Patient Identification Number</label>
+                                        <label for="email" class="block text-sm font-bold ml-1 mb-2 dark:text-white">Identification Number</label>
                                         <div class="relative">
                                             <input type="text" id="email"  onChange={handlePatientIdChange} value={patientId} class="py-3 px-4 block w-full border-2 border-gray-200 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500 shadow-sm" required aria-describedby="email-error" />
                                         </div>

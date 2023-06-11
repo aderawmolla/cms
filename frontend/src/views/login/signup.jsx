@@ -61,7 +61,6 @@ export default function SingUp() {
     isNew: "yes",
     fee: "",
   };
-
   const formik = useFormik({
     initialValues,
     validationSchema,
@@ -70,7 +69,6 @@ export default function SingUp() {
       console.log(values);
     },
   });
-
   const handleSubmit = async (e) => {
     e.preventDefault();
   const  data=formik.values

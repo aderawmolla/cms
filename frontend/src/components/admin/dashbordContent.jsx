@@ -4,10 +4,9 @@ import DiseaseComponent from "./diseaseComponent";
 import {Link } from 'react-router-dom'
 import EventComponent from "./eventComponent";
 export default function DashbordContent(props) {
- 
   const patients = useSelector((state) =>
   state.patients.patients.filter((patient) =>patient.isNew=="yes")
-);
+  );
   return (
     // <!-- This is an example component -->
     <>

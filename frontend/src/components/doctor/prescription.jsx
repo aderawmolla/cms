@@ -4,38 +4,38 @@ import PrescriptionModal from "./prescriptionModal";
 import { useSelector } from "react-redux";
 
 export default function DoctorPrescriptionComponent(props) {
-  const patients=useSelector((state)=>state.patients.patients)
+  const patients = useSelector((state) => state.patients.patients)
   const prescriptions = useSelector((state) => state.prescriptions.prescriptions);
 
   const [showModal, setShowModal] = useState(false);
   const [doctorPrescriptions, setDoctorPrescriptions] = useState([])
-  
+
   const currentUser = useSelector((state) => state.currentUser.currentUser);
   const [filteredAppointmentsWithName, setFilteredAppointmentsWithName] = useState([]);
   // const getPatientName = (patientId) => {
   //   const patient = patients.find((p) => p.id=== patientId)
   //   return patient? `${patient.firstName} ${patient.lastName}` : '';
   // };
-  const getPatientName=(patientId) =>{
+  const getPatientName = (patientId) => {
     const patient = patients.find((p) => p.id === patientId);
-    return patient? `${patient.firstName} ${patient.lastName}`:'';
+    return patient ? `${patient.firstName} ${patient.lastName}` : '';
   };
 
-  const getGender =  (patientId) => {
-    const patient =patients.find((p) => p.id === patientId);
+  const getGender = (patientId) => {
+    const patient = patients.find((p) => p.id === patientId);
     // console.log("the gender of this patient is",patient.gender)
     // console.log("tha name of this patient is",patient.firstName)
-    return patient ? patient.gender :'';
+    return patient ? patient.gender : '';
   };
   const getContact = (patientId) => {
     const patient = patients.find((p) => p.id === patientId);
     return patient ? patient.contact : '';
   };
 
-  
-  useEffect(() => { 
-    
-    const filteredPrescriptions = prescriptions.filter((prescription) => prescription.doctorId===currentUser.id);
+
+  useEffect(() => {
+
+    const filteredPrescriptions = prescriptions.filter((prescription) => prescription.doctorId === currentUser.id);
     const prescriptionPatientNames = filteredPrescriptions.map((prescription) => ({
       ...prescription,
       patientName: getPatientName(prescription.patientId),
@@ -46,9 +46,9 @@ export default function DoctorPrescriptionComponent(props) {
   }, []);
   return (
     <>
-    <h1 className="px-2 py-4 text-center font-mono text-3xl font-bold tracking-widest text-gray-700 ">
-              Your Lab orders and Responses
-     </h1>
+      <h1 className="px-2 py-4 text-center font-mono text-3xl font-bold tracking-widest text-gray-700 ">
+        Your Lab orders and Responses
+      </h1>
       <div className="mx-4 mt-4">
         <div className="flex flex-col items-end mb-10">
           {/* <form className="flex items-center w-full">
@@ -99,8 +99,8 @@ export default function DoctorPrescriptionComponent(props) {
               Search
             </button>
           </form> */}
-           
-           
+
+
           <div className="w-full pt-32 rounded-lg shadow-xs">
             <h1 className="px-2 py-4 font-mono text-xl font-bold tracking-widest text-gray-700 ">
               Issued Lab Orders
@@ -121,7 +121,7 @@ export default function DoctorPrescriptionComponent(props) {
                   </tr>
                 </thead>
                 <tbody className="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
-                  {doctorPrescriptions.map((item, index) => item.status ==="issued" && (
+                  {doctorPrescriptions.map((item, index) => item.status === "issued" && (
                     <tr
                       key={index}
                       className="text-gray-700 bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-900 dark:text-gray-400"

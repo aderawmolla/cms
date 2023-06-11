@@ -2,16 +2,17 @@ import { useState,useEffect } from "react";
 import { Outlet, Link } from "react-router-dom";
 import "./styles.css";
 import SidebarComponent from "../../components/doctor/sidebarComponent";
-import Notifications from "../update/notification";
 import {useSelector,useDispatch } from 'react-redux'
 export default function DoctorDashbord(props) {
- const  currentDoctor=useSelector((state)=>state.currentUser.currentUser)
+  const dispatch=useDispatch()
  const numberOfPrescriptions=useSelector((state)=>state.prescriptions.quantity)
  const appointments=useSelector((state)=>state.appointments.appointments)
  const [numberIssued,setNumberIssued]=useState(0)
  const [numberConfirmed,setNumberConfirmed]=useState(0)
  const [numberOfAppointment,setNumberOfAppointment]=useState(0)
  const prescriptions=useSelector((state)=>state.prescriptions.prescriptions)
+ const  currentDoctor=useSelector((state)=>state.currentUser.currentUser)
+
  useEffect(() => {
   const issuedPrescriptions = prescriptions.filter(
     (prescription) => prescription.status ==="issued"
@@ -25,19 +26,22 @@ export default function DoctorDashbord(props) {
   const confirmedPrescriptions = prescriptions.filter(
     (prescription) => prescription.status === "confirmed"
   );
+
   const confirmedPrescriptionsForDoctor = confirmedPrescriptions.filter(
     (prescription) => prescription.doctorId===currentDoctor.id
   );
+
   const confirmedNumber = confirmedPrescriptionsForDoctor.length;
   setNumberConfirmed(confirmedNumber);
 
   const filteredAppointments = appointments.filter(
     (appointment) => appointment.doctorId==currentDoctor.id
   );
+  
   const numberOfAppointments = filteredAppointments.length;
   setNumberOfAppointment(numberOfAppointments);
   console.log("number of appointments for the doctor is",numberOfAppointments)
-}, [prescriptions, appointments, currentDoctor]);
+}, [prescriptions, appointments,currentDoctor.id]);
 
 
   return (
@@ -49,7 +53,7 @@ export default function DoctorDashbord(props) {
             <div className="flex items-center justify-start pl-3 bg-blue-800 border-none md:justify-center w-14 md:w-64 h-14 dark:bg-gray-800">
               <img
                 className="relative object-cover w-10 h-10 mr-2 rounded-full"
-                src="https://img.freepik.com/free-photo/no-problem-concept-bearded-man-makes-okay-gesture-has-everything-control-all-fine-gesture-wears-spectacles-jumper-poses-against-pink-wall-says-i-got-this-guarantees-something_273609-42817.jpg?w=1800&t=st=1669749937~exp=1669750537~hmac=4c5ab249387d44d91df18065e1e33956daab805bee4638c7fdbf83c73d62f125"
+                src="images/defaultProfile.jpg"
                 alt=""
               />
 

@@ -44,7 +44,7 @@ const { Finance } = require('../models/financeModel');
         isLogIn:true,
       };
 
-      res.json(response);
+    res.json(response);
     } else {
       res.json({ message: 'Incorrect password', userType: user.constructor.name,isLogin:false });
     }
