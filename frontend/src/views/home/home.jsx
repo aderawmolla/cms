@@ -8,7 +8,7 @@ export default function Home() {
   return (
     <div
       className="overflow-x-hidden bg-fixed bg-cover"
-      //   style={{ backgroundImage: "url(/images/bg3.png)" }}
+    //   style={{ backgroundImage: "url(/images/bg3.png)" }}
     >
       <nav className="fixed z-30 w-screen px-4 py-4 bg-white border-gray-200 shadow-lg lg:px-6 dark:bg-gray-800 bg-white/95 ">
         <div className="flex flex-wrap items-center justify-between max-w-screen-xl mx-auto ">
@@ -67,7 +67,7 @@ export default function Home() {
       </nav>
       <Landing />
 
-      {/* <section className="py-16 bg-white dark:bg-gray-900">
+      <section className="py-16 bg-white dark:bg-gray-900">
         <div className="grid max-w-screen-xl px-4 py-8 mx-auto overflow-x-hidden lg:gap-8 xl:gap-0 lg:py-16 lg:grid-cols-12">
           <div className="mr-auto place-self-center lg:col-span-7">
             <h1
@@ -113,7 +113,7 @@ export default function Home() {
             <img src="/images/5.png" alt="mockup" />
           </div>
         </div>
-      </section> */}
+      </section>
 
       <section className="bg-white dark:bg-gray-900">
         <div
@@ -207,16 +207,16 @@ export default function Home() {
       <section className="bg-gray-50 dark:bg-gray-800">
         <div className="max-w-screen-xl px-4 py-8 mx-auto lg:py-16 lg:px-6">
           <div className="max-w-screen-lg text-gray-500 sm:text-lg dark:text-gray-400">
-          <h2 className="mb-4 text-4xl font-bold text-gray-900 dark:text-white">
+            <h2 className="mb-4 text-4xl font-bold text-gray-900 dark:text-white">
               Over <span className="font-extrabold">300</span> Successful Surgeries Performed Worldwide
             </h2>
             <p className="mb-4 font-light">
-            The center is equipped with the latest medical technologies and equipment, enabling the staff to diagnose and treat a wide range of medical conditions and perform complex surgeries. Services offered at KidaneMihret Special Medical and Surgical Center include general medicine, cardiology, pediatrics, gynecology, orthopedics, neurology, dermatology, ophthalmology, and dentistry, among others.
+              The center is equipped with the latest medical technologies and equipment, enabling the staff to diagnose and treat a wide range of medical conditions and perform complex surgeries. Services offered at KidaneMihret Special Medical and Surgical Center include general medicine, cardiology, pediatrics, gynecology, orthopedics, neurology, dermatology, ophthalmology, and dentistry, among others.
 
 
             </p>
             <p className="mb-4 font-medium">
-            KidaneMihret Special Medical and Surgical Center is dedicated to providing high-quality, personalized care to their patients. With their team of skilled medical professionals and state-of-the-art equipment, patients can feel confident in the care they receive at the clinic.
+              KidaneMihret Special Medical and Surgical Center is dedicated to providing high-quality, personalized care to their patients. With their team of skilled medical professionals and state-of-the-art equipment, patients can feel confident in the care they receive at the clinic.
             </p>
             {/* <a
               href="#"
@@ -260,9 +260,7 @@ export default function Home() {
       </section> */}
 
       <footer className="p-4 bg-gray-50 sm:p-6 dark:bg-gray-800">
-        <div className="max-w-screen-xl mx-auto">
-          <div className="md:flex md:justify-between">
-            <div className="mb-6 md:mb-0">
+      <div className="mb-6 md:mb-0">
               <a href="#" className="flex items-center">
                 <img
                   src="/icons/logo.png"
@@ -270,27 +268,81 @@ export default function Home() {
                   alt="Kidane"
                 />
                 <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
-                 Kidane Mihret Special Medical and surgical Center
+                  Kidane Mihret Special Medical and surgical Center
                 </span>
               </a>
             </div>
-            <div className="grid grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-3">
+
+        <div className="max-w-screen-xl mx-auto">
+          <div className="md:flex md:justify-between">
+
+
+
+
+
+            
+
+
+
+
+
+            <div className="grid grid-cols-1  gap-8 sm:gap-6 md:grid-cols-4  items-center  mt-20 sm:grid-cols-4">
+            <div className="space-y-2 text-sm">
+              <p className="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">
+                Contacts
+              </p>
+              <div className="flex">
+                <p className="mr-1 text-gray-600"><b>Phone:</b></p>
+                <a
+                  href="tel:850-123-5021"
+                  aria-label="Our phone"
+                  title="Our phone"
+                  className="transition-colors duration-300 text-deep-purple-accent-400 hover:text-deep-purple-800"
+                >
+                  +251-932944344
+                </a>
+              </div>
+              <div className="flex">
+                <p className="mr-1 text-gray-600"><b>Email:</b></p>
+                <a
+                  href="mailto:info@lorem.mail"
+                  aria-label="Our email"
+                  title="Our email"
+                  className="transition-colors duration-300 text-black hover:text-deep-purple-800"
+                >
+                  kidanemihret@gmail.com
+                </a>
+              </div>
+              <div className="flex">
+                <p className="mr-1 text-gray-600"><b>Address:</b></p>
+                <a
+                  href="https://www.google.com/maps"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Our address"
+                  title="Our address"
+                  className="transition-colors duration-300 text-deep-purple-accent-400 hover:text-deep-purple-800"
+                >
+                  Bahirdar
+                </a>
+              </div>
+            </div>
               <div>
                 <h2 className="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">
-                Medical professionals
+                  Medical professionals
                 </h2>
                 <ul className="text-gray-600 dark:text-gray-400">
                   <li className="mb-4">
                     <a href="#" className="hover:underline">
-                    Medications and supplies
+                      Medications and supplies
                     </a>
                   </li>
                   <li>
                     <a href="#" className="hover:underline">
-                    Health education materials
+                      Health education materials
                     </a>
                   </li>
-                
+
                 </ul>
               </div>
               <div>
@@ -308,7 +360,7 @@ export default function Home() {
                       Twitter
                     </a>
                   </li>
-                
+
                 </ul>
               </div>
               <div>
@@ -326,7 +378,7 @@ export default function Home() {
                       Terms &amp; Conditions
                     </a>
                   </li>
-                 
+
                 </ul>
               </div>
             </div>
@@ -336,7 +388,7 @@ export default function Home() {
             <span className="text-sm text-gray-500 sm:text-center dark:text-gray-400">
               © 2023{" "}
               <a href="#" className="hover:underline">
-              Kidane Mihret Clinic
+                Kidane Mihret Clinic
 
               </a>
               . All Rights Reserved.
@@ -427,6 +479,7 @@ export default function Home() {
           </div>
         </div>
       </footer>
+
       <script src="https://unpkg.com/flowbite@1.4.7/dist/flowbite.js"></script>
     </div>
   );
