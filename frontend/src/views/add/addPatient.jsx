@@ -369,7 +369,7 @@ export default function AddPatient({
           />
         </div>
       </div>
-      <div className="w-full px-3 pt-8">
+      {/* <div className="w-full px-3 pt-8">
         <label
           className="block mb-2 text-xs font-bold tracking-wide text-gray-700 uppercase"
           for="grid-zip"
@@ -384,7 +384,7 @@ export default function AddPatient({
           value={description}
           onChange={(e) => setDescription(e.target.value)}
         />
-      </div>
+      </div> */}
 
       <div className="relative pt-8 m-4">
       {/* <div class="w-full md:full px-3 mb-6 md:mb-0">
